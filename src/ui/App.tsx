@@ -5,9 +5,9 @@ import {
   useFonts,
 } from "@expo-google-fonts/inter";
 
-import { Welcome } from "./screens/Welcome";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { Navigation } from "@app/navigation";
 
 export function App() {
   const [isFontsLoaded] = useFonts({
@@ -21,7 +21,7 @@ export function App() {
   return (
     <GestureHandlerRootView>
       <SafeAreaProvider>
-        <Welcome />
+        <Navigation />
       </SafeAreaProvider>
     </GestureHandlerRootView>
   );
