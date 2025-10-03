@@ -1,4 +1,9 @@
-import { BottomSheetModal, BottomSheetModalProvider, BottomSheetTextInput, BottomSheetView } from "@gorhom/bottom-sheet";
+import {
+  BottomSheetModal,
+  BottomSheetModalProvider,
+  BottomSheetTextInput,
+  BottomSheetView,
+} from "@gorhom/bottom-sheet";
 import { AppText } from "../AppText";
 import React, { useImperativeHandle, useRef } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -11,30 +16,36 @@ import { styles } from "./styles";
 import { Button } from "../Button";
 
 interface ISignInBottomSheetProps {
-  ref: React.Ref<ISignInBottomSheet>
+  ref: React.Ref<ISignInBottomSheet>;
 }
 
 export function SignInBottomSheet({ ref }: ISignInBottomSheetProps) {
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
-  const { bottom } = useSafeAreaInsets()
+  const { bottom } = useSafeAreaInsets();
   const passwordInputRef = useRef<TextInput>(null);
 
-  useImperativeHandle(ref, () => ({
-    open: () => bottomSheetModalRef.current?.present()
-  }), [])
+  useImperativeHandle(
+    ref,
+    () => ({
+      open: () => bottomSheetModalRef.current?.present(),
+    }),
+    []
+  );
 
   function handleSubmit() {
-    Alert.alert('Enviando...')
+    Alert.alert("Enviando...");
   }
 
   return (
     <BottomSheetModalProvider>
       <BottomSheetModal ref={bottomSheetModalRef}>
         <BottomSheetView style={[styles.container, { paddingBottom: bottom }]}>
-          <AppText color={theme.colors.black[700]} size="3xl" weight="semiBold">Acesse a sua conta</AppText>
+          <AppText color={theme.colors.black[700]} size="3xl" weight="semiBold">
+            Acesse a sua conta
+          </AppText>
 
           <View style={styles.form}>
-            <FormGroup label="E-mail" >
+            <FormGroup label="E-mail">
               <Input
                 InputComponent={BottomSheetTextInput}
                 keyboardType="email-address"
@@ -64,5 +75,5 @@ export function SignInBottomSheet({ ref }: ISignInBottomSheetProps) {
         </BottomSheetView>
       </BottomSheetModal>
     </BottomSheetModalProvider>
-  )
+  );
 }

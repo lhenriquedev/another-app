@@ -3,7 +3,7 @@ import { inputStyles } from "./styles";
 import { theme } from "@ui/styles/theme";
 import React, { useState } from "react";
 
-type BaseTextInputProps = Omit<TextInputProps, 'readOnly'>
+type BaseTextInputProps = Omit<TextInputProps, "readOnly">;
 
 export interface InputProps extends BaseTextInputProps {
   error?: boolean;
@@ -12,7 +12,15 @@ export interface InputProps extends BaseTextInputProps {
   InputComponent?: React.ComponentType<TextInputProps>;
 }
 
-export function Input({ style, error, disabled, InputComponent = TextInput, onFocus, onBlur, ...props }: InputProps) {
+export function Input({
+  style,
+  error,
+  disabled,
+  InputComponent = TextInput,
+  onFocus,
+  onBlur,
+  ...props
+}: InputProps) {
   const [isFocused, setIsFocused] = useState(false);
 
   function handleFocus(event: FocusEvent) {
@@ -21,18 +29,23 @@ export function Input({ style, error, disabled, InputComponent = TextInput, onFo
   }
 
   function handleBlur(event: BlurEvent) {
-    setIsFocused(false)
+    setIsFocused(false);
     onBlur?.(event);
   }
 
   return (
     <InputComponent
-      style={[inputStyles({ status: error ? 'error' : (isFocused ? 'focus' : 'default') }), style]}
+      style={[
+        inputStyles({
+          status: error ? "error" : isFocused ? "focus" : "default",
+        }),
+        style,
+      ]}
       placeholderTextColor={theme.colors.platinum[800]}
       readOnly={disabled}
       onFocus={handleFocus}
       onBlur={handleBlur}
       {...props}
     />
-  )
+  );
 }
