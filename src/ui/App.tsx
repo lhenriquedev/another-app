@@ -8,7 +8,6 @@ import {
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Navigation } from "@app/navigation";
-import { StatusBar } from "react-native";
 import { AuthProvider } from "@app/contexts/AuthContext";
 
 export function App() {
@@ -22,7 +21,6 @@ export function App() {
 
   return (
     <GestureHandlerRootView>
-      <StatusBar barStyle="light-content" />
       <SafeAreaProvider>
         <AuthProvider>
           <Navigation />

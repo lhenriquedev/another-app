@@ -5,7 +5,7 @@ import { AppText } from "@ui/components/AppText";
 
 export function HomeHeader() {
   return (
-    <View style={styles.homeHeader}>
+    <View style={[styles.homeHeader]}>
       <SafeAreaView>
         <View style={styles.homeHeaderContent}>
           <Image

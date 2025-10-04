@@ -8,10 +8,18 @@ import { Home } from "@ui/screens/Home";
 import { Profile } from "@ui/screens/Profile";
 import { House, User } from "lucide-react-native";
 
-type AppStackParamList = {
+export const routeTitles = {
+  Home: 'Início',
+  Profile: 'Perfil',
+} as const;
+
+
+export type AppStackParamList = {
   Home: undefined;
   Profile: undefined;
 };
+
+export type RouteNames = keyof typeof routeTitles;
 
 export type AppStackNavigationsProps =
   BottomTabNavigationProp<AppStackParamList>;

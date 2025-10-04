@@ -7,8 +7,8 @@ export const styles = StyleSheet.create({
     backgroundColor: theme.colors.white.DEFAULT,
   },
   homeHeader: {
-    height: 160,
-    padding: 16,
+    height: 140,
+    paddingHorizontal: 16,
     backgroundColor: theme.colors.black.DEFAULT,
   },
   homeHeaderContent: {

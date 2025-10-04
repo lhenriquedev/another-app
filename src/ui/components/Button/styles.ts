@@ -20,7 +20,10 @@ export const buttonStyles = createVariants({
         backgroundColor: theme.colors.black[800],
       },
       secondary: {
-        backgroundColor: theme.colors.seasalt[800],
+        backgroundColor: theme.colors.white.DEFAULT,
+      },
+      ghost: {
+        backgroundColor: 'transparent',
       },
     },
     size: {

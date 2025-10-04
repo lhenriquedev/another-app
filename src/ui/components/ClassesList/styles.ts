@@ -7,7 +7,6 @@ export const styles = StyleSheet.create({
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     marginTop: -20,
-    paddingTop: 30,
     padding: 20,
   },
 });
