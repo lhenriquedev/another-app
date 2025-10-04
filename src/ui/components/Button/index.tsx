@@ -1,6 +1,7 @@
 import { Platform, Pressable, View } from "react-native";
 import { AppText } from "../AppText";
 import { buttonStyles, ButtonVariants, styles } from "./styles";
+import { theme } from "@ui/styles/theme";
 
 interface IButtonProps
   extends React.ComponentProps<typeof Pressable>,
@@ -15,7 +16,7 @@ export function Button({
   ...props
 }: IButtonProps) {
   const childEl =
-    typeof children === "string" ? <AppText>{children}</AppText> : children;
+    typeof children === "string" ? <AppText color={theme.colors.white.DEFAULT}>{children}</AppText> : children;
 
   return (
     <View style={styles.wrapper}>

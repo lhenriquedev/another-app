@@ -8,6 +8,7 @@ import { theme } from "@ui/styles/theme";
 import { styles } from "./styles";
 import { Button } from "../Button";
 import { AuthStep } from ".";
+import { OptionsSelector } from "../OptionsSelector";
 
 interface ISignUpFormProps {
   onCurrentStep: (step: AuthStep) => void
@@ -47,6 +48,19 @@ export function SignUpForm({ onCurrentStep }: ISignUpFormProps) {
           autoCorrect={false}
           autoComplete="current-password"
           returnKeyType="done"
+        />
+      </FormGroup>
+
+      <FormGroup label="Faixa">
+        <OptionsSelector
+          options={[
+            { icon: '🥋', title: 'Branca', value: '1' },
+            { icon: '🥋', title: 'Azul', value: '2' },
+            { icon: '🥋', title: 'Roxa', value: '3' },
+            { icon: '🥋', title: 'Marrom', value: '4' },
+            { icon: '🥋', title: 'Preta', value: '5' },
+          ]}
+          value="1"
         />
       </FormGroup>
 

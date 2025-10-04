@@ -7,7 +7,7 @@ interface IAuthContextValue {
 export const AuthContext = createContext({} as IAuthContextValue);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const isLoggedIn = true;
+  const isLoggedIn = false;
 
   return (
     <AuthContext.Provider value={{ isLoggedIn }}>

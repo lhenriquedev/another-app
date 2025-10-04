@@ -36,16 +36,16 @@ export function Welcome() {
             </AppText>
 
             <View style={styles.ctaContent}>
-              <Button onPress={() => signUpAndActivateAccount.current?.open()}>
+              <Button style={{}} onPress={() => signUpAndActivateAccount.current?.open()}>
                 Criar minha conta
               </Button>
 
               <View style={styles.signInContainer}>
-                <AppText>Já tem uma conta?</AppText>
+                <AppText color={theme.colors.white.DEFAULT}>Já tem uma conta?</AppText>
                 <TouchableOpacity
                   onPress={() => signInBottomSheetRef.current?.open()}
                 >
-                  <AppText style={{ textDecorationLine: "underline" }}>
+                  <AppText color={theme.colors.white.DEFAULT} style={{ textDecorationLine: "underline" }}>
                     Acesse a sua conta
                   </AppText>
                 </TouchableOpacity>

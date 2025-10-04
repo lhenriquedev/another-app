@@ -1,19 +1,4 @@
 const colors = {
-  // Cores originais do seu design
-  dimGray: {
-    DEFAULT: '#6A6A6A', // A cor base que você já tinha
-    600: '#5A5A5A',     // Um cinza um pouco mais escuro, mantendo a neutralidade
-    700: '#4A4A4A',     // Progressivamente mais escuro, mas ainda legível
-    800: '#3A3A3A',     // O mais escuro da família, ótimo para textos em fundos claros
-  },
-
-  seasalt: {
-    DEFAULT: '#F8F8F8', // Seu off-white quase imperceptível
-    600: '#E0E0E0',     // Um cinza bem claro, útil para bordas sutis
-    700: '#C8C8C8',     // Mais acinzentado, bom para estados desabilitados
-    800: '#B0B0B0',     // Cinza médio-claro, para contraste moderado
-  },
-
   black: {
     DEFAULT: '#000000', // Preto puro
     600: '#1A1A1A',     // Preto levemente suavizado - mais confortável para os olhos
