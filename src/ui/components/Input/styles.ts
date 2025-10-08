@@ -19,7 +19,7 @@ export const inputStyles = createVariants({
   variants: {
     status: {
       default: {
-        borderColor: theme.colors.platinum[700],
+        borderColor: theme.colors.platinum.DEFAULT,
       },
       focus: {
         borderColor: theme.colors.black[600],

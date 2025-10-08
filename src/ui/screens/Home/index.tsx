@@ -9,5 +9,5 @@ export function Home() {
       <HomeHeader />
       <ClassesList />
     </View>
-  )
+  );
 }

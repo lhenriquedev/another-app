@@ -1,19 +1,19 @@
+import React, { useImperativeHandle, useRef } from "react";
+import { Alert, TextInput, View } from "react-native";
+import { AppText } from "../AppText";
+import { Button } from "../Button";
+import { FormGroup } from "../FormGroup";
+import { Input } from "../Input";
+import { ISignInBottomSheet } from "./ISignInBottomSheet";
+import { styles } from "./styles";
+import { theme } from "@ui/styles/theme";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import {
   BottomSheetModal,
   BottomSheetModalProvider,
   BottomSheetTextInput,
   BottomSheetView,
 } from "@gorhom/bottom-sheet";
-import { AppText } from "../AppText";
-import React, { useImperativeHandle, useRef } from "react";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { ISignInBottomSheet } from "./ISignInBottomSheet";
-import { Input } from "../Input";
-import { theme } from "@ui/styles/theme";
-import { FormGroup } from "../FormGroup";
-import { Alert, TextInput, View } from "react-native";
-import { styles } from "./styles";
-import { Button } from "../Button";
 
 interface ISignInBottomSheetProps {
   ref: React.Ref<ISignInBottomSheet>;

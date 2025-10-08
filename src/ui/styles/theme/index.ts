@@ -7,20 +7,25 @@ const colors = {
   },
 
   white: {
-    DEFAULT: '#FEFEFE', // Seu branco quase puro
-    600: '#F0F0F0',     // Off-white com mais corpo
+    DEFAULT: '#ffffff', // Seu branco quase puro
+    600: '#FEFEFE',     // Off-white com mais corpo
     700: '#E0E0E0',     // Cinza muito claro
     800: '#D0D0D0',     // Para quando você precisa de contraste no branco
   },
 
   platinum: {
-    DEFAULT: '#E8E8E8', // Cinza claro original
+    DEFAULT: '#E4E4E7', // Cinza claro original
     600: '#D0D0D0',     // Cinza claro médio
     700: '#B8B8B8',     // Cinza mais presente
     800: '#A0A0A0',     // Cinza médio, bom para texto secundário
+    900: '#71717A',
   },
   support: {
     red: '#EF4444',
+  },
+  green: {
+    600: '#b9f8cf',
+    900: '#073B3A',
   },
 } as const;
 

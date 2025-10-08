@@ -26,9 +26,9 @@ export function OptionsSelector({
             styles.option,
             option.value === value
               ? {
-                backgroundColor: theme.colors.white[600],
-                borderColor: theme.colors.black.DEFAULT,
-              }
+                  backgroundColor: theme.colors.white[600],
+                  borderColor: theme.colors.black.DEFAULT,
+                }
               : {},
           ]}
           key={option.value}

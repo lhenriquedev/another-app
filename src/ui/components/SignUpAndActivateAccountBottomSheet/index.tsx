@@ -1,14 +1,14 @@
 import { ActivateAccountForm } from "./ActivateAccountForm";
-import {
-  BottomSheetModal,
-  BottomSheetModalProvider,
-  BottomSheetView,
-} from "@gorhom/bottom-sheet";
 import { ISignInBottomSheet } from "../SignInBottomSheet/ISignInBottomSheet";
 import { SignUpForm } from "./SignUpForm";
 import { styles } from "./styles";
 import { useImperativeHandle, useRef, useState } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import {
+  BottomSheetModal,
+  BottomSheetModalProvider,
+  BottomSheetView,
+} from "@gorhom/bottom-sheet";
 
 interface ISignUpAndActivateAccountBottomSheetProps {
   ref: React.Ref<ISignInBottomSheet>;

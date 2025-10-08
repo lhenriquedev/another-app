@@ -18,7 +18,9 @@ export function HomeHeader() {
           />
           <View>
             <AppText color={theme.colors.white.DEFAULT}>Olá, 🖖</AppText>
-            <AppText color={theme.colors.white.DEFAULT} weight="semiBold">Henrique</AppText>
+            <AppText color={theme.colors.white.DEFAULT} weight="semiBold">
+              Henrique
+            </AppText>
           </View>
         </View>
       </SafeAreaView>

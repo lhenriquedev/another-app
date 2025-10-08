@@ -1,23 +1,26 @@
-import { theme } from "@ui/styles/theme";
+import { Alert, View } from "react-native";
 import { AppText } from "../AppText";
+import { AuthStep } from ".";
+import { BottomSheetTextInput } from "@gorhom/bottom-sheet";
+import { Button } from "../Button";
 import { FormGroup } from "../FormGroup";
 import { Input } from "../Input";
-import { BottomSheetTextInput } from "@gorhom/bottom-sheet";
-import { Alert, View } from "react-native";
 import { styles } from "./styles";
-import { Button } from "../Button";
-import { AuthStep } from ".";
+import { theme } from "@ui/styles/theme";
 
 interface IActivateAccountForm {
-  onClose: () => void
-  onCurrentStep: (step: AuthStep) => void
+  onClose: () => void;
+  onCurrentStep: (step: AuthStep) => void;
 }
 
-export function ActivateAccountForm({ onClose, onCurrentStep }: IActivateAccountForm) {
+export function ActivateAccountForm({
+  onClose,
+  onCurrentStep,
+}: IActivateAccountForm) {
   function handleActivateAccount() {
-    Alert.alert('Sua conta foi ativada com sucesso.')
-    onClose()
-    onCurrentStep("register")
+    Alert.alert("Sua conta foi ativada com sucesso.");
+    onClose();
+    onCurrentStep("register");
   }
 
   return (

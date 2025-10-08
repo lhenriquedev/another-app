@@ -1,24 +1,24 @@
-import { TextInput, View } from "react-native";
+import { AppText } from "../AppText";
+import { AuthStep } from ".";
+import { BottomSheetTextInput } from "@gorhom/bottom-sheet";
+import { Button } from "../Button";
 import { FormGroup } from "../FormGroup";
 import { Input } from "../Input";
-import { BottomSheetTextInput } from "@gorhom/bottom-sheet";
-import { useRef } from "react";
-import { AppText } from "../AppText";
-import { theme } from "@ui/styles/theme";
-import { styles } from "./styles";
-import { Button } from "../Button";
-import { AuthStep } from ".";
 import { OptionsSelector } from "../OptionsSelector";
+import { styles } from "./styles";
+import { TextInput, View } from "react-native";
+import { theme } from "@ui/styles/theme";
+import { useRef } from "react";
 
 interface ISignUpFormProps {
-  onCurrentStep: (step: AuthStep) => void
+  onCurrentStep: (step: AuthStep) => void;
 }
 
 export function SignUpForm({ onCurrentStep }: ISignUpFormProps) {
   const passwordInputRef = useRef<TextInput>(null);
 
   function handleRegister() {
-    onCurrentStep("activate-account")
+    onCurrentStep("activate-account");
   }
 
   return (
@@ -54,11 +54,11 @@ export function SignUpForm({ onCurrentStep }: ISignUpFormProps) {
       <FormGroup label="Faixa">
         <OptionsSelector
           options={[
-            { icon: '🥋', title: 'Branca', value: '1' },
-            { icon: '🥋', title: 'Azul', value: '2' },
-            { icon: '🥋', title: 'Roxa', value: '3' },
-            { icon: '🥋', title: 'Marrom', value: '4' },
-            { icon: '🥋', title: 'Preta', value: '5' },
+            { icon: "🥋", title: "Branca", value: "1" },
+            { icon: "🥋", title: "Azul", value: "2" },
+            { icon: "🥋", title: "Roxa", value: "3" },
+            { icon: "🥋", title: "Marrom", value: "4" },
+            { icon: "🥋", title: "Preta", value: "5" },
           ]}
           value="1"
         />

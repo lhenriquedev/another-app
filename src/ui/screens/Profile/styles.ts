@@ -31,7 +31,7 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     position: 'relative',
     borderBottomWidth: 1,
-    borderColor: theme.colors.platinum[700],
+    borderColor: theme.colors.platinum.DEFAULT,
     zIndex: 20,
   },
   profileTabButton: {
@@ -48,14 +48,14 @@ export const styles = StyleSheet.create({
   },
   profileCardContent: {
     borderWidth: 1,
-    borderColor: theme.colors.white[800],
+    borderColor: theme.colors.platinum.DEFAULT,
     paddingVertical: 12,
     paddingHorizontal: 16,
     borderRadius: 10,
     flex: 1,
   },
   profileCardIcon: {
-    backgroundColor: theme.colors.white[600],
+    backgroundColor: theme.colors.black[800],
     padding: 12,
     borderRadius: 10,
     width: 48,
@@ -67,7 +67,7 @@ export const styles = StyleSheet.create({
 
   profileCardBelt: {
     borderWidth: 1,
-    borderColor: theme.colors.white[800],
+    borderColor: theme.colors.platinum.DEFAULT,
     paddingVertical: 12,
     paddingHorizontal: 16,
     borderRadius: 10,
@@ -92,8 +92,9 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     borderWidth: 1,
-    borderColor: theme.colors.white[800],
+    borderColor: theme.colors.platinum.DEFAULT,
   },
+
   profileCardActivityText: {
     gap: 8,
   },

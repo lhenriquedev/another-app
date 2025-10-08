@@ -6,18 +6,22 @@ import { cloneElement } from "react";
 
 interface IFormGroupProps {
   label: string;
-  children: React.ReactElement<{ error: boolean }>
-  error?: string
+  children: React.ReactElement<{ error: boolean }>;
+  error?: string;
 }
 
 export function FormGroup({ label, children, error }: IFormGroupProps) {
   return (
     <View style={styles.container}>
-      <AppText weight="medium" color={theme.colors.black[700]}>{label}</AppText>
+      <AppText weight="medium" color={theme.colors.black[700]}>
+        {label}
+      </AppText>
       {cloneElement(children, { error: !!error })}
       {error && (
-        <AppText size="sm" color={theme.colors.support.red}>{error}</AppText>
+        <AppText size="sm" color={theme.colors.support.red}>
+          {error}
+        </AppText>
       )}
     </View>
-  )
+  );
 }
