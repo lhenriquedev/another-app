@@ -17,10 +17,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 }
 
 export function useAuth() {
-  const value = use(AuthContext)
+  const value = use(AuthContext);
 
   if (!value) {
-    throw new Error('`useAuth` must be used only inside <AuthProvider/>')
+    throw new Error("`useAuth` must be used only inside <AuthProvider/>");
   }
 
   return value;

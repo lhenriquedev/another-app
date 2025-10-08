@@ -6,7 +6,7 @@ import {
 } from "@expo-google-fonts/inter";
 
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { Navigation } from "@app/navigation";
 import { AuthProvider } from "@app/contexts/AuthContext";
 
