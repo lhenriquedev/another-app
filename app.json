@@ -30,6 +30,12 @@
     },
     "plugins": [
       "expo-font"
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "02999c69-1d49-46b3-8d92-6925372699fc"
+      }
+    },
+    "owner": "kazama_24"
   }
 }
