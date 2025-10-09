@@ -10,6 +10,7 @@ type User = {
   belt: "white" | "blue" | "purple" | "brown" | "black";
   requiredClassesInCurrentBelt: number;
   checkinsThisMonth: number;
+  currentUserTotalCheckins: number;
 };
 
 type SignInParams = {

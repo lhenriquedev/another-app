@@ -13,6 +13,16 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { theme } from "@ui/styles/theme";
 import { useAuth } from "@app/contexts/AuthContext";
 
+const BELTS = {
+  white: "Branca",
+  blue: "Azul",
+  purple: "Roxa",
+  brown: "Marrom",
+  black: "Preta",
+} as const;
+
+type BeltType = keyof typeof BELTS;
+
 export function ProfileGeneral() {
   const { user } = useAuth();
   const { bottom } = useSafeAreaInsets();
@@ -33,12 +43,12 @@ export function ProfileGeneral() {
           <ProfileCard
             icon={<Target color={theme.colors.white.DEFAULT} />}
             title="Total de Check-ins"
-            subtitle={user?.checkinsThisMonth}
+            subtitle={user?.currentUserTotalCheckins}
           />
           <ProfileCard
             icon={<User color={theme.colors.white.DEFAULT} />}
             title="Faixa atual"
-            subtitle={user?.belt}
+            subtitle={BELTS[user?.belt as BeltType]}
           />
         </View>
         <View style={styles.profileCardContainer}>
