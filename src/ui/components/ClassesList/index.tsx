@@ -1,61 +1,85 @@
-import { AppText } from "../AppText";
-import { ClassesListDatePicker } from "./ClassesListPicker";
-import { ClassesListItems } from "./ClassesListItems";
+import React, { useRef } from "react";
+import { ScrollView, View } from "react-native";
+import { IClass, IClassesResponse } from "./class.types";
+import { groupClassesByHourRange } from "./utils";
 import { ClassListBottomSheet } from "./ClassListBottomSheet";
 import { IClassListBottomSheet } from "./IClassListBottomSheet";
+import { ClassListCard } from "./ClassListCard";
 import { styles } from "./styles";
-import { theme } from "@ui/styles/theme";
-import { useRef } from "react";
-import { View } from "react-native";
+import { AppText } from "../AppText";
 
-export function ClassesList() {
-  const classListBottomSheetRef = useRef<IClassListBottomSheet>(null);
+interface ClassListProps {
+  response: IClassesResponse;
+  onClassPress?: (classItem: IClass) => void;
+}
+
+interface IClassCardProps {
+  item: IClass;
+  isFirst: boolean;
+  isLast: boolean;
+  onClassPress: (item: IClass) => void;
+}
+
+export const ClassList: React.FC<ClassListProps> = ({ response }) => {
+  const bottomSheetRef = useRef<IClassListBottomSheet>(null);
+  const hourRangeGroups = groupClassesByHourRange(response.classes);
+
+  const renderClassCard = ({
+    item,
+    isFirst,
+    isLast,
+    onClassPress,
+  }: IClassCardProps) => (
+    <ClassListCard
+      item={item}
+      isFirst={isFirst}
+      isLast={isLast}
+      onClassPress={onClassPress}
+    />
+  );
 
   return (
     <>
-      <View style={styles.container}>
-        <ClassesListDatePicker />
+      <ScrollView
+        style={styles.container}
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={styles.contentContainer}
+      >
+        {hourRangeGroups.map((hourRangeGroup, groupIndex) => {
+          const { hourRange, classes } = hourRangeGroup;
+          const [startHour, endHour] = hourRange.split("-");
+          const isLastGroup = groupIndex === hourRangeGroups.length - 1;
 
-        <View
-          style={{
-            paddingHorizontal: 16,
-            borderTopWidth: 1,
-            borderTopColor: theme.colors.platinum.DEFAULT,
-            gap: 8,
-            marginBottom: 32,
-          }}
-        >
-          <AppText
-            weight="medium"
-            style={{
-              textTransform: "uppercase",
-              marginTop: 20,
-            }}
-          >
-            Aulas disponíveis
-          </AppText>
-          <AppText color={theme.colors.platinum[900]}>
-            Aulas disponíveis para hoje
-          </AppText>
-        </View>
+          return (
+            <View key={hourRange} style={styles.hourRangeGroup}>
+              <View style={styles.hourColumn}>
+                <AppText weight="medium" size="xs">
+                  {startHour}h
+                </AppText>
+                <AppText weight="medium" size="xs">
+                  -
+                </AppText>
+                <AppText weight="medium" size="xs">
+                  {endHour}h
+                </AppText>
+              </View>
 
-        <View style={{ gap: 16 }}>
-          <ClassesListItems
-            onOpen={() => classListBottomSheetRef.current?.open()}
-          />
-          <ClassesListItems
-            onOpen={() => classListBottomSheetRef.current?.open()}
-          />
-          <ClassesListItems
-            onOpen={() => classListBottomSheetRef.current?.open()}
-          />
-          <ClassesListItems
-            onOpen={() => classListBottomSheetRef.current?.open()}
-          />
-        </View>
-      </View>
+              <View style={styles.cardsColumn}>
+                {classes.map((classItem, index) =>
+                  renderClassCard({
+                    item: classItem,
+                    isFirst: index === 0,
+                    isLast: index === classes.length - 1 && isLastGroup,
+                    onClassPress: () => bottomSheetRef.current?.open(),
+                  })
+                )}
+              </View>
+            </View>
+          );
+        })}
+      </ScrollView>
 
-      <ClassListBottomSheet ref={classListBottomSheetRef} />
+      <ClassListBottomSheet ref={bottomSheetRef} />
     </>
   );
-}
+};

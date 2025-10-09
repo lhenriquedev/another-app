@@ -14,12 +14,23 @@ import {
   BottomSheetTextInput,
   BottomSheetView,
 } from "@gorhom/bottom-sheet";
+import { Controller, useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useAuth } from "@app/contexts/AuthContext";
+import { isAxiosError } from "axios";
+
+const signInSchema = z.object({
+  email: z.email(),
+  password: z.string().min(8),
+});
 
 interface ISignInBottomSheetProps {
   ref: React.Ref<ISignInBottomSheet>;
 }
 
 export function SignInBottomSheet({ ref }: ISignInBottomSheetProps) {
+  const { signIn } = useAuth();
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
   const { bottom } = useSafeAreaInsets();
   const passwordInputRef = useRef<TextInput>(null);
@@ -32,9 +43,20 @@ export function SignInBottomSheet({ ref }: ISignInBottomSheetProps) {
     []
   );
 
-  function handleSubmit() {
-    Alert.alert("Enviando...");
-  }
+  const form = useForm({
+    resolver: zodResolver(signInSchema),
+  });
+
+  const handleSubmit = form.handleSubmit(async (formData) => {
+    try {
+      await signIn(formData);
+    } catch (error) {
+      if (isAxiosError(error)) {
+        console.log(JSON.stringify(error, null, 2));
+      }
+      Alert.alert("Erro ao fazer login");
+    }
+  });
 
   return (
     <BottomSheetModalProvider>
@@ -45,32 +67,54 @@ export function SignInBottomSheet({ ref }: ISignInBottomSheetProps) {
           </AppText>
 
           <View style={styles.form}>
-            <FormGroup label="E-mail">
-              <Input
-                InputComponent={BottomSheetTextInput}
-                keyboardType="email-address"
-                autoCapitalize="none"
-                autoCorrect={false}
-                autoComplete="email"
-                returnKeyType="next"
-                onSubmitEditing={() => passwordInputRef.current?.focus()}
-              />
-            </FormGroup>
+            <Controller
+              control={form.control}
+              name="email"
+              render={({ field, fieldState }) => (
+                <FormGroup label="E-mail" error={fieldState.error?.message}>
+                  <Input
+                    InputComponent={BottomSheetTextInput}
+                    keyboardType="email-address"
+                    autoCapitalize="none"
+                    autoCorrect={false}
+                    autoComplete="email"
+                    returnKeyType="next"
+                    value={field.value}
+                    onChangeText={field.onChange}
+                    onSubmitEditing={() => passwordInputRef.current?.focus()}
+                  />
+                </FormGroup>
+              )}
+            />
 
-            <FormGroup label="Senha">
-              <Input
-                ref={passwordInputRef}
-                InputComponent={BottomSheetTextInput}
-                secureTextEntry
-                autoCapitalize="none"
-                autoCorrect={false}
-                autoComplete="current-password"
-                returnKeyType="done"
-                onSubmitEditing={handleSubmit}
-              />
-            </FormGroup>
+            <Controller
+              control={form.control}
+              name="password"
+              render={({ field, fieldState }) => (
+                <FormGroup label="Senha" error={fieldState.error?.message}>
+                  <Input
+                    ref={passwordInputRef}
+                    InputComponent={BottomSheetTextInput}
+                    secureTextEntry
+                    autoCapitalize="none"
+                    autoCorrect={false}
+                    autoComplete="current-password"
+                    returnKeyType="done"
+                    value={field.value}
+                    onChangeText={field.onChange}
+                    onSubmitEditing={handleSubmit}
+                  />
+                </FormGroup>
+              )}
+            />
 
-            <Button onPress={handleSubmit}>Entrar</Button>
+            <Button
+              onPress={handleSubmit}
+              disabled={form.formState.isSubmitting}
+              loading={form.formState.isSubmitting}
+            >
+              Entrar
+            </Button>
           </View>
         </BottomSheetView>
       </BottomSheetModal>

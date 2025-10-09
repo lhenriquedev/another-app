@@ -7,24 +7,57 @@ import {
 
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { Navigation } from "@app/navigation";
-import { AuthProvider } from "@app/contexts/AuthContext";
 
-export function App() {
-  const [isFontsLoaded] = useFonts({
+import { AuthProvider, useAuth } from "@app/contexts/AuthContext";
+import { NavigationContainer } from "@react-navigation/native";
+import { AppStack } from "@app/navigation/AppStack";
+import { AuthStack } from "@app/navigation/AuthStack";
+import { useEffect } from "react";
+import * as SplashScreen from "expo-splash-screen";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+SplashScreen.preventAutoHideAsync();
+
+const RootLayout = () => {
+  const { isLoggedIn, isLoading } = useAuth();
+
+  const [loaded, error] = useFonts({
     Inter_400Regular,
     Inter_500Medium,
     Inter_600SemiBold,
   });
 
-  if (!isFontsLoaded) return null;
+  useEffect(() => {
+    const isFontLoaded = loaded || error;
+    const isUserLoaded = !isLoading;
 
+    if (isFontLoaded && isUserLoaded) {
+      SplashScreen.hideAsync();
+    }
+  }, [loaded, error, isLoading]);
+
+  if (!loaded && !error) {
+    return null;
+  }
+
+  return (
+    <NavigationContainer>
+      {isLoggedIn ? <AppStack /> : <AuthStack />}
+    </NavigationContainer>
+  );
+};
+
+const queryClient = new QueryClient();
+
+export function App() {
   return (
     <GestureHandlerRootView>
       <SafeAreaProvider>
-        <AuthProvider>
-          <Navigation />
-        </AuthProvider>
+        <QueryClientProvider client={queryClient}>
+          <AuthProvider>
+            <RootLayout />
+          </AuthProvider>
+        </QueryClientProvider>
       </SafeAreaProvider>
     </GestureHandlerRootView>
   );

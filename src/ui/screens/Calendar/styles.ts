@@ -4,14 +4,10 @@ import { StyleSheet } from 'react-native';
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: theme.colors.white[600],
   },
   homeHeader: {
-    // height: 170,
     paddingHorizontal: 16,
-    borderBottomLeftRadius: 30,
-    borderBottomRightRadius: 30,
-    backgroundColor: theme.colors.black.DEFAULT,
+    backgroundColor: theme.colors.white.DEFAULT,
   },
   homeHeaderContent: {
     flexDirection: 'row',

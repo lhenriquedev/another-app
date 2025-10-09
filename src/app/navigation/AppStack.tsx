@@ -4,19 +4,21 @@ import {
   BottomTabNavigationProp,
   BottomTabScreenProps,
 } from "@react-navigation/bottom-tabs";
-import { Home } from "@ui/screens/Home";
 import { Profile } from "@ui/screens/Profile";
-import { House, User } from "lucide-react-native";
+import { Calendar, User } from "lucide-react-native";
+import { theme } from "@ui/styles/theme";
+import { CalendarScreen } from "@ui/screens/Calendar";
 
 export const routeTitles = {
-  Home: 'Início',
-  Profile: 'Perfil',
+  // Home: "Início",
+  Profile: "Perfil",
+  Calendar: "Calendário",
 } as const;
 
-
 export type AppStackParamList = {
-  Home: undefined;
+  // Home: undefined;
   Profile: undefined;
+  Calendar: undefined;
 };
 
 export type RouteNames = keyof typeof routeTitles;
@@ -34,21 +36,45 @@ const BottomTab = createBottomTabNavigator<AppStackParamList>();
 
 export function AppStack() {
   return (
-    <BottomTab.Navigator screenOptions={{ headerShown: false }}>
+    <BottomTab.Navigator
+      screenOptions={{
+        headerShown: false,
+        tabBarStyle: {
+          height: 90,
+          paddingTop: 8,
+        },
+      }}
+    >
       <BottomTab.Screen
-        name="Home"
-        component={Home}
+        name="Calendar"
+        component={CalendarScreen}
         options={{
-          tabBarIcon: () => <House size={32} />,
-          tabBarShowLabel: false
+          tabBarIcon: ({ focused }) => (
+            <Calendar
+              size={24}
+              color={
+                focused ? theme.colors.black[700] : theme.colors.platinum[900]
+              }
+            />
+          ),
+          tabBarLabel: "Calendário",
+          tabBarActiveTintColor: theme.colors.black[800],
         }}
       />
       <BottomTab.Screen
         name="Profile"
         component={Profile}
         options={{
-          tabBarIcon: () => <User size={32} />,
-          tabBarShowLabel: false,
+          tabBarIcon: ({ focused }) => (
+            <User
+              size={24}
+              color={
+                focused ? theme.colors.black[700] : theme.colors.platinum[900]
+              }
+            />
+          ),
+          tabBarLabel: "Perfil",
+          tabBarActiveTintColor: theme.colors.black[800],
         }}
       />
     </BottomTab.Navigator>

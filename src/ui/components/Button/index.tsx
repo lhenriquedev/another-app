@@ -1,11 +1,13 @@
-import { Platform, Pressable, View } from "react-native";
+import { ActivityIndicator, Platform, Pressable, View } from "react-native";
 import { AppText } from "../AppText";
 import { buttonStyles, ButtonVariants, styles } from "./styles";
 import { theme } from "@ui/styles/theme";
 
 interface IButtonProps
   extends React.ComponentProps<typeof Pressable>,
-  Omit<ButtonVariants, "disabled"> { }
+    Omit<ButtonVariants, "disabled"> {
+  loading?: boolean;
+}
 
 export function Button({
   children,
@@ -13,10 +15,15 @@ export function Button({
   size,
   disabled,
   style,
+  loading,
   ...props
 }: IButtonProps) {
   const childEl =
-    typeof children === "string" ? <AppText color={theme.colors.white.DEFAULT}>{children}</AppText> : children;
+    typeof children === "string" ? (
+      <AppText color={theme.colors.white.DEFAULT}>{children}</AppText>
+    ) : (
+      children
+    );
 
   return (
     <View style={styles.wrapper}>
@@ -34,7 +41,7 @@ export function Button({
         disabled={disabled}
         {...props}
       >
-        {childEl}
+        {loading ? <ActivityIndicator /> : childEl}
       </Pressable>
     </View>
   );

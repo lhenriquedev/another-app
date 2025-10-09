@@ -1,8 +1,7 @@
 import { Image, View } from "react-native";
-import { styles } from "./styles";
+import { styles } from "../screens/Calendar/styles";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { AppText } from "@ui/components/AppText";
-import { theme } from "@ui/styles/theme";
 
 export function HomeHeader() {
   return (
@@ -17,10 +16,8 @@ export function HomeHeader() {
             }}
           />
           <View>
-            <AppText color={theme.colors.white.DEFAULT}>Olá, 🖖</AppText>
-            <AppText color={theme.colors.white.DEFAULT} weight="semiBold">
-              Henrique
-            </AppText>
+            <AppText>Olá, 🖖</AppText>
+            <AppText weight="semiBold">Henrique</AppText>
           </View>
         </View>
       </SafeAreaView>

@@ -12,7 +12,7 @@ export function AppText({
   size = "base",
   family = "sans",
   weight = "regular",
-  color = theme.colors.black[700],
+  color = theme.colors.black[800],
   style,
   ...props
 }: IAppTextProps) {
@@ -23,6 +23,7 @@ export function AppText({
           fontFamily: theme.fontFamily[family][weight],
           fontSize: theme.fontSize[size],
           color,
+          letterSpacing: -0.32,
         },
         style,
       ]}

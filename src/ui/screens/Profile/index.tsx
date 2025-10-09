@@ -8,10 +8,12 @@ import { ProfileInfo } from "./ProfileInfo";
 import { ProfileTab } from "./ProfileTab";
 import { useState } from "react";
 import { ProfileGeneral } from "./ProfileGeneral";
+import { useAuth } from "@app/contexts/AuthContext";
 
 export type SelectedTab = "general" | "info";
 
 export function Profile() {
+  const { signOut } = useAuth();
   const [selectedTab, setSelectedTab] = useState<SelectedTab>("general");
 
   function handleSelectedTab(selectedTab: SelectedTab) {
@@ -22,7 +24,7 @@ export function Profile() {
     <View style={styles.container}>
       <AppHeader
         rightAction={
-          <Button variant="ghost" size="icon">
+          <Button variant="ghost" size="icon" onPress={signOut}>
             <LogOut />
           </Button>
         }

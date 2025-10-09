@@ -8,7 +8,8 @@ const colors = {
 
   white: {
     DEFAULT: '#ffffff', // Seu branco quase puro
-    600: '#FEFEFE',     // Off-white com mais corpo
+    500: '#f2f2f3',     // Off-white com mais corpo
+    600: '#f9f9f9',
     700: '#E0E0E0',     // Cinza muito claro
     800: '#D0D0D0',     // Para quando você precisa de contraste no branco
   },
