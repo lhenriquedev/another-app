@@ -1,7 +1,16 @@
 import { httpClient } from "@app/services/httpClient";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { createContext, use, useCallback, useEffect, useState } from "react";
+
+type User = {
+  name: string;
+  email: string;
+  isActive: boolean;
+  belt: "white" | "blue" | "purple" | "brown" | "black";
+  requiredClassesInCurrentBelt: number;
+  checkinsThisMonth: number;
+};
 
 type SignInParams = {
   email: string;
@@ -16,6 +25,7 @@ type SignUpParams = {
 };
 
 interface IAuthContextValue {
+  user: User | null;
   isLoggedIn: boolean;
   isLoading: boolean;
   signIn: (params: SignInParams) => Promise<void>;
@@ -45,6 +55,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     },
   });
 
+  const { data: user, isFetching } = useQuery({
+    enabled: !!token,
+    queryKey: ["user"],
+    queryFn: async () => {
+      const { data } = await httpClient.get<{ user: User }>("/me");
+
+      const { user } = data;
+
+      return user;
+    },
+  });
+
   const signOut = useCallback(async () => {
     setToken(null);
     await AsyncStorage.removeItem(TOKEN_STORAGE_KEY);
@@ -63,9 +85,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     async function run() {
       if (!token) {
+        httpClient.defaults.headers.common["Authorization"] = null;
         return;
       }
 
+      httpClient.defaults.headers.common["Authorization"] = `${token}`;
       await AsyncStorage.setItem(TOKEN_STORAGE_KEY, token);
     }
 
@@ -75,8 +99,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   return (
     <AuthContext.Provider
       value={{
-        isLoggedIn: !!token,
-        isLoading: isLoadingToken,
+        isLoggedIn: !!user,
+        isLoading: isLoadingToken || isFetching,
+        user: user ?? null,
         signIn,
         signUp,
         signOut,

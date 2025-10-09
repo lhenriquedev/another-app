@@ -6,7 +6,7 @@ import { theme } from "@ui/styles/theme";
 interface ProfileCardBeltProps {
   icon: React.ReactNode;
   title: string;
-  subtitle: string | number;
+  subtitle: string | number | null;
 }
 
 export function ProfileCardBelt({

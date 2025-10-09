@@ -11,8 +11,10 @@ import { ProfileCardBelt } from "./ProfileBelt";
 import { ProfileActivity } from "./ProfileActivity";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { theme } from "@ui/styles/theme";
+import { useAuth } from "@app/contexts/AuthContext";
 
 export function ProfileGeneral() {
+  const { user } = useAuth();
   const { bottom } = useSafeAreaInsets();
 
   return (
@@ -31,19 +33,19 @@ export function ProfileGeneral() {
           <ProfileCard
             icon={<Target color={theme.colors.white.DEFAULT} />}
             title="Total de Check-ins"
-            subtitle={245}
+            subtitle={user?.checkinsThisMonth}
           />
           <ProfileCard
             icon={<User color={theme.colors.white.DEFAULT} />}
             title="Faixa atual"
-            subtitle="Branca"
+            subtitle={user?.belt}
           />
         </View>
         <View style={styles.profileCardContainer}>
           <ProfileCard
             icon={<Calendar color={theme.colors.white.DEFAULT} />}
             title="Check-ins este mês"
-            subtitle={12}
+            subtitle={user?.checkinsThisMonth}
           />
         </View>
 
@@ -53,7 +55,10 @@ export function ProfileGeneral() {
               <ChartNoAxesColumnIncreasing color={theme.colors.white.DEFAULT} />
             }
             title="Progresso para Azul"
-            subtitle="Faltam 65 aulas para a próxima faixa"
+            subtitle={
+              user &&
+              user?.requiredClassesInCurrentBelt - user!.checkinsThisMonth
+            }
           />
         </View>
 
