@@ -3,7 +3,7 @@ import { Button } from "../Button";
 import { IClassListBottomSheet } from "./IClassListBottomSheet";
 import { View } from "react-native";
 import { styles } from "./styles";
-import { useCallback, useImperativeHandle, useRef, useState } from "react";
+import { useCallback, useImperativeHandle, useRef } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import {
   BottomSheetBackdrop,
@@ -18,14 +18,19 @@ import { httpClient } from "@app/services/httpClient";
 import { IClassDetails } from "./class.types";
 import { formatTime } from "./utils";
 import { BELTS, BeltType } from "@ui/screens/Profile/ProfileGeneral";
+import { EmptyState } from "../EmptyState";
+import { Target } from "lucide-react-native";
+import { ClassDetailsSkeleton } from "./ClassDetailsSkeleton";
 
 interface IClassListBottomSheetProps {
   ref: React.Ref<IClassListBottomSheet>;
+  selectedClassId: string | null;
 }
 
-export function ClassListBottomSheet({ ref }: IClassListBottomSheetProps) {
-  const [selectedClassId, setSelectedClassId] = useState<string | null>(null);
-
+export function ClassListBottomSheet({
+  ref,
+  selectedClassId,
+}: IClassListBottomSheetProps) {
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
   const { bottom } = useSafeAreaInsets();
 
@@ -43,8 +48,7 @@ export function ClassListBottomSheet({ ref }: IClassListBottomSheetProps) {
   useImperativeHandle(
     ref,
     () => ({
-      open: (classId: string) => {
-        setSelectedClassId(classId);
+      open: () => {
         bottomSheetModalRef.current?.present();
       },
     }),
@@ -64,8 +68,6 @@ export function ClassListBottomSheet({ ref }: IClassListBottomSheetProps) {
     []
   );
 
-  if (!classDetails) return null;
-
   return (
     <BottomSheetModalProvider>
       <BottomSheetModal
@@ -75,6 +77,7 @@ export function ClassListBottomSheet({ ref }: IClassListBottomSheetProps) {
         <BottomSheetView
           style={[styles.bottomSheetContainer, { paddingBottom: bottom }]}
         >
+          {isLoading && <ClassDetailsSkeleton count={3} />}
           {!isLoading && (
             <View style={{ gap: 16 }}>
               <View>
@@ -90,9 +93,13 @@ export function ClassListBottomSheet({ ref }: IClassListBottomSheetProps) {
               <FlashList
                 data={classDetails?.students}
                 keyExtractor={(item) => item.id}
-                ListEmptyComponent={() => (
-                  <AppText>Nenhum aluno cadastrado!</AppText>
-                )}
+                ListEmptyComponent={
+                  <EmptyState
+                    title="Nenhum aluno fez check-in"
+                    description="Seja o primeiro a entrar na aula"
+                    icon={<Target />}
+                  />
+                }
                 ItemSeparatorComponent={() => <View style={{ height: 8 }} />}
                 renderItem={({ item }) => (
                   <ClassListBottomSheetCard
@@ -105,7 +112,9 @@ export function ClassListBottomSheet({ ref }: IClassListBottomSheetProps) {
                 )}
               />
 
-              <Button>Check-in</Button>
+              {classDetails?.status === "not-started" && (
+                <Button>Check-in</Button>
+              )}
             </View>
           )}
         </BottomSheetView>

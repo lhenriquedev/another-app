@@ -40,7 +40,7 @@ export function EmptyState({
       {icon && <View style={styles.iconContainer}>{icon}</View>}
 
       <View style={styles.textContainer}>
-        <AppText size="lg" weight="semiBold" color={"#333"}>
+        <AppText size="md" weight="semiBold" color={"#333"}>
           {title}
         </AppText>
 

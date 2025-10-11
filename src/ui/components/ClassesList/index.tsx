@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { ScrollView, View } from "react-native";
 import { IClass } from "./class.types";
 import { groupClassesByHourRange } from "./utils";
@@ -27,6 +27,13 @@ interface IClassCardProps {
 export const ClassList: React.FC<ClassListProps> = ({ classes }) => {
   const bottomSheetRef = useRef<IClassListBottomSheet>(null);
   const hourRangeGroups = groupClassesByHourRange(classes);
+
+  const [selectedClassId, setSelectedClassId] = useState<string | null>(null);
+
+  const handleOnPress = (classId: string) => {
+    bottomSheetRef.current?.open();
+    setSelectedClassId(classId);
+  };
 
   const renderClassCard = ({
     item,
@@ -94,7 +101,7 @@ export const ClassList: React.FC<ClassListProps> = ({ classes }) => {
                       isFirst: index === 0,
                       isLast: index === classes.length - 1 && isLastGroup,
                       isLastInGroup: index === classes.length - 1,
-                      onClassPress: () => bottomSheetRef.current?.open(item.id),
+                      onClassPress: () => handleOnPress(item.id),
                     })
                   }
                 />
@@ -104,7 +111,10 @@ export const ClassList: React.FC<ClassListProps> = ({ classes }) => {
         })}
       </ScrollView>
 
-      <ClassListBottomSheet ref={bottomSheetRef} />
+      <ClassListBottomSheet
+        ref={bottomSheetRef}
+        selectedClassId={selectedClassId}
+      />
     </>
   );
 };
