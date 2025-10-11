@@ -1,23 +1,32 @@
-import { View, Pressable, Text } from "react-native";
+import { View, Pressable } from "react-native";
 import { styles } from "./styles";
-import { getStatusLabel, formatTime } from "./utils";
 import { IClass } from "./class.types";
+import { formatTime } from "./utils";
+import { AppText } from "../AppText";
 
 interface IClassListCard {
   item: IClass;
   isLast: boolean;
   isFirst: boolean;
-  onClassPress: (item: IClass) => void;
+  isLastInGroup: boolean;
+  onClassPress: (classId: IClass) => void;
 }
 
 export function ClassListCard({
   item,
   isLast,
   isFirst,
+  isLastInGroup,
   onClassPress,
 }: IClassListCard) {
   return (
-    <View style={styles.cardWrapper} key={item.id}>
+    <View
+      style={[
+        styles.cardWrapper,
+        isLastInGroup && styles.cardWrapperWithBorder,
+      ]}
+      key={item.id}
+    >
       <View style={styles.timelineContainer}>
         {isFirst ? (
           <>
@@ -34,60 +43,26 @@ export function ClassListCard({
       <Pressable
         style={({ pressed }) => [
           styles.classItem,
+          getStatusStyle(item.status),
           pressed && styles.classItemPressed,
         ]}
         onPress={() => onClassPress?.(item)}
       >
-        <View style={styles.classHeader}>
-          <View style={styles.classMainInfo}>
-            <Text>{item.title}</Text>
-            {item.description && (
-              <Text style={styles.description} numberOfLines={2}>
-                {item.description}
-              </Text>
-            )}
-          </View>
-
-          <View style={[styles.statusBadge, getStatusStyle(item.status)]}>
-            <Text style={styles.statusText}>{getStatusLabel(item.status)}</Text>
-          </View>
-        </View>
-
         <View style={styles.classDetails}>
           <View style={styles.detailRow}>
-            <Text style={styles.detailIcon}>🕐</Text>
-            <Text style={styles.time}>
+            <AppText size="xs">
               {formatTime(item.startTime)} - {formatTime(item.endTime)}
-            </Text>
+            </AppText>
           </View>
 
           <View style={styles.detailRow}>
-            <Text style={styles.detailIcon}>👤</Text>
-            <Text style={styles.instructor}>{item.instructor.name}</Text>
+            <AppText size="md" weight="semiBold">
+              {item.instructor.name}
+            </AppText>
           </View>
 
           <View style={styles.detailRow}>
-            <Text style={styles.detailIcon}>🥋</Text>
-            <Text style={styles.category}>{item.category.type}</Text>
-          </View>
-        </View>
-
-        <View style={styles.classFooter}>
-          <View
-            style={[
-              styles.capacityBadge,
-              item.checkinsSummary.available === 0 && styles.capacityBadgeFull,
-            ]}
-          >
-            <Text
-              style={[
-                styles.capacity,
-                item.checkinsSummary.available === 0 && styles.capacityFull,
-              ]}
-            >
-              {item.checkinsSummary.available === 0 ? "🔴" : "🟢"}{" "}
-              {item.checkinsSummary.available}/{item.capacity} vagas
-            </Text>
+            <AppText size="sm">{item.category.type}</AppText>
           </View>
         </View>
       </Pressable>
@@ -96,10 +71,10 @@ export function ClassListCard({
 }
 
 const getStatusStyle = (status: IClass["status"]) => {
-  const styles: Record<IClass["status"], { backgroundColor: string }> = {
-    "in-progress": { backgroundColor: "#4CAF50" },
-    finished: { backgroundColor: "#9E9E9E" },
-    "not-started": { backgroundColor: "#F44336" },
+  const styles: Record<IClass["status"], { borderLeftColor: string }> = {
+    "in-progress": { borderLeftColor: "#a6c4a3" },
+    finished: { borderLeftColor: "#F44336" },
+    "not-started": { borderLeftColor: "#d6c555" },
   };
   return styles[status];
 };

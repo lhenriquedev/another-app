@@ -1,0 +1,83 @@
+import React, { useEffect, useRef } from "react";
+import { View, StyleSheet, Animated } from "react-native";
+import { AppText } from "./AppText";
+import { FadeSlideView } from "./FadeSlideView";
+
+interface EmptyStateProps {
+  icon?: React.ReactNode;
+  title: string;
+  description?: string;
+  action?: React.ReactNode;
+}
+
+export function EmptyState({
+  icon,
+  title,
+  description,
+  action,
+}: EmptyStateProps) {
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+  const slideAnim = useRef(new Animated.Value(20)).current;
+
+  useEffect(() => {
+    Animated.parallel([
+      Animated.timing(fadeAnim, {
+        toValue: 1,
+        duration: 600,
+        useNativeDriver: true,
+      }),
+      Animated.spring(slideAnim, {
+        toValue: 0,
+        tension: 50,
+        friction: 7,
+        useNativeDriver: true,
+      }),
+    ]).start();
+  }, [fadeAnim, slideAnim]);
+
+  return (
+    <FadeSlideView style={styles.container}>
+      {icon && <View style={styles.iconContainer}>{icon}</View>}
+
+      <View style={styles.textContainer}>
+        <AppText size="lg" weight="semiBold" color={"#333"}>
+          {title}
+        </AppText>
+
+        {description && (
+          <AppText size="sm" color={"#666"} style={styles.description}>
+            {description}
+          </AppText>
+        )}
+      </View>
+
+      {action && <View style={styles.actionContainer}>{action}</View>}
+    </FadeSlideView>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    paddingHorizontal: 32,
+    paddingVertical: 48,
+  },
+  iconContainer: {
+    marginBottom: 24,
+  },
+  textContainer: {
+    alignItems: "center",
+    marginBottom: 24,
+  },
+  description: {
+    textAlign: "center",
+    marginTop: 8,
+    lineHeight: 20,
+  },
+  actionContainer: {
+    width: "100%",
+    maxWidth: 280,
+  },
+});

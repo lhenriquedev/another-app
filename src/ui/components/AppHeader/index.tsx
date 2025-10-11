@@ -36,7 +36,7 @@ export function AppHeader({ rightAction }: IAppHeaderProps) {
           <ChevronLeftIcon size={32} color={theme.colors.black[700]} />
         </Button>
 
-        <AppText color={theme.colors.black[700]} weight="medium">
+        <AppText size="lg" color={theme.colors.black[500]} weight="semiBold">
           {title}
         </AppText>
 

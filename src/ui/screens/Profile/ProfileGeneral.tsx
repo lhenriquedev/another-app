@@ -13,7 +13,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { theme } from "@ui/styles/theme";
 import { useAuth } from "@app/contexts/AuthContext";
 
-const BELTS = {
+export const BELTS = {
   white: "Branca",
   blue: "Azul",
   purple: "Roxa",
@@ -21,7 +21,7 @@ const BELTS = {
   black: "Preta",
 } as const;
 
-type BeltType = keyof typeof BELTS;
+export type BeltType = keyof typeof BELTS;
 
 export function ProfileGeneral() {
   const { user } = useAuth();

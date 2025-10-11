@@ -1,3 +1,3 @@
 export interface IClassListBottomSheet {
-  open: () => void
+  open: (classId: string) => void
 }
