@@ -1,5 +1,5 @@
 import { AccountStep } from "./AccountStep";
-import { Alert, View } from "react-native";
+import { View } from "react-native";
 import { BeltStep } from "./BeltStep";
 import { Button } from "../Button";
 import { ChevronLeft, ChevronRight } from "lucide-react-native";
@@ -18,6 +18,7 @@ import {
   BottomSheetModalProvider,
   BottomSheetView,
 } from "@gorhom/bottom-sheet";
+import { toast } from "sonner-native";
 
 interface ISignUpAndActivateAccountBottomSheetProps {
   ref: React.Ref<ISignInBottomSheet>;
@@ -32,35 +33,52 @@ export function SignUpBottomSheet({
   const { bottom } = useSafeAreaInsets();
   const { signUp } = useAuth();
 
+  const steps = [
+    {
+      Component: AccountStep,
+      fields: [
+        "name",
+        "email",
+        "password",
+        "confirmPassword",
+        "phone",
+        "birthDate",
+        "gender",
+      ] as const,
+    },
+    { Component: BeltStep, fields: ["beltId"] as const },
+  ];
+  const currentStep = steps[currentStepIndex];
+  const isLastStep = currentStepIndex === steps.length - 1;
+
   useImperativeHandle(
     ref,
     () => ({
       open: () => bottomSheetModalRef.current?.present(),
-      close: () => bottomSheetModalRef.current?.close(),
+      close: () => bottomSheetModalRef.current?.dismiss(),
     }),
     []
   );
 
   function handlePreviousStep() {
     if (currentStepIndex === 0) {
-      bottomSheetModalRef.current?.close();
+      bottomSheetModalRef.current?.dismiss();
       return;
     }
 
     setCurrentStepIndex((prevStep) => prevStep - 1);
   }
 
-  function handleNextStep() {
-    setCurrentStepIndex((prevStep) => prevStep + 1);
-  }
-
-  const steps = [{ Component: AccountStep }, { Component: BeltStep }];
-  const currentStep = steps[currentStepIndex];
-  const isLastStep = currentStepIndex === steps.length - 1;
-
   const form = useForm({
     resolver: zodResolver(signUpSchema),
   });
+
+  async function handleNextStep() {
+    const isValid = await form.trigger(currentStep.fields as any);
+    if (!isValid) return;
+
+    setCurrentStepIndex((prevStep) => prevStep + 1);
+  }
 
   const handleSubmit = form.handleSubmit(async (formData) => {
     const [day, month, year] = formData.birthDate.split("/");
@@ -75,17 +93,21 @@ export function SignUpBottomSheet({
         password: formData.password,
         phone: formData.phone || "",
       });
-      bottomSheetModalRef.current?.close();
+      toast.success("Sua conta foi criada com sucesso!");
+      bottomSheetModalRef.current?.dismiss();
     } catch (error) {
       if (isAxiosError(error)) {
-        Alert.alert(error.response?.data.message);
+        toast.error(error.response?.data.message);
       }
     }
   });
 
   return (
     <BottomSheetModalProvider>
-      <BottomSheetModal ref={bottomSheetModalRef}>
+      <BottomSheetModal
+        ref={bottomSheetModalRef}
+        onDismiss={() => form.reset()}
+      >
         <BottomSheetView style={[styles.container, { paddingBottom: bottom }]}>
           <FormProvider {...form}>
             <currentStep.Component />

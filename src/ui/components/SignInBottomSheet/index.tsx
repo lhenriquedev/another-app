@@ -1,5 +1,5 @@
 import React, { useImperativeHandle, useRef } from "react";
-import { Alert, TextInput, View } from "react-native";
+import { TextInput, View } from "react-native";
 import { AppText } from "../AppText";
 import { Button } from "../Button";
 import { FormGroup } from "../FormGroup";
@@ -19,6 +19,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAuth } from "@app/contexts/AuthContext";
 import { isAxiosError } from "axios";
+import { toast } from "sonner-native";
 
 const signInSchema = z.object({
   email: z.email(),
@@ -52,9 +53,8 @@ export function SignInBottomSheet({ ref }: ISignInBottomSheetProps) {
       await signIn(formData);
     } catch (error) {
       if (isAxiosError(error)) {
-        Alert.alert(error.response?.data.message);
+        toast.error(error.response?.data.message);
       }
-      Alert.alert("Erro ao fazer login");
     }
   });
 
