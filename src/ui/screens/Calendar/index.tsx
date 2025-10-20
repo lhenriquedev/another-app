@@ -1,7 +1,6 @@
-import { View } from "react-native";
+import { RefreshControl, View } from "react-native";
 import { styles } from "./styles";
 import { ClassList } from "@ui/components/ClassesList";
-import { AppHeader } from "@ui/components/AppHeader";
 import { ClassesListDatePicker } from "@ui/components/ClassesList/ClassesListPicker";
 import { useRef, useState } from "react";
 import { useClasses } from "@ui/components/ClassesList/useClasses";
@@ -16,6 +15,7 @@ import { IClassListBottomSheet } from "@ui/components/ClassesList/IClassListBott
 import { ClassListBottomSheet } from "@ui/components/ClassesList/ClassListBottomSheet";
 import { FlashList } from "@shopify/flash-list";
 import { ClassListCard } from "@ui/components/ClassesList/ClassListCard";
+import { HomeHeader } from "@ui/components/HomeHeader";
 
 export function CalendarScreen() {
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
@@ -29,6 +29,7 @@ export function CalendarScreen() {
     isLoading,
     isError,
     refetch,
+    isFetching,
   } = useClasses({
     date: formattedDate,
     order: "asc",
@@ -53,7 +54,7 @@ export function CalendarScreen() {
 
   return (
     <View style={styles.container}>
-      <AppHeader />
+      <HomeHeader />
 
       <ClassesListDatePicker
         selectedDate={selectedDate}
@@ -66,6 +67,8 @@ export function CalendarScreen() {
         <FadeSlideView style={{ flex: 1 }}>
           <ClassList>
             <FlashList
+              onRefresh={refetch}
+              refreshControl={<RefreshControl refreshing={isFetching} />}
               data={classes}
               renderItem={({ item }) => (
                 <ClassListCard

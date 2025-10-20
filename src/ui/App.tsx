@@ -15,8 +15,11 @@ import { AuthStack } from "@app/navigation/AuthStack";
 import { useEffect } from "react";
 import * as SplashScreen from "expo-splash-screen";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { Toaster } from "sonner-native";
 
 SplashScreen.preventAutoHideAsync();
+
+const queryClient = new QueryClient();
 
 const RootLayout = () => {
   const { isLoggedIn, isLoading } = useAuth();
@@ -47,8 +50,6 @@ const RootLayout = () => {
   );
 };
 
-const queryClient = new QueryClient();
-
 export function App() {
   return (
     <GestureHandlerRootView>
@@ -56,6 +57,7 @@ export function App() {
         <QueryClientProvider client={queryClient}>
           <AuthProvider>
             <RootLayout />
+            <Toaster richColors />
           </AuthProvider>
         </QueryClientProvider>
       </SafeAreaProvider>

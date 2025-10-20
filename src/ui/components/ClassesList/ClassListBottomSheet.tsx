@@ -1,9 +1,21 @@
+import { View } from "react-native";
 import { AppText } from "../AppText";
+import { BELTS, BeltType } from "@app/hooks/useBelts";
 import { Button } from "../Button";
+import { ClassDetailsSkeleton } from "./ClassDetailsSkeleton";
+import { ClassListBottomSheetCard } from "./ClassListBottomSheetCard";
+import { EmptyState } from "../EmptyState";
+import { FlashList } from "@shopify/flash-list";
+import { formatTime } from "./utils";
 import { IClassListBottomSheet } from "./IClassListBottomSheet";
-import { Alert, View } from "react-native";
+import { isAxiosError } from "axios";
 import { styles } from "./styles";
+import { Target } from "lucide-react-native";
+import { useAuth } from "@app/contexts/AuthContext";
 import { useCallback, useImperativeHandle, useRef } from "react";
+import { useCancelCheckin } from "@app/hooks/useCancelCheckin";
+import { useClassById } from "@app/hooks/useClassById";
+import { useCreateCheckin } from "@app/hooks/useCreateCheckin";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import {
   BottomSheetBackdrop,
@@ -11,18 +23,7 @@ import {
   BottomSheetModalProvider,
   BottomSheetView,
 } from "@gorhom/bottom-sheet";
-import { ClassListBottomSheetCard } from "./ClassListBottomSheetCard";
-import { FlashList } from "@shopify/flash-list";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { httpClient } from "@app/services/httpClient";
-import { IClassDetails } from "./class.types";
-import { formatTime } from "./utils";
-import { EmptyState } from "../EmptyState";
-import { Target } from "lucide-react-native";
-import { ClassDetailsSkeleton } from "./ClassDetailsSkeleton";
-import { BELTS, BeltType } from "@app/hooks/useBelts";
-import { isAxiosError } from "axios";
-import { useAuth } from "@app/contexts/AuthContext";
+import { toast } from "sonner-native";
 
 interface IClassListBottomSheetProps {
   ref: React.Ref<IClassListBottomSheet>;
@@ -34,21 +35,10 @@ export function ClassListBottomSheet({
   ref,
   selectedClassId,
 }: IClassListBottomSheetProps) {
-  const bottomSheetModalRef = useRef<BottomSheetModal>(null);
-  const { bottom } = useSafeAreaInsets();
-
   const { user } = useAuth();
 
-  const { data: classDetails, isLoading } = useQuery({
-    queryKey: ["classe-by-id", selectedClassId],
-    queryFn: async () => {
-      const { data } = await httpClient.get<IClassDetails>(
-        `/classes/${selectedClassId}`
-      );
-      return data;
-    },
-    enabled: !!selectedClassId,
-  });
+  const bottomSheetModalRef = useRef<BottomSheetModal>(null);
+  const { bottom } = useSafeAreaInsets();
 
   useImperativeHandle(
     ref,
@@ -59,6 +49,44 @@ export function ClassListBottomSheet({
     }),
     []
   );
+
+  const { data: classDetails, isLoading } = useClassById(selectedClassId!);
+
+  const { mutateAsync: createCheckin, isPending: isCreatingCheckin } =
+    useCreateCheckin(selectedClassId!);
+
+  const { mutateAsync: cancelCheckin, isPending: isCancellingCheckin } =
+    useCancelCheckin(selectedClassId!);
+
+  const handleCheckin = async () => {
+    try {
+      await createCheckin();
+      toast.success("Check-in realizado com sucesso!");
+      bottomSheetModalRef.current?.close();
+    } catch (error) {
+      if (isAxiosError(error)) {
+        toast.error(error.response?.data.message);
+      }
+    }
+  };
+
+  const handleCancelCheckin = async () => {
+    try {
+      await cancelCheckin();
+      toast.success("Check-in cancelado com sucesso!");
+      bottomSheetModalRef.current?.close();
+    } catch (error) {
+      if (isAxiosError(error)) {
+        toast.error(error.response?.data.message);
+      }
+    }
+  };
+
+  const currentUserInClass = classDetails?.students.find(
+    (u) => u.id === user?.id
+  );
+  const isCurrentUserInClass = !!currentUserInClass;
+  const isNotStarted = classDetails?.status === "not-started";
 
   const renderBackdrop = useCallback(
     (props: any) => (
@@ -72,65 +100,6 @@ export function ClassListBottomSheet({
     ),
     []
   );
-
-  const { mutateAsync: createCheckin, isPending: isCreatingCheckin } =
-    useMutation({
-      mutationFn: async () => {
-        const { data } = await httpClient.post(`/create-checkin`, {
-          classId: selectedClassId,
-        });
-
-        return data;
-      },
-      onSuccess(data, variables, onMutateResult, context) {
-        context.client.invalidateQueries({ queryKey: ["classe-by-id"] });
-      },
-    });
-
-  const { mutateAsync: cancelCheckin, isPending: isCancellingCheckin } =
-    useMutation({
-      mutationFn: async () => {
-        const { data } = await httpClient.patch(`/cancel-checkin`, {
-          classId: selectedClassId,
-        });
-
-        return data;
-      },
-      onSuccess(data, variables, onMutateResult, context) {
-        context.client.invalidateQueries({
-          queryKey: ["classe-by-id"],
-        });
-        context.client.invalidateQueries({
-          queryKey: ["user"],
-        });
-      },
-    });
-
-  const handleCheckin = async () => {
-    try {
-      await createCheckin();
-    } catch (error) {
-      if (isAxiosError(error)) {
-        Alert.alert(error.response?.data.message);
-      }
-    }
-  };
-
-  const handleCancelCheckin = async () => {
-    try {
-      await cancelCheckin();
-    } catch (error) {
-      if (isAxiosError(error)) {
-        Alert.alert(error.response?.data.message);
-      }
-    }
-  };
-
-  const currentUser = classDetails?.students.find(
-    (_user) => _user.id === user?.id
-  );
-
-  const isCurrentUserInClass = !!currentUser;
 
   return (
     <BottomSheetModalProvider>
@@ -160,7 +129,9 @@ export function ClassListBottomSheet({
                 ListEmptyComponent={
                   <EmptyState
                     title="Nenhum aluno fez check-in"
-                    description="Seja o primeiro a entrar na aula"
+                    description={
+                      isNotStarted ? "Seja o primeiro a entrar na aula" : ""
+                    }
                     icon={<Target />}
                   />
                 }
@@ -173,33 +144,31 @@ export function ClassListBottomSheet({
                     checkedAt={formatTime(item.checkin?.completedAt ?? "")}
                     // resolver esse b.o
                     checkinStatus={item.checkin!.status}
-                    isCurrentUserInClass={item.id === currentUser?.id}
+                    isCurrentUserInClass={item.id === currentUserInClass?.id}
                   />
                 )}
               />
 
-              {classDetails?.status === "not-started" &&
-                !isCurrentUserInClass && (
-                  <Button
-                    disabled={isCreatingCheckin}
-                    loading={isCreatingCheckin}
-                    onPress={handleCheckin}
-                  >
-                    Check-in
-                  </Button>
-                )}
+              {isNotStarted && !isCurrentUserInClass && (
+                <Button
+                  disabled={isCreatingCheckin}
+                  loading={isCreatingCheckin}
+                  onPress={handleCheckin}
+                >
+                  Check-in
+                </Button>
+              )}
 
-              {classDetails?.status === "not-started" &&
-                isCurrentUserInClass && (
-                  <Button
-                    variant="danger"
-                    disabled={isCancellingCheckin}
-                    loading={isCancellingCheckin}
-                    onPress={handleCancelCheckin}
-                  >
-                    Cancelar check-in
-                  </Button>
-                )}
+              {isNotStarted && isCurrentUserInClass && (
+                <Button
+                  variant="danger"
+                  disabled={isCancellingCheckin}
+                  loading={isCancellingCheckin}
+                  onPress={handleCancelCheckin}
+                >
+                  Cancelar check-in
+                </Button>
+              )}
             </View>
           )}
         </BottomSheetView>

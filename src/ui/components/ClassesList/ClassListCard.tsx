@@ -3,6 +3,7 @@ import { styles } from "./styles";
 import { IClass } from "./class.types";
 import { formatTime } from "./utils";
 import { AppText } from "../AppText";
+import { Users } from "lucide-react-native";
 
 interface IClassListCard {
   item: IClass;
@@ -35,6 +36,16 @@ export function ClassListCard({ item, onClassPress }: IClassListCard) {
 
           <View style={styles.detailRow}>
             <AppText size="sm">{item.category.type}</AppText>
+          </View>
+        </View>
+
+        <View style={styles.classDetailsStudentsContainer}>
+          <AppText size="sm">Alunos</AppText>
+          <View style={styles.classDetailsStudentsNumber}>
+            <Users size={18} />
+            <AppText weight="semiBold">
+              {item.checkinsSummary.total}/{item.capacity}
+            </AppText>
           </View>
         </View>
       </Pressable>

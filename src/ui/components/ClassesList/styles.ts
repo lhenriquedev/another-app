@@ -7,7 +7,6 @@ export const styles = StyleSheet.create({
   },
   contentContainer: {
     padding: 16,
-
   },
   bottomSheetContainer: {
     padding: 16,
@@ -60,6 +59,9 @@ export const styles = StyleSheet.create({
   },
   classItem: {
     flex: 1,
+    justifyContent: 'space-between',
+    alignItems: 'flex-end',
+    flexDirection: 'row',
     padding: 16,
     backgroundColor: theme.colors.white[400],
     borderRadius: 10,
@@ -111,10 +113,26 @@ export const styles = StyleSheet.create({
   },
   time: {
     fontSize: 14,
-    color: '#666',
+    color: theme.colors.white[700],
   },
   instructor: {
     fontSize: 14,
-    color: '#666',
+    color: theme.colors.white[700],
+  },
+  classDetailsStudentsContainer: {
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end',
+    gap: 4,
+  },
+
+  classDetailsStudentsNumber: {
+    backgroundColor: theme.colors.white[600],
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingVertical: 4,
+    paddingHorizontal: 8,
+    width: 50,
+    borderRadius: 10,
   },
 });
