@@ -4,13 +4,15 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { createContext, use, useCallback, useEffect, useState } from "react";
 
 type User = {
+  id: string;
   name: string;
   email: string;
   isActive: boolean;
   belt: "white" | "blue" | "purple" | "brown" | "black";
-  requiredClassesInCurrentBelt: number;
-  checkinsThisMonth: number;
-  currentUserTotalCheckins: number;
+  phone: string;
+  birthDate: string;
+  gender: "male" | "female";
+  totalCheckins: number;
 };
 
 type SignInParams = {
@@ -23,6 +25,9 @@ type SignUpParams = {
   password: string;
   name: string;
   beltId: string;
+  birthDate: string;
+  phone: string;
+  gender: string;
 };
 
 interface IAuthContextValue {

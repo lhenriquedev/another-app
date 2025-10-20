@@ -9,11 +9,11 @@ import { theme } from "@ui/styles/theme";
 import { SignInBottomSheet } from "@ui/components/SignInBottomSheet";
 import { useRef } from "react";
 import { ISignInBottomSheet } from "@ui/components/SignInBottomSheet/ISignInBottomSheet";
-import { SignUpAndActivateAccountBottomSheet } from "@ui/components/SignUpAndActivateAccountBottomSheet";
+import { SignUpBottomSheet } from "@ui/components/SignUpBottomSheet";
 
 export function Welcome() {
   const signInBottomSheetRef = useRef<ISignInBottomSheet>(null);
-  const signUpAndActivateAccount = useRef<ISignInBottomSheet>(null);
+  const signUpBottomSheetRef = useRef<ISignInBottomSheet>(null);
 
   return (
     <>
@@ -38,7 +38,7 @@ export function Welcome() {
             <View style={styles.ctaContent}>
               <Button
                 style={{}}
-                onPress={() => signUpAndActivateAccount.current?.open()}
+                onPress={() => signUpBottomSheetRef.current?.open()}
               >
                 Criar minha conta
               </Button>
@@ -64,7 +64,7 @@ export function Welcome() {
       </ImageBackground>
 
       <SignInBottomSheet ref={signInBottomSheetRef} />
-      <SignUpAndActivateAccountBottomSheet ref={signUpAndActivateAccount} />
+      <SignUpBottomSheet ref={signUpBottomSheetRef} />
     </>
   );
 }

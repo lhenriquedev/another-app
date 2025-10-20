@@ -1,5 +1,10 @@
 import { AppText } from "@ui/components/AppText";
-import { Animated, TouchableOpacity, View, LayoutChangeEvent } from "react-native";
+import {
+  Animated,
+  TouchableOpacity,
+  View,
+  LayoutChangeEvent,
+} from "react-native";
 import { styles } from "./styles";
 import { SelectedTab } from ".";
 import { theme } from "@ui/styles/theme";
@@ -12,11 +17,17 @@ interface ProfileTabProps {
 
 export function ProfileTab({ selectedTab, onSelectedTab }: ProfileTabProps) {
   const translateX = useRef(new Animated.Value(0)).current;
-  const [tabLayouts, setTabLayouts] = useState<{ general: number; info: number }>({
+  const [tabLayouts, setTabLayouts] = useState<{
+    general: number;
+    info: number;
+  }>({
     general: 0,
     info: 0,
   });
-  const [tabPositions, setTabPositions] = useState<{ general: number; info: number }>({
+  const [tabPositions, setTabPositions] = useState<{
+    general: number;
+    info: number;
+  }>({
     general: 0,
     info: 0,
   });
@@ -33,23 +44,20 @@ export function ProfileTab({ selectedTab, onSelectedTab }: ProfileTabProps) {
     }).start();
   }, [selectedTab, tabPositions]);
 
-  const handleLayout =
-    (tab: "general" | "info") =>
-      (e: LayoutChangeEvent) => {
-        const { x, width } = e.nativeEvent.layout;
-        setTabLayouts((prev) => ({ ...prev, [tab]: width }));
-        setTabPositions((prev) => ({ ...prev, [tab]: x }));
-      };
+  const handleLayout = (tab: "general" | "info") => (e: LayoutChangeEvent) => {
+    const { x, width } = e.nativeEvent.layout;
+    setTabLayouts((prev) => ({ ...prev, [tab]: width }));
+    setTabPositions((prev) => ({ ...prev, [tab]: x }));
+  };
 
   const activeWidth =
     selectedTab === "general" ? tabLayouts.general : tabLayouts.info;
 
   return (
     <View style={styles.profileTabContainer}>
-      {/* Aba Geral */}
       <TouchableOpacity
         onLayout={handleLayout("general")}
-        style={styles.profileTabButton}
+        style={[styles.profileTabButton, { borderTopLeftRadius: 10 }]}
         onPress={() => onSelectedTab("general")}
       >
         <AppText
@@ -64,10 +72,9 @@ export function ProfileTab({ selectedTab, onSelectedTab }: ProfileTabProps) {
         </AppText>
       </TouchableOpacity>
 
-      {/* Aba Informações */}
       <TouchableOpacity
         onLayout={handleLayout("info")}
-        style={styles.profileTabButton}
+        style={[styles.profileTabButton, { borderTopRightRadius: 10 }]}
         onPress={() => onSelectedTab("info")}
       >
         <AppText

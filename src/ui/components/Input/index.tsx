@@ -6,6 +6,7 @@ import React, { useState } from "react";
 type BaseTextInputProps = Omit<TextInputProps, "readOnly">;
 
 export interface InputProps extends BaseTextInputProps {
+  mask?: string;
   error?: boolean;
   disabled?: boolean;
   ref?: React.Ref<TextInput>;
@@ -16,11 +17,15 @@ export function Input({
   style,
   error,
   disabled,
+  mask,
   InputComponent = TextInput,
+  onChangeText,
   onFocus,
   onBlur,
   ...props
 }: InputProps) {
+  const [maskedValue, setMaskedValue] = useState("");
+
   const [isFocused, setIsFocused] = useState(false);
 
   function handleFocus(event: FocusEvent) {
@@ -30,7 +35,14 @@ export function Input({
 
   function handleBlur(event: BlurEvent) {
     setIsFocused(false);
+
     onBlur?.(event);
+  }
+
+  function handleChangeText(text: string) {
+    const value = mask ? applyMask(text, mask) : text;
+    setMaskedValue(value);
+    onChangeText?.(value);
   }
 
   return (
@@ -43,9 +55,27 @@ export function Input({
       ]}
       placeholderTextColor={theme.colors.platinum[800]}
       readOnly={disabled}
+      value={mask ? maskedValue : props.value}
+      onChangeText={handleChangeText}
       onFocus={handleFocus}
       onBlur={handleBlur}
       {...props}
     />
   );
+}
+
+function applyMask(value: string, mask: string): string {
+  const cleanValue = value.replace(/\D/g, "");
+  let result = "";
+  let j = 0;
+
+  for (let i = 0; i < mask.length && j < cleanValue.length; i++) {
+    if (mask[i] === "9") {
+      result += cleanValue[j++];
+    } else {
+      result += mask[i];
+    }
+  }
+
+  return result;
 }

@@ -6,47 +6,19 @@ import { AppText } from "../AppText";
 
 interface IClassListCard {
   item: IClass;
-  isLast: boolean;
-  isFirst: boolean;
-  isLastInGroup: boolean;
-  onClassPress: (classId: IClass) => void;
+  onClassPress: (classId: string) => void;
 }
 
-export function ClassListCard({
-  item,
-  isLast,
-  isFirst,
-  isLastInGroup,
-  onClassPress,
-}: IClassListCard) {
+export function ClassListCard({ item, onClassPress }: IClassListCard) {
   return (
-    <View
-      style={[
-        styles.cardWrapper,
-        isLastInGroup && styles.cardWrapperWithBorder,
-      ]}
-      key={item.id}
-    >
-      <View style={styles.timelineContainer}>
-        {isFirst ? (
-          <>
-            <View style={styles.timelineDot} />
-            {!isLast && <View style={styles.timelineLine} />}
-          </>
-        ) : (
-          <>
-            <View style={styles.timelineLine} />
-          </>
-        )}
-      </View>
-
+    <View style={styles.cardWrapper} key={item.id}>
       <Pressable
         style={({ pressed }) => [
           styles.classItem,
           getStatusStyle(item.status),
           pressed && styles.classItemPressed,
         ]}
-        onPress={() => onClassPress?.(item)}
+        onPress={() => onClassPress?.(item.id)}
       >
         <View style={styles.classDetails}>
           <View style={styles.detailRow}>

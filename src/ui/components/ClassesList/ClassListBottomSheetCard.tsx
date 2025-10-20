@@ -2,13 +2,15 @@ import { theme } from "@ui/styles/theme";
 import { Image, StyleSheet, View } from "react-native";
 import { AppText } from "../AppText";
 import { Ban, Check } from "lucide-react-native";
-import { BELTS, BeltType } from "@ui/screens/Profile/ProfileGeneral";
+import { BELTS, BeltType } from "@app/hooks/useBelts";
 
 interface IClassListBottomSheetCardProps {
   avatarUrl: string;
   belt: string;
   checkinStatus: "done" | "cancelled";
   checkedAt: string;
+  name: string;
+  isCurrentUserInClass: boolean;
 }
 
 export function ClassListBottomSheetCard({
@@ -16,10 +18,22 @@ export function ClassListBottomSheetCard({
   belt,
   checkedAt,
   checkinStatus,
+  name,
+  isCurrentUserInClass,
 }: IClassListBottomSheetCardProps) {
   return (
     <View style={{ flex: 1, gap: 16 }}>
-      <View style={styles.container}>
+      <View
+        style={[
+          styles.container,
+          isCurrentUserInClass
+            ? {
+                backgroundColor: theme.colors.white[600],
+                borderColor: theme.colors.white[800],
+              }
+            : {},
+        ]}
+      >
         <View style={styles.content}>
           <Image
             resizeMode="cover"
@@ -29,7 +43,9 @@ export function ClassListBottomSheetCard({
             }}
           />
           <View>
-            <AppText weight="semiBold">Henrique</AppText>
+            <AppText weight="semiBold">
+              {isCurrentUserInClass ? "Você" : name}
+            </AppText>
             <AppText color={theme.colors.platinum[800]} size="xs">
               {BELTS[belt as BeltType]}
             </AppText>

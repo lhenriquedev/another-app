@@ -11,15 +11,19 @@ interface IOptionSelectorProps {
     icon: string;
     title: string;
   }[];
+  isRow?: boolean;
+  fullWidth?: boolean;
 }
 
 export function OptionsSelector({
   options,
   value,
+  isRow = false,
+  fullWidth = false,
   onChange,
 }: IOptionSelectorProps) {
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, isRow ? { flexDirection: "row" } : {}]}>
       {options.map((option) => (
         <TouchableOpacity
           style={[
@@ -30,6 +34,7 @@ export function OptionsSelector({
                   borderColor: theme.colors.black.DEFAULT,
                 }
               : {},
+            fullWidth ? { flex: 1 } : {},
           ]}
           key={option.value}
           onPress={() => onChange?.(option.value)}

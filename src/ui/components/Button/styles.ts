@@ -25,6 +25,9 @@ export const buttonStyles = createVariants({
       ghost: {
         backgroundColor: 'transparent',
       },
+      danger: {
+        backgroundColor: theme.colors.support.red,
+      },
     },
     size: {
       default: {

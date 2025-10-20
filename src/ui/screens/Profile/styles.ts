@@ -28,6 +28,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   profileTabContainer: {
+    marginTop: 24,
     flexDirection: 'row',
     position: 'relative',
     borderBottomWidth: 1,
@@ -35,6 +36,7 @@ export const styles = StyleSheet.create({
     zIndex: 20,
   },
   profileTabButton: {
+    backgroundColor: theme.colors.white[400],
     flex: 1,
     alignItems: 'center',
     paddingVertical: 16,
@@ -47,6 +49,7 @@ export const styles = StyleSheet.create({
     gap: 16,
   },
   profileCardContent: {
+    backgroundColor: theme.colors.white[400],
     borderWidth: 1,
     borderColor: theme.colors.platinum.DEFAULT,
     paddingVertical: 12,

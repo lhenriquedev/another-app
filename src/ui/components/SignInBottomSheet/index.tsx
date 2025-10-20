@@ -52,7 +52,7 @@ export function SignInBottomSheet({ ref }: ISignInBottomSheetProps) {
       await signIn(formData);
     } catch (error) {
       if (isAxiosError(error)) {
-        console.log(JSON.stringify(error, null, 2));
+        Alert.alert(error.response?.data.message);
       }
       Alert.alert("Erro ao fazer login");
     }

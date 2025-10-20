@@ -2,26 +2,17 @@ import { Platform, ScrollView, View } from "react-native";
 import { ProfileCard } from "./ProfileCard";
 import { styles } from "./styles";
 import {
-  Calendar,
-  ChartNoAxesColumnIncreasing,
+  // Calendar,
+  // ChartNoAxesColumnIncreasing,
   Target,
   User,
 } from "lucide-react-native";
-import { ProfileCardBelt } from "./ProfileBelt";
+// import { ProfileCardBelt } from "./ProfileBelt";
 import { ProfileActivity } from "./ProfileActivity";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { theme } from "@ui/styles/theme";
 import { useAuth } from "@app/contexts/AuthContext";
-
-export const BELTS = {
-  white: "Branca",
-  blue: "Azul",
-  purple: "Roxa",
-  brown: "Marrom",
-  black: "Preta",
-} as const;
-
-export type BeltType = keyof typeof BELTS;
+import { BELTS, BeltType } from "@app/hooks/useBelts";
 
 export function ProfileGeneral() {
   const { user } = useAuth();
@@ -43,7 +34,7 @@ export function ProfileGeneral() {
           <ProfileCard
             icon={<Target color={theme.colors.white.DEFAULT} />}
             title="Total de Check-ins"
-            subtitle={user?.currentUserTotalCheckins}
+            subtitle={user?.totalCheckins}
           />
           <ProfileCard
             icon={<User color={theme.colors.white.DEFAULT} />}
@@ -51,26 +42,23 @@ export function ProfileGeneral() {
             subtitle={BELTS[user?.belt as BeltType]}
           />
         </View>
-        <View style={styles.profileCardContainer}>
+        {/* <View style={styles.profileCardContainer}>
           <ProfileCard
             icon={<Calendar color={theme.colors.white.DEFAULT} />}
             title="Check-ins este mês"
             subtitle={user?.checkinsThisMonth}
           />
-        </View>
+        </View> */}
 
-        <View style={styles.profileCardContainer}>
+        {/* <View style={styles.profileCardContainer}>
           <ProfileCardBelt
             icon={
               <ChartNoAxesColumnIncreasing color={theme.colors.white.DEFAULT} />
             }
             title="Progresso para Azul"
-            subtitle={
-              user &&
-              user?.requiredClassesInCurrentBelt - user!.checkinsThisMonth
-            }
+            subtitle={250 - user!.totalCheckins}
           />
-        </View>
+        </View> */}
 
         <View>
           <ProfileActivity />

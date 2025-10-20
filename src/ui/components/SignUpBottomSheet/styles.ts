@@ -6,6 +6,11 @@ export const styles = StyleSheet.create({
   },
   form: {
     gap: 16,
-    marginTop: 24,
+    marginVertical: 32,
+  },
+
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
 });

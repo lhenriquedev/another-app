@@ -47,7 +47,6 @@ export const DateItem = memo(DateItemComponent);
 const styles = StyleSheet.create({
   container: {
     paddingVertical: 8,
-    // paddingHorizontal: 8,
     marginHorizontal: 4,
     alignItems: "center",
     justifyContent: "center",
@@ -58,6 +57,8 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.08,
     shadowRadius: 2,
     elevation: 1,
+    borderWidth: 2,
+    borderColor: "transparent",
   },
   selected: {
     backgroundColor: theme.colors.black[500],

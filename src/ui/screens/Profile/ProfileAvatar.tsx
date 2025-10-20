@@ -7,8 +7,6 @@ import { theme } from "@ui/styles/theme";
 export function ProfileAvatar() {
   const { user } = useAuth();
 
-  console.log(user);
-
   return (
     <View style={styles.profileAvatarContainer}>
       <Image
