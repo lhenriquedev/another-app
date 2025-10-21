@@ -42,6 +42,7 @@ export function AppStack() {
         tabBarStyle: {
           height: 90,
           paddingTop: 8,
+          backgroundColor: theme.colors.white[400],
         },
       }}
     >

@@ -30,7 +30,7 @@ const colors = {
     600: '#b9f8cf',
     900: '#073B3A',
   },
-  background: '#f8fbfc',
+  background: '#f7f7f8',
 } as const;
 
 export const fontFamily = {

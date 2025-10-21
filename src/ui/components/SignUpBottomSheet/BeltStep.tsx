@@ -8,6 +8,8 @@ import { OptionsSelectorSkeleton } from "../OptionsSelector/OptionsSelectorSkele
 import { Controller, useFormContext } from "react-hook-form";
 import { SignUpFormData } from "./schema";
 import { FormGroup } from "../FormGroup";
+import { EmptyState } from "../EmptyState";
+import { Target } from "lucide-react-native";
 
 export function BeltStep() {
   const { control } = useFormContext<SignUpFormData>();
@@ -40,6 +42,10 @@ export function BeltStep() {
             </FormGroup>
           )}
         />
+      )}
+
+      {belts?.length === 0 && (
+        <EmptyState title="Nenhuma faixa cadastrada" icon={<Target />} />
       )}
     </View>
   );

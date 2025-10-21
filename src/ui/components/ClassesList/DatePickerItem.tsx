@@ -22,20 +22,23 @@ const DateItemComponent = ({
   itemWidth,
 }: DateItemProps) => {
   return (
-    <View>
-      <AppText size="xs" style={[isSelected && styles.selectedText]}>
+    <View style={[styles.container, { width: itemWidth }]}>
+      {/* Letra do dia da semana acima do botão */}
+      <AppText size="xs" style={styles.dayWeekText}>
         {dayWeek}
       </AppText>
+
+      {/* Botão circular com o número do dia */}
       <TouchableOpacity
         style={[
-          { width: itemWidth },
-          isSelected && styles.selected,
-          isToday && !isSelected && styles.today,
+          styles.button,
+          isSelected && styles.buttonSelected,
+          isToday && !isSelected && styles.buttonToday,
         ]}
         onPress={onPress}
         activeOpacity={0.7}
       >
-        <AppText style={[styles.day, isSelected && styles.selectedText]}>
+        <AppText style={[styles.dayText, isSelected && styles.dayTextSelected]}>
           {day}
         </AppText>
       </TouchableOpacity>
@@ -47,38 +50,42 @@ export const DateItem = memo(DateItemComponent);
 
 const styles = StyleSheet.create({
   container: {
-    paddingVertical: 8,
     marginHorizontal: 4,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: theme.colors.white[400],
-    borderRadius: 10,
-    shadowColor: theme.colors.black[700],
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.08,
-    shadowRadius: 2,
-    elevation: 1,
-    borderWidth: 2,
-    borderColor: "transparent",
   },
-  selected: {
-    backgroundColor: theme.colors.black[500],
+
+  dayWeekText: {
+    color: theme.colors.black[700],
+    marginBottom: 4,
+    fontWeight: "500",
   },
-  today: {
-    borderWidth: 2,
+
+  button: {
+    height: 40,
+    width: 40,
+    borderRadius: 9999,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "transparent",
+  },
+
+  buttonSelected: {
+    backgroundColor: theme.colors.black[800],
+  },
+
+  buttonToday: {
+    borderWidth: 1,
     borderColor: theme.colors.platinum[600],
   },
-  day: {
-    fontSize: 20,
-    fontWeight: "bold",
-    color: "#333",
-    marginBottom: 2,
+
+  dayText: {
+    fontSize: 16,
+    fontWeight: "600",
+    color: theme.colors.black[700],
   },
-  month: {
-    fontSize: 11,
-    color: "#666",
-  },
-  selectedText: {
-    color: "#fff",
+
+  dayTextSelected: {
+    color: theme.colors.white[400],
   },
 });

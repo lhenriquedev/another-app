@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
   classItem: {
     flex: 1,
     backgroundColor: theme.colors.white?.[400],
-    borderRadius: 12,
+    borderRadius: 4,
     padding: 16,
     borderLeftWidth: 4,
     borderLeftColor: "#E0E0E0",

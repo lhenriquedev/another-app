@@ -16,7 +16,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import {
   BottomSheetModal,
   BottomSheetModalProvider,
-  BottomSheetView,
+  BottomSheetScrollView,
 } from "@gorhom/bottom-sheet";
 import { toast } from "sonner-native";
 
@@ -109,12 +109,12 @@ export function SignUpBottomSheet({
         ref={bottomSheetModalRef}
         onDismiss={() => form.reset()}
       >
-        <BottomSheetView style={[styles.container, { paddingBottom: bottom }]}>
+        <BottomSheetScrollView style={[styles.container]}>
           <FormProvider {...form}>
             <currentStep.Component />
           </FormProvider>
 
-          <View style={styles.buttonContainer}>
+          <View style={[styles.buttonContainer, { paddingBottom: bottom }]}>
             <Button
               variant="secondary"
               size="icon"
@@ -136,7 +136,7 @@ export function SignUpBottomSheet({
               </Button>
             )}
           </View>
-        </BottomSheetView>
+        </BottomSheetScrollView>
       </BottomSheetModal>
     </BottomSheetModalProvider>
   );

@@ -8,7 +8,7 @@ export const styles = StyleSheet.create({
 
 export const inputStyles = createVariants({
   base: {
-    backgroundColor: theme.colors.white.DEFAULT,
+    backgroundColor: theme.colors.white[400],
     borderWidth: 1,
     borderRadius: 10,
     height: 52,

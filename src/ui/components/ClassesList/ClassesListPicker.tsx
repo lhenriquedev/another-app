@@ -1,11 +1,17 @@
 import React from "react";
-import { View, ScrollView, StyleSheet } from "react-native";
-import { useDatePicker } from "./useDatePicker";
+import {
+  View,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+} from "react-native";
+import { useDatePicker } from "@app/hooks/useDatePicker";
 import { DateItem } from "./DatePickerItem";
 import { theme } from "@ui/styles/theme";
+import { ChevronLeft, ChevronRight } from "lucide-react-native";
 
-const ITEM_WIDTH = 60;
-const PADDING_HORIZONTAL = 10;
+const ITEM_WIDTH = 40;
 const MARGIN_HORIZONTAL = 4;
 
 interface IClassListDatePickerProps {
@@ -25,10 +31,11 @@ export function ClassesListDatePicker({
     isDateToday,
     formatDate,
     handleScroll,
-    scrollToToday,
+    getFormattedMonthYear,
+    goToPreviousMonth,
+    goToNextMonth,
   } = useDatePicker({
     itemWidth: ITEM_WIDTH,
-    paddingHorizontal: PADDING_HORIZONTAL,
     marginHorizontal: MARGIN_HORIZONTAL,
     selectedDate,
     onDateChange,
@@ -36,6 +43,28 @@ export function ClassesListDatePicker({
 
   return (
     <View style={styles.container}>
+      <View style={styles.header}>
+        <TouchableOpacity
+          onPress={goToPreviousMonth}
+          style={styles.arrowButton}
+          hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+          activeOpacity={0.7}
+        >
+          <ChevronLeft />
+        </TouchableOpacity>
+
+        <Text style={styles.monthYearText}>{getFormattedMonthYear()}</Text>
+
+        <TouchableOpacity
+          onPress={goToNextMonth}
+          style={styles.arrowButton}
+          hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+          activeOpacity={0.7}
+        >
+          <ChevronRight />
+        </TouchableOpacity>
+      </View>
+
       <ScrollView
         ref={scrollViewRef}
         horizontal
@@ -43,7 +72,6 @@ export function ClassesListDatePicker({
         onScroll={handleScroll}
         scrollEventThrottle={16}
         contentContainerStyle={styles.scrollContent}
-        onContentSizeChange={scrollToToday}
       >
         {dates.map((date, index) => {
           const { day, dayWeek, month } = formatDate(date);
@@ -70,21 +98,33 @@ export function ClassesListDatePicker({
 
 const styles = StyleSheet.create({
   container: {
-    // paddingVertical: 20,
-    paddingBottom: 32,
+    paddingTop: 8,
+    paddingBottom: 16,
     backgroundColor: theme.colors.background,
   },
   header: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
     paddingHorizontal: 20,
-    paddingBottom: 15,
+    paddingBottom: 16,
   },
   monthYearText: {
-    fontSize: 24,
-    fontWeight: "bold",
-    color: "#333",
+    fontSize: 18,
+    fontWeight: "600",
+    color: theme.colors.black[600],
     textTransform: "capitalize",
+    flex: 1,
+    textAlign: "center",
+  },
+  arrowButton: {
+    padding: 8,
+    borderRadius: 8,
+    minWidth: 40,
+    alignItems: "center",
+    justifyContent: "center",
   },
   scrollContent: {
-    paddingHorizontal: PADDING_HORIZONTAL,
+    paddingHorizontal: 10,
   },
 });

@@ -11,60 +11,13 @@ export const styles = StyleSheet.create({
   bottomSheetContainer: {
     padding: 16,
   },
-  hourRangeGroup: {
-    flexDirection: 'row',
-    gap: 8,
-  },
-  hourColumn: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    gap: 2,
-  },
-  cardsColumn: {
-    flex: 1,
-  },
-  cardWrapper: {
-    flexDirection: 'row',
-    marginBottom: 12,
-  },
-  cardWrapperWithBorder: {
-    borderBottomWidth: 1,
-    borderBottomColor: theme.colors.platinum[600],
-    paddingBottom: 16,
-    marginBottom: 16,
-  },
-  timelineContainer: {
-    width: 30,
-    alignItems: 'center',
-    paddingTop: 8,
-  },
-  timelineDot: {
-    width: 8,
-    height: 8,
-    borderRadius: 6,
-    backgroundColor: theme.colors.white.DEFAULT,
-    borderWidth: 3,
-    borderColor: theme.colors.black.DEFAULT,
-    shadowColor: theme.colors.black.DEFAULT,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.3,
-    shadowRadius: 3,
-    elevation: 3,
-  },
-  timelineLine: {
-    width: 1,
-    flex: 1,
-    backgroundColor: theme.colors.platinum[600],
-    marginTop: 4,
-  },
   classItem: {
     flex: 1,
     justifyContent: 'space-between',
-    alignItems: 'flex-end',
-    flexDirection: 'row',
     padding: 16,
+    gap: 8,
     backgroundColor: theme.colors.white[400],
-    borderRadius: 10,
+    borderRadius: 4,
     shadowColor: theme.colors.black[700],
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.08,
@@ -72,67 +25,29 @@ export const styles = StyleSheet.create({
     elevation: 1,
     borderLeftWidth: 4,
   },
-  classItemPressed: {
-    opacity: 0.7,
-  },
-  classHeader: {
+  cardWrapper: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'flex-start',
     marginBottom: 12,
   },
-  classMainInfo: {
-    flex: 1,
-    marginRight: 12,
-  },
-
   title: {
-    fontSize: 17,
-    fontWeight: 'bold',
-    color: '#000',
-    marginBottom: 4,
-  },
-  statusBadge: {
-    paddingHorizontal: 10,
-    paddingVertical: 4,
-    borderRadius: 6,
-  },
-  classDetails: {
-    gap: 4,
-    // marginBottom: 12,
-  },
-  detailRow: {
+    flex: 1,
     flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
-    // marginBottom: 6,
-  },
-  detailIcon: {
-    fontSize: 14,
-    marginRight: 8,
-    width: 20,
-  },
-  time: {
-    fontSize: 14,
-    color: theme.colors.white[700],
   },
   instructor: {
-    fontSize: 14,
-    color: theme.colors.white[700],
-  },
-  classDetailsStudentsContainer: {
-    justifyContent: 'flex-end',
-    alignItems: 'flex-end',
-    gap: 4,
-  },
-
-  classDetailsStudentsNumber: {
-    backgroundColor: theme.colors.white[600],
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    gap: 4,
+  },
+  category: {
     paddingVertical: 4,
     paddingHorizontal: 8,
-    width: 50,
     borderRadius: 10,
+    alignSelf: 'flex-start',
+    backgroundColor: theme.colors.white[600],
+  },
+  pressed: {
+    opacity: 0.6,
   },
 });
