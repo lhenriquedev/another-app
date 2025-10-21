@@ -9,10 +9,12 @@ export const styles = StyleSheet.create({
   homeHeader: {
     paddingHorizontal: 16,
     backgroundColor: theme.colors.white[500],
+    marginBottom: 32,
   },
   homeHeaderContent: {
-    flexDirection: 'row',
     gap: 12,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   homeHeaderImage: {
     width: 48,

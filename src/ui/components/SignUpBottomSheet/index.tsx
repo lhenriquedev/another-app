@@ -95,6 +95,7 @@ export function SignUpBottomSheet({
       });
       toast.success("Sua conta foi criada com sucesso!");
       bottomSheetModalRef.current?.dismiss();
+      setCurrentStepIndex(0);
     } catch (error) {
       if (isAxiosError(error)) {
         toast.error(error.response?.data.message);

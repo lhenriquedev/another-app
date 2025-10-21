@@ -41,7 +41,7 @@ export function Button({
         disabled={disabled}
         {...props}
       >
-        {loading ? <ActivityIndicator /> : childEl}
+        {loading ? <ActivityIndicator color={"#fff"} /> : childEl}
       </Pressable>
     </View>
   );

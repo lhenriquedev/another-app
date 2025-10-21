@@ -1,6 +1,6 @@
 import { theme } from "@ui/styles/theme";
 import React, { memo } from "react";
-import { TouchableOpacity, StyleSheet } from "react-native";
+import { TouchableOpacity, StyleSheet, View } from "react-native";
 import { AppText } from "../AppText";
 
 interface DateItemProps {
@@ -22,23 +22,24 @@ const DateItemComponent = ({
   itemWidth,
 }: DateItemProps) => {
   return (
-    <TouchableOpacity
-      style={[
-        styles.container,
-        { width: itemWidth },
-        isSelected && styles.selected,
-        isToday && !isSelected && styles.today,
-      ]}
-      onPress={onPress}
-      activeOpacity={0.7}
-    >
+    <View>
       <AppText size="xs" style={[isSelected && styles.selectedText]}>
         {dayWeek}
       </AppText>
-      <AppText style={[styles.day, isSelected && styles.selectedText]}>
-        {day}
-      </AppText>
-    </TouchableOpacity>
+      <TouchableOpacity
+        style={[
+          { width: itemWidth },
+          isSelected && styles.selected,
+          isToday && !isSelected && styles.today,
+        ]}
+        onPress={onPress}
+        activeOpacity={0.7}
+      >
+        <AppText style={[styles.day, isSelected && styles.selectedText]}>
+          {day}
+        </AppText>
+      </TouchableOpacity>
+    </View>
   );
 };
 
