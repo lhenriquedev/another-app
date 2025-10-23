@@ -1,24 +1,27 @@
-import { RouteProp } from "@react-navigation/native";
 import {
-  createBottomTabNavigator,
   BottomTabNavigationProp,
   BottomTabScreenProps,
+  createBottomTabNavigator,
 } from "@react-navigation/bottom-tabs";
-import { Profile } from "@ui/screens/Profile";
-import { Calendar, User } from "lucide-react-native";
-import { theme } from "@ui/styles/theme";
+import { RouteProp } from "@react-navigation/native";
 import { CalendarScreen } from "@ui/screens/Calendar";
+import { Profile } from "@ui/screens/Profile";
+import { Ranking } from "@ui/screens/Ranking";
+import { theme } from "@ui/styles/theme";
+import { Calendar, ChartNoAxesColumn, User } from "lucide-react-native";
 
 export const routeTitles = {
   // Home: "Início",
   Profile: "Perfil",
   Calendar: "Calendário",
+  Ranking: "Ranking",
 } as const;
 
 export type AppStackParamList = {
   // Home: undefined;
   Profile: undefined;
   Calendar: undefined;
+  Ranking: undefined;
 };
 
 export type RouteNames = keyof typeof routeTitles;
@@ -59,6 +62,22 @@ export function AppStack() {
             />
           ),
           tabBarLabel: "Calendário",
+          tabBarActiveTintColor: theme.colors.black[800],
+        }}
+      />
+      <BottomTab.Screen
+        name="Ranking"
+        component={Ranking}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <ChartNoAxesColumn
+              size={24}
+              color={
+                focused ? theme.colors.black[700] : theme.colors.platinum[900]
+              }
+            />
+          ),
+          tabBarLabel: "Ranking",
           tabBarActiveTintColor: theme.colors.black[800],
         }}
       />
