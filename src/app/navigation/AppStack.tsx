@@ -42,9 +42,10 @@ export function AppStack() {
     <BottomTab.Navigator
       screenOptions={{
         headerShown: false,
+        animation: "shift",
         tabBarStyle: {
           height: 90,
-          paddingTop: 8,
+          // paddingTop: 8,
           backgroundColor: theme.colors.white[400],
         },
       }}
@@ -53,6 +54,7 @@ export function AppStack() {
         name="Calendar"
         component={CalendarScreen}
         options={{
+          tabBarActiveBackgroundColor: theme.colors.white[700],
           tabBarIcon: ({ focused }) => (
             <Calendar
               size={24}
@@ -69,6 +71,7 @@ export function AppStack() {
         name="Ranking"
         component={Ranking}
         options={{
+          tabBarActiveBackgroundColor: theme.colors.white[700],
           tabBarIcon: ({ focused }) => (
             <ChartNoAxesColumn
               size={24}
@@ -85,6 +88,7 @@ export function AppStack() {
         name="Profile"
         component={Profile}
         options={{
+          tabBarActiveBackgroundColor: theme.colors.white[700],
           tabBarIcon: ({ focused }) => (
             <User
               size={24}
