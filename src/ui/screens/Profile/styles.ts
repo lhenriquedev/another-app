@@ -1,5 +1,5 @@
-import { theme } from '@ui/styles/theme';
-import { StyleSheet } from 'react-native';
+import { theme } from "@ui/styles/theme";
+import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
   container: {
@@ -11,9 +11,9 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   profileAvatarContainer: {
-    marginTop: 32,
-    alignItems: 'center',
-    justifyContent: 'center',
+    marginTop: 16,
+    alignItems: "center",
+    justifyContent: "center",
   },
   profileAvatar: {
     width: 84,
@@ -25,12 +25,12 @@ export const styles = StyleSheet.create({
     marginTop: 32,
     gap: 16,
     flex: 1,
-    justifyContent: 'space-between',
+    justifyContent: "space-between",
   },
   profileTabContainer: {
     marginTop: 24,
-    flexDirection: 'row',
-    position: 'relative',
+    flexDirection: "row",
+    position: "relative",
     borderBottomWidth: 1,
     borderColor: theme.colors.platinum.DEFAULT,
     zIndex: 20,
@@ -38,14 +38,14 @@ export const styles = StyleSheet.create({
   profileTabButton: {
     backgroundColor: theme.colors.white[400],
     flex: 1,
-    alignItems: 'center',
+    alignItems: "center",
     paddingVertical: 16,
   },
   profileGeneral: {
     gap: 16,
   },
   profileCardContainer: {
-    flexDirection: 'row',
+    flexDirection: "row",
     gap: 16,
   },
   profileCardContent: {
@@ -63,8 +63,8 @@ export const styles = StyleSheet.create({
     borderRadius: 10,
     width: 48,
     height: 48,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     marginBottom: 16,
   },
 
@@ -78,7 +78,7 @@ export const styles = StyleSheet.create({
   },
 
   profileCardActivityHeader: {
-    flexDirection: 'row',
+    flexDirection: "row",
     gap: 8,
   },
 
@@ -91,9 +91,9 @@ export const styles = StyleSheet.create({
     borderRadius: 10,
     paddingVertical: 14,
     paddingHorizontal: 16,
-    alignItems: 'center',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    alignItems: "center",
+    flexDirection: "row",
+    justifyContent: "space-between",
     borderWidth: 1,
     borderColor: theme.colors.platinum.DEFAULT,
   },
@@ -103,7 +103,7 @@ export const styles = StyleSheet.create({
   },
 
   animatedBorder: {
-    position: 'absolute',
+    position: "absolute",
     bottom: -2,
     left: 0,
     height: 2,

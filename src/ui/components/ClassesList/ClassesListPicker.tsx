@@ -1,15 +1,15 @@
+import { useDatePicker } from "@app/hooks/useDatePicker";
+import { theme } from "@ui/styles/theme";
+import { ChevronLeft, ChevronRight } from "lucide-react-native";
 import React from "react";
 import {
-  View,
   ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
+  View,
 } from "react-native";
-import { useDatePicker } from "@app/hooks/useDatePicker";
 import { DateItem } from "./DatePickerItem";
-import { theme } from "@ui/styles/theme";
-import { ChevronLeft, ChevronRight } from "lucide-react-native";
 
 const ITEM_WIDTH = 40;
 const MARGIN_HORIZONTAL = 4;

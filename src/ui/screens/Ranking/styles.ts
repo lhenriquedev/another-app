@@ -8,6 +8,7 @@ export const styles = StyleSheet.create({
   },
   rankingContainer: {},
   rankingPodiumContainer: {
+    marginTop: 16,
     paddingHorizontal: 16,
     flexDirection: "row",
     alignItems: "center",

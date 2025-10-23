@@ -1,21 +1,21 @@
-import { RefreshControl, View } from "react-native";
-import { styles } from "./styles";
+import { FlashList } from "@shopify/flash-list";
+import { AppHeader } from "@ui/components/AppHeader";
 import { ClassList } from "@ui/components/ClassesList";
 import { ClassesListDatePicker } from "@ui/components/ClassesList/ClassesListPicker";
-import { useRef, useState } from "react";
-import { useClasses } from "@ui/components/ClassesList/useClasses";
-import { format } from "date-fns";
+import { ClassListBottomSheet } from "@ui/components/ClassesList/ClassListBottomSheet";
+import { ClassListCard } from "@ui/components/ClassesList/ClassListCard";
 import { ClassListSkeleton } from "@ui/components/ClassesList/ClassListCardSkeleton";
 import {
   ErrorEmptyState,
   NoClassesEmptyState,
 } from "@ui/components/ClassesList/ClassListEmptyStates";
-import { FadeSlideView } from "@ui/components/FadeSlideView";
 import { IClassListBottomSheet } from "@ui/components/ClassesList/IClassListBottomSheet";
-import { ClassListBottomSheet } from "@ui/components/ClassesList/ClassListBottomSheet";
-import { FlashList } from "@shopify/flash-list";
-import { ClassListCard } from "@ui/components/ClassesList/ClassListCard";
-import { HomeHeader } from "@ui/components/HomeHeader";
+import { useClasses } from "@ui/components/ClassesList/useClasses";
+import { FadeSlideView } from "@ui/components/FadeSlideView";
+import { format } from "date-fns";
+import { useRef, useState } from "react";
+import { RefreshControl, View } from "react-native";
+import { styles } from "./styles";
 
 export function CalendarScreen() {
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
@@ -54,7 +54,7 @@ export function CalendarScreen() {
 
   return (
     <View style={styles.container}>
-      <HomeHeader />
+      <AppHeader />
 
       <ClassesListDatePicker
         selectedDate={selectedDate}

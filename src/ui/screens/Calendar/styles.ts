@@ -1,5 +1,5 @@
-import { theme } from '@ui/styles/theme';
-import { StyleSheet } from 'react-native';
+import { theme } from "@ui/styles/theme";
+import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
   container: {
@@ -9,14 +9,14 @@ export const styles = StyleSheet.create({
   homeHeader: {
     paddingHorizontal: 16,
     backgroundColor: theme.colors.white[400],
-    borderBottomWidth: .5,
+    borderBottomWidth: 0.5,
     borderBottomColor: theme.colors.white[700],
   },
   homeHeaderContent: {
     gap: 12,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
   homeHeaderImage: {
     width: 48,

@@ -1,16 +1,16 @@
-import { View } from "react-native";
-import { theme } from "@ui/styles/theme";
-import { styles } from "./styles";
-import { Button } from "../Button";
-import { ChevronLeftIcon } from "lucide-react-native";
-import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 import {
   AppStackNavigationsProps,
   AppStackParamList,
   routeTitles,
 } from "@app/navigation/AppStack";
-import { AppText } from "../AppText";
+import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
+import { theme } from "@ui/styles/theme";
+import { ChevronLeftIcon } from "lucide-react-native";
+import { View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { AppText } from "../AppText";
+import { Button } from "../Button";
+import { styles } from "./styles";
 
 interface IAppHeaderProps {
   rightAction?: React.ReactNode;
@@ -30,8 +30,14 @@ export function AppHeader({ rightAction }: IAppHeaderProps) {
   }
 
   return (
-    <SafeAreaView>
-      <View style={[styles.container]}>
+    <View style={styles.container}>
+      <SafeAreaView
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}
+      >
         <Button variant="ghost" size="icon" onPress={handleBack}>
           <ChevronLeftIcon size={32} color={theme.colors.black[700]} />
         </Button>
@@ -45,7 +51,7 @@ export function AppHeader({ rightAction }: IAppHeaderProps) {
         ) : (
           <View style={{ width: 48 }} />
         )}
-      </View>
-    </SafeAreaView>
+      </SafeAreaView>
+    </View>
   );
 }
