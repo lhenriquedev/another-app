@@ -7,7 +7,6 @@ import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 import { theme } from "@ui/styles/theme";
 import { ChevronLeftIcon } from "lucide-react-native";
 import { View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { AppText } from "../AppText";
 import { Button } from "../Button";
 import { styles } from "./styles";
@@ -31,27 +30,19 @@ export function AppHeader({ rightAction }: IAppHeaderProps) {
 
   return (
     <View style={styles.container}>
-      <SafeAreaView
-        style={{
-          flexDirection: "row",
-          alignItems: "center",
-          justifyContent: "space-between",
-        }}
-      >
-        <Button variant="ghost" size="icon" onPress={handleBack}>
-          <ChevronLeftIcon size={32} color={theme.colors.black[700]} />
-        </Button>
+      <Button variant="ghost" size="icon" onPress={handleBack}>
+        <ChevronLeftIcon size={32} color={theme.colors.black[700]} />
+      </Button>
 
-        <AppText size="lg" color={theme.colors.black[500]} weight="semiBold">
-          {title}
-        </AppText>
+      <AppText size="lg" color={theme.colors.black[500]} weight="semiBold">
+        {title}
+      </AppText>
 
-        {rightAction ? (
-          <View>{rightAction}</View>
-        ) : (
-          <View style={{ width: 48 }} />
-        )}
-      </SafeAreaView>
+      {rightAction ? (
+        <View>{rightAction}</View>
+      ) : (
+        <View style={{ width: 48 }} />
+      )}
     </View>
   );
 }

@@ -1,7 +1,7 @@
-import React from "react";
-import { View, StyleSheet } from "react-native";
-import { SkeletonBox } from "../SkeletonBox";
 import { theme } from "@ui/styles/theme";
+import React from "react";
+import { StyleSheet, View } from "react-native";
+import { SkeletonBox } from "../SkeletonBox";
 
 export function ClassListSkeleton({ count = 5 }) {
   return (

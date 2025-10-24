@@ -1,43 +1,84 @@
 import { FormGroup } from "@ui/components/FormGroup";
 import { Input } from "@ui/components/Input";
+import { OptionsSelector } from "@ui/components/OptionsSelector";
+import { Controller, useFormContext } from "react-hook-form";
+import { View } from "react-native";
+import { ProfileFormData } from ".";
 import { styles } from "./styles";
-import { ScrollView, View } from "react-native";
-import { Button } from "@ui/components/Button";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { useAuth } from "@app/contexts/AuthContext";
 
 export function ProfileInfo() {
-  const { user } = useAuth();
-  const { bottom } = useSafeAreaInsets();
+  const { control } = useFormContext<ProfileFormData>();
 
   return (
-    <ScrollView
-      style={{ flex: 1 }}
-      contentContainerStyle={{
-        flexGrow: 1,
-        paddingBottom: bottom,
-      }}
-      showsVerticalScrollIndicator={false}
-      bounces={false}
-    >
-      <View style={[styles.profileFormContent]}>
-        <View style={{ flex: 1, gap: 32 }}>
-          <FormGroup label="E-mail">
-            <Input disabled value={user?.email} />
+    <View style={[styles.profileFormContent]}>
+      <Controller
+        name="name"
+        control={control}
+        render={({ field, fieldState }) => (
+          <FormGroup label="Nome" error={fieldState.error?.message}>
+            <Input value={field.value} onChangeText={field.onChange} />
           </FormGroup>
-          <FormGroup label="Nome">
-            <Input value={user?.name} />
-          </FormGroup>
-          <FormGroup label="Telefone">
-            <Input mask="(51) 9999-9999" value={user?.phone} />
-          </FormGroup>
-          <FormGroup label="Data de Nascimento">
-            <Input mask="99/99/9999" value={user?.birthDate} />
-          </FormGroup>
-        </View>
+        )}
+      />
 
-        <Button>Salvar</Button>
-      </View>
-    </ScrollView>
+      <Controller
+        name="email"
+        control={control}
+        render={({ field, fieldState }) => (
+          <FormGroup label="E-mail" error={fieldState.error?.message}>
+            <Input value={field.value} onChangeText={field.onChange} />
+          </FormGroup>
+        )}
+      />
+      <Controller
+        name="birthDate"
+        control={control}
+        render={({ field, fieldState }) => (
+          <FormGroup
+            label="Data de nascimento"
+            error={fieldState.error?.message}
+          >
+            <Input
+              mask="99/99/9999"
+              value={field.value}
+              onChangeText={field.onChange}
+            />
+          </FormGroup>
+        )}
+      />
+
+      <Controller
+        name="phone"
+        control={control}
+        render={({ field, fieldState }) => (
+          <FormGroup label="Telefone" error={fieldState.error?.message}>
+            <Input
+              mask="(99) 9999-99999"
+              value={field.value}
+              onChangeText={field.onChange}
+            />
+          </FormGroup>
+        )}
+      />
+
+      <Controller
+        name="gender"
+        control={control}
+        render={({ field, fieldState }) => (
+          <FormGroup label="Gênero" error={fieldState.error?.message}>
+            <OptionsSelector
+              isRow
+              fullWidth
+              options={[
+                { icon: "👨", title: "Masculino", value: "male" },
+                { icon: "👩", title: "Feminino", value: "female" },
+              ]}
+              value={field.value}
+              onChange={field.onChange}
+            />
+          </FormGroup>
+        )}
+      />
+    </View>
   );
 }

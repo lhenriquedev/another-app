@@ -1,15 +1,15 @@
-import { View } from "react-native";
-import { OptionsSelector } from "../OptionsSelector";
-import { styles } from "./styles";
-import { AppText } from "../AppText";
-import { theme } from "@ui/styles/theme";
 import { BELTS, useBelts } from "@app/hooks/useBelts";
-import { OptionsSelectorSkeleton } from "../OptionsSelector/OptionsSelectorSkeleton";
-import { Controller, useFormContext } from "react-hook-form";
-import { SignUpFormData } from "./schema";
-import { FormGroup } from "../FormGroup";
-import { EmptyState } from "../EmptyState";
+import { theme } from "@ui/styles/theme";
 import { Target } from "lucide-react-native";
+import { Controller, useFormContext } from "react-hook-form";
+import { View } from "react-native";
+import { AppText } from "../AppText";
+import { EmptyState } from "../EmptyState";
+import { FormGroup } from "../FormGroup";
+import { OptionsSelector } from "../OptionsSelector";
+import { OptionsSelectorSkeleton } from "../OptionsSelector/OptionsSelectorSkeleton";
+import { SignUpFormData } from "./schema";
+import { styles } from "./styles";
 
 export function BeltStep() {
   const { control } = useFormContext<SignUpFormData>();

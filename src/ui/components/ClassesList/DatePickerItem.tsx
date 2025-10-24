@@ -1,6 +1,6 @@
 import { theme } from "@ui/styles/theme";
 import React, { memo } from "react";
-import { TouchableOpacity, StyleSheet, View } from "react-native";
+import { StyleSheet, TouchableOpacity, View } from "react-native";
 import { AppText } from "../AppText";
 
 interface DateItemProps {
@@ -50,6 +50,7 @@ export const DateItem = memo(DateItemComponent);
 
 const styles = StyleSheet.create({
   container: {
+    gap: 8,
     marginHorizontal: 4,
     alignItems: "center",
     justifyContent: "center",

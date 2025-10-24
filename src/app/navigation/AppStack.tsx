@@ -5,20 +5,26 @@ import {
 } from "@react-navigation/bottom-tabs";
 import { RouteProp } from "@react-navigation/native";
 import { CalendarScreen } from "@ui/screens/Calendar";
+import { Home } from "@ui/screens/Home";
 import { Profile } from "@ui/screens/Profile";
 import { Ranking } from "@ui/screens/Ranking";
 import { theme } from "@ui/styles/theme";
-import { Calendar, ChartNoAxesColumn, User } from "lucide-react-native";
+import {
+  Calendar,
+  ChartNoAxesColumn,
+  HomeIcon,
+  User,
+} from "lucide-react-native";
 
 export const routeTitles = {
-  // Home: "Início",
+  Home: "Início",
   Profile: "Perfil",
   Calendar: "Calendário",
   Ranking: "Ranking",
 } as const;
 
 export type AppStackParamList = {
-  // Home: undefined;
+  Home: undefined;
   Profile: undefined;
   Calendar: undefined;
   Ranking: undefined;
@@ -50,6 +56,23 @@ export function AppStack() {
         },
       }}
     >
+      <BottomTab.Screen
+        name="Home"
+        component={Home}
+        options={{
+          tabBarActiveBackgroundColor: theme.colors.white[700],
+          tabBarIcon: ({ focused }) => (
+            <HomeIcon
+              size={24}
+              color={
+                focused ? theme.colors.black[700] : theme.colors.platinum[900]
+              }
+            />
+          ),
+          tabBarLabel: "Início",
+          tabBarActiveTintColor: theme.colors.black[800],
+        }}
+      />
       <BottomTab.Screen
         name="Calendar"
         component={CalendarScreen}

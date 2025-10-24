@@ -3,9 +3,12 @@ import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 16,
-    borderBottomWidth: 1,
-    borderBottomColor: theme.colors.platinum[600],
-    height: 120,
+    paddingVertical: 8,
+    backgroundColor: theme.colors.white[400],
+    borderBottomWidth: 0.5,
+    borderBottomColor: theme.colors.white[700],
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
 });

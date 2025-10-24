@@ -1,5 +1,4 @@
 import { FlashList } from "@shopify/flash-list";
-import { AppHeader } from "@ui/components/AppHeader";
 import { ClassList } from "@ui/components/ClassesList";
 import { ClassesListDatePicker } from "@ui/components/ClassesList/ClassesListPicker";
 import { ClassListBottomSheet } from "@ui/components/ClassesList/ClassListBottomSheet";
@@ -12,10 +11,10 @@ import {
 import { IClassListBottomSheet } from "@ui/components/ClassesList/IClassListBottomSheet";
 import { useClasses } from "@ui/components/ClassesList/useClasses";
 import { FadeSlideView } from "@ui/components/FadeSlideView";
+import { Screen } from "@ui/components/Screen";
 import { format } from "date-fns";
 import { useRef, useState } from "react";
-import { RefreshControl, View } from "react-native";
-import { styles } from "./styles";
+import { RefreshControl, StyleSheet, View } from "react-native";
 
 export function CalendarScreen() {
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
@@ -53,41 +52,49 @@ export function CalendarScreen() {
   };
 
   return (
-    <View style={styles.container}>
-      <AppHeader />
+    <Screen hasScroll={false} headerType="default" style={{ flex: 1 }}>
+      <View style={styles.container}>
+        <ClassesListDatePicker
+          selectedDate={selectedDate}
+          onDateChange={handleDateChange}
+        />
 
-      <ClassesListDatePicker
-        selectedDate={selectedDate}
-        onDateChange={handleDateChange}
-      />
+        {isLoading && <ClassListSkeleton count={4} />}
 
-      {isLoading && <ClassListSkeleton count={4} />}
+        {!isLoading && classes && classes?.length > 0 && (
+          <FadeSlideView
+            style={{ flex: 1, marginTop: 32, paddingHorizontal: 16 }}
+          >
+            <ClassList>
+              <FlashList
+                onRefresh={refetch}
+                refreshControl={<RefreshControl refreshing={isFetching} />}
+                data={classes}
+                renderItem={({ item }) => (
+                  <ClassListCard
+                    item={item}
+                    onClassPress={handleOnClassIdPress}
+                  />
+                )}
+              />
+            </ClassList>
+          </FadeSlideView>
+        )}
 
-      {!isLoading && classes && classes?.length > 0 && (
-        <FadeSlideView style={{ flex: 1 }}>
-          <ClassList>
-            <FlashList
-              onRefresh={refetch}
-              refreshControl={<RefreshControl refreshing={isFetching} />}
-              data={classes}
-              renderItem={({ item }) => (
-                <ClassListCard
-                  item={item}
-                  onClassPress={handleOnClassIdPress}
-                />
-              )}
-            />
-          </ClassList>
-        </FadeSlideView>
-      )}
+        {!isLoading && classes?.length === 0 && renderEmptyState()}
 
-      {!isLoading && classes?.length === 0 && renderEmptyState()}
-
-      <ClassListBottomSheet
-        ref={bottomSheetRef}
-        onSelectedClass={handleOnClassIdPress}
-        selectedClassId={selectedClassId}
-      />
-    </View>
+        <ClassListBottomSheet
+          ref={bottomSheetRef}
+          onSelectedClass={handleOnClassIdPress}
+          selectedClassId={selectedClassId}
+        />
+      </View>
+    </Screen>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});

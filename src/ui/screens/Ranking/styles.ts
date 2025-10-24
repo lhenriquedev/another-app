@@ -42,7 +42,8 @@ export const styles = StyleSheet.create({
   rankingItemContainer: {
     borderWidth: 1,
     borderColor: theme.colors.platinum.DEFAULT,
-    borderRadius: 10,
+    backgroundColor: theme.colors.white[400],
+    borderRadius: 6,
     flexDirection: "row",
     alignItems: "center",
     paddingVertical: 8,

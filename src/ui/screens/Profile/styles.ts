@@ -8,10 +8,10 @@ export const styles = StyleSheet.create({
   },
   profileContent: {
     flex: 1,
-    paddingHorizontal: 20,
+    gap: 16,
+    padding: 16,
   },
   profileAvatarContainer: {
-    marginTop: 16,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -22,9 +22,13 @@ export const styles = StyleSheet.create({
     marginBottom: 24,
   },
   profileFormContent: {
-    marginTop: 32,
-    gap: 16,
-    flex: 1,
+    borderWidth: 1,
+    borderColor: theme.colors.platinum.DEFAULT,
+    backgroundColor: theme.colors.white[400],
+    padding: 16,
+    borderRadius: 10,
+    // marginTop: 32,
+    gap: 8,
     justifyContent: "space-between",
   },
   profileTabContainer: {

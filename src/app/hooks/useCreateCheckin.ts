@@ -1,12 +1,12 @@
-import { httpClient } from '@app/services/httpClient';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { httpClient } from "@app/services/httpClient";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 export const useCreateCheckin = (selectedClassId: string) => {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: async () => {
-      const { data } = await httpClient.post('/create-checkin', {
+      const { data } = await httpClient.post("/create-checkin", {
         classId: selectedClassId,
       });
 
@@ -14,9 +14,10 @@ export const useCreateCheckin = (selectedClassId: string) => {
     },
     onSuccess() {
       queryClient.invalidateQueries({
-        queryKey: ['classe-by-id', selectedClassId],
+        queryKey: ["classe-by-id", selectedClassId],
       });
-      queryClient.invalidateQueries({ queryKey: ['user'] });
+      queryClient.invalidateQueries({ queryKey: ["user"] });
+      queryClient.invalidateQueries({ queryKey: ["recent-classes"] });
     },
   });
 };

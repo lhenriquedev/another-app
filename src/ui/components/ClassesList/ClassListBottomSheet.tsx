@@ -1,29 +1,29 @@
-import { View } from "react-native";
-import { AppText } from "../AppText";
-import { BELTS, BeltType } from "@app/hooks/useBelts";
-import { Button } from "../Button";
-import { ClassDetailsSkeleton } from "./ClassDetailsSkeleton";
-import { ClassListBottomSheetCard } from "./ClassListBottomSheetCard";
-import { EmptyState } from "../EmptyState";
-import { FlashList } from "@shopify/flash-list";
-import { formatTime } from "./utils";
-import { IClassListBottomSheet } from "./IClassListBottomSheet";
-import { isAxiosError } from "axios";
-import { styles } from "./styles";
-import { Target } from "lucide-react-native";
 import { useAuth } from "@app/contexts/AuthContext";
-import { useCallback, useImperativeHandle, useRef } from "react";
+import { BELTS, BeltType } from "@app/hooks/useBelts";
 import { useCancelCheckin } from "@app/hooks/useCancelCheckin";
 import { useClassById } from "@app/hooks/useClassById";
 import { useCreateCheckin } from "@app/hooks/useCreateCheckin";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 import {
   BottomSheetBackdrop,
   BottomSheetModal,
   BottomSheetModalProvider,
   BottomSheetView,
 } from "@gorhom/bottom-sheet";
+import { FlashList } from "@shopify/flash-list";
+import { isAxiosError } from "axios";
+import { Target } from "lucide-react-native";
+import { useCallback, useImperativeHandle, useRef } from "react";
+import { View } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { toast } from "sonner-native";
+import { AppText } from "../AppText";
+import { Button } from "../Button";
+import { EmptyState } from "../EmptyState";
+import { ClassDetailsSkeleton } from "./ClassDetailsSkeleton";
+import { ClassListBottomSheetCard } from "./ClassListBottomSheetCard";
+import { IClassListBottomSheet } from "./IClassListBottomSheet";
+import { styles } from "./styles";
+import { formatTime } from "./utils";
 
 interface IClassListBottomSheetProps {
   ref: React.Ref<IClassListBottomSheet>;
@@ -62,7 +62,7 @@ export function ClassListBottomSheet({
     try {
       await createCheckin();
       toast.success("Check-in realizado com sucesso!");
-      bottomSheetModalRef.current?.close();
+      // bottomSheetModalRef.current?.close();
     } catch (error) {
       if (isAxiosError(error)) {
         toast.error(error.response?.data.message);
@@ -74,7 +74,7 @@ export function ClassListBottomSheet({
     try {
       await cancelCheckin();
       toast.success("Check-in cancelado com sucesso!");
-      bottomSheetModalRef.current?.close();
+      // bottomSheetModalRef.current?.close();
     } catch (error) {
       if (isAxiosError(error)) {
         toast.error(error.response?.data.message);

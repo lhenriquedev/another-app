@@ -1,18 +1,6 @@
 import React from "react";
-import { ScrollView } from "react-native";
-
-import { styles } from "./styles";
+import { View } from "react-native";
 
 export function ClassList({ children }: { children: React.ReactNode }) {
-  return (
-    <>
-      <ScrollView
-        style={styles.container}
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles.contentContainer}
-      >
-        {children}
-      </ScrollView>
-    </>
-  );
+  return <View style={{ flex: 1 }}>{children}</View>;
 }

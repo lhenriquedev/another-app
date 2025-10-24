@@ -1,5 +1,5 @@
 import { FlashList } from "@shopify/flash-list";
-import { AppHeader } from "@ui/components/AppHeader";
+import { Screen } from "@ui/components/Screen";
 import { View } from "react-native";
 import { RankingItem } from "./RankingItem";
 import { RankingPodiumItem } from "./RankingPodiumItem";
@@ -7,18 +7,16 @@ import { styles } from "./styles";
 
 export function Ranking() {
   return (
-    <View style={styles.container}>
-      <AppHeader />
-
+    <Screen hasScroll headerType="default">
       <View style={styles.rankingPodiumContainer}>
         <RankingPodiumItem position={2} name="Lucas" totalCheckins={200} />
         <RankingPodiumItem position={1} name="Tas" totalCheckins={220} />
         <RankingPodiumItem position={3} name="Cassio" totalCheckins={170} />
       </View>
 
-      <View style={{ paddingHorizontal: 16, flex: 1 }}>
+      <View style={{ flex: 1, paddingHorizontal: 16 }}>
         <FlashList
-          ItemSeparatorComponent={() => <View style={{ height: 16 }} />}
+          ItemSeparatorComponent={() => <View style={{ height: 8 }} />}
           data={[
             {
               position: 4,
@@ -39,6 +37,6 @@ export function Ranking() {
           renderItem={({ item }) => <RankingItem {...item} />}
         />
       </View>
-    </View>
+    </Screen>
   );
 }

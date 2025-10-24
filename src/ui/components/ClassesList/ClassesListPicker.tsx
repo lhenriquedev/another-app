@@ -1,14 +1,7 @@
 import { useDatePicker } from "@app/hooks/useDatePicker";
 import { theme } from "@ui/styles/theme";
-import { ChevronLeft, ChevronRight } from "lucide-react-native";
 import React from "react";
-import {
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { DateItem } from "./DatePickerItem";
 
 const ITEM_WIDTH = 40;
@@ -32,8 +25,6 @@ export function ClassesListDatePicker({
     formatDate,
     handleScroll,
     getFormattedMonthYear,
-    goToPreviousMonth,
-    goToNextMonth,
   } = useDatePicker({
     itemWidth: ITEM_WIDTH,
     marginHorizontal: MARGIN_HORIZONTAL,
@@ -44,25 +35,25 @@ export function ClassesListDatePicker({
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <TouchableOpacity
+        {/* <TouchableOpacity
           onPress={goToPreviousMonth}
           style={styles.arrowButton}
           hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
           activeOpacity={0.7}
         >
           <ChevronLeft />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
 
         <Text style={styles.monthYearText}>{getFormattedMonthYear()}</Text>
 
-        <TouchableOpacity
+        {/* <TouchableOpacity
           onPress={goToNextMonth}
           style={styles.arrowButton}
           hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
           activeOpacity={0.7}
         >
           <ChevronRight />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
 
       <ScrollView
@@ -98,15 +89,14 @@ export function ClassesListDatePicker({
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 8,
-    paddingBottom: 16,
+    paddingTop: 16,
+    paddingBottom: 32,
     backgroundColor: theme.colors.background,
   },
   header: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    paddingHorizontal: 20,
     paddingBottom: 16,
   },
   monthYearText: {

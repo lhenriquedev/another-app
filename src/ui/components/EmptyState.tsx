@@ -1,5 +1,6 @@
+import { theme } from "@ui/styles/theme";
 import React, { useEffect, useRef } from "react";
-import { View, StyleSheet, Animated } from "react-native";
+import { Animated, StyleSheet, View } from "react-native";
 import { AppText } from "./AppText";
 import { FadeSlideView } from "./FadeSlideView";
 
@@ -58,11 +59,15 @@ export function EmptyState({
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    // flex: 1,
     justifyContent: "center",
     alignItems: "center",
     paddingHorizontal: 32,
     paddingVertical: 48,
+    backgroundColor: theme.colors.white[400],
+    borderRadius: 10,
+    // borderWidth: 1,
+    // borderColor: theme.colors.platinum.DEFAULT,
   },
   iconContainer: {
     marginBottom: 24,
