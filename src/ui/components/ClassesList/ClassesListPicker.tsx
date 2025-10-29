@@ -1,120 +1,188 @@
-import { useDatePicker } from "@app/hooks/useDatePicker";
+// components/ClassesList/ClassesListPicker.tsx
+import { FlashList } from "@shopify/flash-list";
+import { format, startOfDay, isSameDay } from "date-fns";
+import { ptBR } from "date-fns/locale";
+import { Pressable, View, StyleSheet, Dimensions } from "react-native";
+import { AppText } from "@ui/components/AppText";
+import { useInfiniteCalendar } from "@app/hooks/useInfiniteCalendar";
 import { theme } from "@ui/styles/theme";
-import React from "react";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
-import { DateItem } from "./DatePickerItem";
 
-const ITEM_WIDTH = 40;
-const MARGIN_HORIZONTAL = 4;
-
-interface IClassListDatePickerProps {
-  selectedDate?: Date;
-  onDateChange?: (date: Date) => void;
+const { width: SCREEN_WIDTH } = Dimensions.get("window");
+const DATE_ITEM_WIDTH = 70;
+interface ClassesListDatePickerProps {
+  calendarControls: ReturnType<typeof useInfiniteCalendar>;
 }
 
 export function ClassesListDatePicker({
-  selectedDate,
-  onDateChange,
-}: IClassListDatePickerProps) {
+  calendarControls,
+}: ClassesListDatePickerProps) {
   const {
-    dates,
-    scrollViewRef,
-    selectDate,
-    isDateSelected,
-    isDateToday,
-    formatDate,
-    handleScroll,
-    getFormattedMonthYear,
-  } = useDatePicker({
-    itemWidth: ITEM_WIDTH,
-    marginHorizontal: MARGIN_HORIZONTAL,
+    dateItems,
     selectedDate,
-    onDateChange,
-  });
+    todayIndex,
+    listRef,
+    selectDate,
+    scrollToToday,
+    onScrollHandler,
+    isToday,
+  } = calendarControls;
 
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        {/* <TouchableOpacity
-          onPress={goToPreviousMonth}
-          style={styles.arrowButton}
-          hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
-          activeOpacity={0.7}
-        >
-          <ChevronLeft />
-        </TouchableOpacity> */}
+        <View style={styles.headerTextContainer}>
+          <AppText weight="semiBold" size="sm">
+            {format(selectedDate, "EEEE, d 'de' MMMM", { locale: ptBR })}
+          </AppText>
+          <AppText size="sm" style={styles.yearText}>
+            {format(selectedDate, "yyyy")}
+          </AppText>
+        </View>
 
-        <Text style={styles.monthYearText}>{getFormattedMonthYear()}</Text>
-
-        {/* <TouchableOpacity
-          onPress={goToNextMonth}
-          style={styles.arrowButton}
-          hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
-          activeOpacity={0.7}
-        >
-          <ChevronRight />
-        </TouchableOpacity> */}
+        {!isToday && (
+          <Pressable onPress={scrollToToday} style={styles.todayButton}>
+            <AppText size="sm" weight="semiBold" style={styles.todayButtonText}>
+              Hoje
+            </AppText>
+          </Pressable>
+        )}
       </View>
 
-      <ScrollView
-        ref={scrollViewRef}
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        onScroll={handleScroll}
-        scrollEventThrottle={16}
-        contentContainerStyle={styles.scrollContent}
-      >
-        {dates.map((date, index) => {
-          const { day, dayWeek, month } = formatDate(date);
-          const selected = isDateSelected(date);
-          const today = isDateToday(date);
+      <View style={styles.dateScrollContainer}>
+        <FlashList
+          ref={listRef}
+          data={dateItems}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          keyExtractor={(item) => item.date.toISOString()}
+          contentContainerStyle={{
+            paddingHorizontal: (SCREEN_WIDTH - DATE_ITEM_WIDTH) / 2,
+          }}
+          onScroll={onScrollHandler}
+          scrollEventThrottle={16}
+          initialScrollIndex={todayIndex !== -1 ? todayIndex : 30}
+          renderItem={({ item, index }) => {
+            const isSelected = isSameDay(item.date, selectedDate);
+            const isPast = item.date < startOfDay(new Date());
 
-          return (
-            <DateItem
-              key={`${date.getTime()}-${index}`}
-              dayWeek={dayWeek}
-              day={day}
-              month={month}
-              isSelected={selected}
-              isToday={today}
-              onPress={() => selectDate(date)}
-              itemWidth={ITEM_WIDTH}
-            />
-          );
-        })}
-      </ScrollView>
+            return (
+              <Pressable
+                onPress={() => selectDate(item, index)}
+                style={[
+                  styles.dateItem,
+                  isSelected && styles.dateItemSelected,
+                  item.isToday && !isSelected && styles.dateItemToday,
+                  isPast && !isSelected && styles.dateItemPast,
+                ]}
+              >
+                <AppText
+                  size="xs"
+                  weight="medium"
+                  style={[
+                    styles.dayOfWeek,
+                    isSelected && styles.textSelected,
+                    isPast && !isSelected && styles.textPast,
+                  ]}
+                >
+                  {item.dayOfWeek}
+                </AppText>
+                <AppText
+                  size="lg"
+                  weight="semiBold"
+                  style={[
+                    styles.dayOfMonth,
+                    isSelected && styles.textSelected,
+                    isPast && !isSelected && styles.textPast,
+                  ]}
+                >
+                  {item.dayOfMonth}
+                </AppText>
+                <AppText
+                  size="xs"
+                  style={[
+                    styles.month,
+                    isSelected && styles.textSelected,
+                    isPast && !isSelected && styles.textPast,
+                  ]}
+                >
+                  {item.month}
+                </AppText>
+              </Pressable>
+            );
+          }}
+        />
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 16,
-    paddingBottom: 32,
-    backgroundColor: theme.colors.background,
+    backgroundColor: theme.colors.white[400],
   },
   header: {
+    paddingHorizontal: 16,
+    paddingVertical: 12,
     flexDirection: "row",
-    alignItems: "center",
     justifyContent: "space-between",
-    paddingBottom: 16,
+    alignItems: "center",
+    borderBottomWidth: 0.5,
+    borderBottomColor: theme.colors.platinum.DEFAULT,
   },
-  monthYearText: {
-    fontSize: 18,
-    fontWeight: "600",
-    color: theme.colors.black[600],
-    textTransform: "capitalize",
+  headerTextContainer: {
     flex: 1,
-    textAlign: "center",
   },
-  arrowButton: {
+  yearText: {
+    color: theme.colors.black[500],
+    marginTop: 2,
+  },
+  todayButton: {
+    backgroundColor: "#000000",
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    borderRadius: 20,
+  },
+  todayButtonText: {
+    color: theme.colors.white[400],
+  },
+  dateScrollContainer: {
+    paddingVertical: 12,
+  },
+  dateItem: {
+    width: DATE_ITEM_WIDTH,
     padding: 8,
-    borderRadius: 8,
-    minWidth: 40,
+    marginHorizontal: 6,
+    borderRadius: 10,
+    backgroundColor: theme.colors.white[600],
     alignItems: "center",
     justifyContent: "center",
+    gap: 4,
   },
-  scrollContent: {
-    paddingHorizontal: 10,
+  dateItemSelected: {
+    backgroundColor: theme.colors.black[800],
+  },
+  dateItemToday: {
+    borderWidth: 2,
+    borderColor: theme.colors.black[800],
+  },
+  dateItemPast: {
+    backgroundColor: theme.colors.white.DEFAULT,
+  },
+  dayOfWeek: {
+    color: theme.colors.black[500],
+    textTransform: "capitalize",
+  },
+  dayOfMonth: {
+    color: "#000000",
+  },
+  month: {
+    color: theme.colors.platinum[900],
+    textTransform: "capitalize",
+  },
+  textSelected: {
+    color: theme.colors.white[400],
+  },
+  textPast: {
+    color: theme.colors.platinum[600],
   },
 });

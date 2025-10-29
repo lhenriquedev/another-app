@@ -1,35 +1,82 @@
-import { useAuth } from "@app/contexts/AuthContext";
-import { BELTS, BeltType } from "@app/hooks/useBelts";
 import { Screen } from "@ui/components/Screen";
+import { UpcomingClasses } from "@ui/components/UpcomingClasses";
+import { useRef, useState } from "react";
+import { IClassListBottomSheet } from "@ui/components/ClassesList/IClassListBottomSheet";
+import { useUpcomingClasses } from "@app/hooks/useUpcomingClasses";
+import { ClassListBottomSheet } from "@ui/components/ClassesList/ClassListBottomSheet";
+import { Clock, Flame, Target, TrendingUp } from "lucide-react-native";
+import { Card, CardContainer, CardHeader, CardIcon } from "@ui/components/Card";
 import { theme } from "@ui/styles/theme";
-import { Target, User } from "lucide-react-native";
-import { View } from "react-native";
-import { ProfileActivity } from "../Profile/ProfileActivity";
-import { ProfileCard } from "../Profile/ProfileCard";
-import { styles } from "./styles";
 
 export function Home() {
-  const { user } = useAuth();
+  const bottomSheetHomeRef = useRef<IClassListBottomSheet>(null);
+  const [selectedClassId, setSelectedClassId] = useState<string | null>(null);
+
+  const {
+    data: upcomingClasses,
+    isPending: isLoadingUpcomingClasses,
+    error,
+  } = useUpcomingClasses();
+
+  const handleOnClassIdPress = (classId: string) => {
+    bottomSheetHomeRef.current?.open();
+    setSelectedClassId(classId);
+  };
 
   return (
-    <Screen hasScroll headerType="home">
-      <View style={styles.homeContainer}>
-        <View style={styles.homeCardContainer}>
-          <ProfileCard
-            icon={<Target color={theme.colors.white.DEFAULT} />}
-            title="Total de Check-ins"
-            subtitle={user?.totalCheckins}
+    <Screen hasScroll={false} style={{ flex: 1 }} headerType="home">
+      <CardContainer style={{ marginBottom: 16, marginTop: 16 }}>
+        <Card>
+          <CardHeader label="Streak atual" title="7 dias" />
+          <CardIcon
+            Icon={Flame}
+            color={theme.colors.yellow.DEFAULT}
+            size={24}
           />
-          <ProfileCard
-            icon={<User color={theme.colors.white.DEFAULT} />}
-            title="Faixa atual"
-            subtitle={BELTS[user?.belt as BeltType]}
+        </Card>
+
+        <Card>
+          <CardHeader label="Check-ins (mês)" title="18" />
+          <CardIcon
+            Icon={TrendingUp}
+            color={theme.colors.yellow.DEFAULT}
+            size={24}
           />
-        </View>
-        <View>
-          <ProfileActivity />
-        </View>
-      </View>
+        </Card>
+      </CardContainer>
+
+      <CardContainer style={{ marginBottom: 16 }}>
+        <Card>
+          <CardHeader label="Horas de treino" title="243" />
+          <CardIcon
+            Icon={Clock}
+            color={theme.colors.yellow.DEFAULT}
+            size={24}
+          />
+        </Card>
+
+        <Card>
+          <CardHeader label="Total de check-ins" title="7 dias" />
+          <CardIcon
+            Icon={Target}
+            color={theme.colors.yellow.DEFAULT}
+            size={24}
+          />
+        </Card>
+      </CardContainer>
+
+      <UpcomingClasses
+        upcomingClasses={upcomingClasses ?? []}
+        isLoadingUpcomingClasses={isLoadingUpcomingClasses}
+        onClassPress={handleOnClassIdPress}
+        error={error}
+      />
+
+      <ClassListBottomSheet
+        ref={bottomSheetHomeRef}
+        selectedClassId={selectedClassId}
+        onSelectedClass={handleOnClassIdPress}
+      />
     </Screen>
   );
 }

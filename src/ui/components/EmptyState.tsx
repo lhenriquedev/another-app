@@ -41,12 +41,16 @@ export function EmptyState({
       {icon && <View style={styles.iconContainer}>{icon}</View>}
 
       <View style={styles.textContainer}>
-        <AppText size="md" weight="semiBold" color={"#333"}>
+        <AppText size="md" weight="semiBold" color={theme.colors.black[800]}>
           {title}
         </AppText>
 
         {description && (
-          <AppText size="sm" color={"#666"} style={styles.description}>
+          <AppText
+            size="xs"
+            color={theme.colors.platinum[900]}
+            style={styles.description}
+          >
             {description}
           </AppText>
         )}
@@ -62,17 +66,19 @@ const styles = StyleSheet.create({
     // flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    paddingHorizontal: 32,
+    paddingHorizontal: 16,
     paddingVertical: 48,
     backgroundColor: theme.colors.white[400],
     borderRadius: 10,
-    // borderWidth: 1,
-    // borderColor: theme.colors.platinum.DEFAULT,
+    borderWidth: 1,
+    borderColor: theme.colors.platinum.DEFAULT,
   },
   iconContainer: {
     marginBottom: 24,
   },
   textContainer: {
+    textAlign: "center",
+    justifyContent: "center",
     alignItems: "center",
     marginBottom: 24,
   },

@@ -9,8 +9,8 @@ type HeaderType = "default" | "home";
 
 interface ScreenProps extends ViewProps {
   children: React.ReactNode;
-  headerType: HeaderType;
-  hasScroll: boolean;
+  headerType?: HeaderType;
+  hasScroll?: boolean;
 }
 
 export function Screen({
@@ -20,7 +20,7 @@ export function Screen({
   style,
   ...screenProps
 }: ScreenProps) {
-  const { bottom, top } = useSafeAreaInsets();
+  const { top } = useSafeAreaInsets();
   const Container = hasScroll ? ScrollViewContainer : ViewContainer;
 
   const renderHeaderType = () => {
@@ -39,10 +39,7 @@ export function Screen({
       behavior={Platform.OS === "ios" ? "padding" : undefined}
     >
       <Container backgroundColor={theme.colors.white[400]}>
-        <View
-          style={[{ paddingTop: top, paddingBottom: bottom }, style]}
-          {...screenProps}
-        >
+        <View style={[{ paddingTop: top }, style]} {...screenProps}>
           {renderHeaderType()}
           {children}
         </View>

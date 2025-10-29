@@ -1,71 +1,78 @@
-// Ranking.tsx (atualizado)
 import { useRanking } from "@app/hooks/useRanking";
 import { FlashList } from "@shopify/flash-list";
 import { Screen } from "@ui/components/Screen";
 import { View } from "react-native";
 import { RankingItem } from "./RankingItem";
-import { RankingItemSkeleton } from "./RankingItemSkeleton";
 import { RankingPodiumItem } from "./RankingPodiumItem";
-import { RankingPodiumItemSkeleton } from "./RankingPodiumItemSkeleton";
 import { styles } from "./styles";
+import { EmptyState } from "@ui/components/EmptyState";
+import { RankingSkeleton } from "./RankingSkeleton";
+import { ChartNoAxesColumn } from "lucide-react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export function Ranking() {
-  const { data: ranking, isPending } = useRanking();
+  const { data: ranking, isPending, error } = useRanking();
 
-  const [firstPlace, secondPlace, thirdPlace, ...rest] = ranking ?? [];
+  const { bottom } = useSafeAreaInsets();
 
-  if (isPending) {
+  const renderContent = () => {
+    if (error) {
+      return <EmptyState title="Erro ao carregar o ranking" />;
+    }
+
+    if (isPending) {
+      return <RankingSkeleton />;
+    }
+
+    if (!ranking || ranking?.length === 0) {
+      return <EmptyState title="Nenhum aluno no ranking" />;
+    }
+    if (ranking?.length < 3)
+      return (
+        <EmptyState
+          icon={<ChartNoAxesColumn />}
+          title="Ranking insuficiente para exibir o pódio"
+        />
+      );
+
     return (
-      <Screen hasScroll headerType="default">
+      <>
         <View style={styles.rankingPodiumContainer}>
-          <RankingPodiumItemSkeleton />
-          <RankingPodiumItemSkeleton isFirstPosition />
-          <RankingPodiumItemSkeleton />
+          <RankingPodiumItem
+            position={secondPlace?.position ?? 2}
+            name={secondPlace?.userName ?? "-"}
+            totalCheckins={secondPlace?.totalCheckins ?? 0}
+          />
+          <RankingPodiumItem
+            position={firstPlace?.position ?? 1}
+            name={firstPlace?.userName ?? "-"}
+            totalCheckins={firstPlace?.totalCheckins ?? 0}
+          />
+          <RankingPodiumItem
+            position={thirdPlace?.position ?? 3}
+            name={thirdPlace?.userName ?? "-"}
+            totalCheckins={thirdPlace?.totalCheckins ?? 0}
+          />
         </View>
 
         <View style={{ flex: 1, paddingHorizontal: 16 }}>
-          <View style={{ height: 8 }} />
-          <RankingItemSkeleton />
-          <View style={{ height: 8 }} />
-          <RankingItemSkeleton />
-          <View style={{ height: 8 }} />
-          <RankingItemSkeleton />
-          <View style={{ height: 8 }} />
-          <RankingItemSkeleton />
-          <View style={{ height: 8 }} />
-          <RankingItemSkeleton />
+          <FlashList
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={{ paddingBottom: bottom }}
+            ItemSeparatorComponent={() => <View style={{ height: 8 }} />}
+            data={rest}
+            renderItem={({ item }) => <RankingItem {...item} />}
+          />
         </View>
-      </Screen>
+      </>
     );
-  }
+  };
+
+  const [firstPlace, secondPlace, thirdPlace, ...rest] = ranking ?? [];
 
   return (
-    <Screen hasScroll headerType="default">
-      <View style={styles.rankingPodiumContainer}>
-        <RankingPodiumItem
-          position={secondPlace.position}
-          name={secondPlace.userName}
-          totalCheckins={secondPlace.totalCheckins}
-        />
-        <RankingPodiumItem
-          position={firstPlace.position}
-          name={firstPlace.userName}
-          totalCheckins={firstPlace.totalCheckins}
-        />
-        <RankingPodiumItem
-          position={thirdPlace.position}
-          name={thirdPlace.userName}
-          totalCheckins={thirdPlace.totalCheckins}
-        />
-      </View>
-
-      <View style={{ flex: 1, paddingHorizontal: 16 }}>
-        <FlashList
-          ItemSeparatorComponent={() => <View style={{ height: 8 }} />}
-          data={rest}
-          renderItem={({ item }) => <RankingItem {...item} />}
-        />
-      </View>
+    <Screen style={{ flex: 1 }} headerType="default">
+      {renderContent()}
     </Screen>
   );
 }

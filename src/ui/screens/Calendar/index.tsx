@@ -1,3 +1,4 @@
+// screens/CalendarScreen.tsx
 import { FlashList } from "@shopify/flash-list";
 import { ClassList } from "@ui/components/ClassesList";
 import { ClassesListDatePicker } from "@ui/components/ClassesList/ClassesListPicker";
@@ -15,12 +16,21 @@ import { Screen } from "@ui/components/Screen";
 import { format } from "date-fns";
 import { useRef, useState } from "react";
 import { RefreshControl, StyleSheet, View } from "react-native";
+import { useInfiniteCalendar } from "@app/hooks/useInfiniteCalendar";
 
 export function CalendarScreen() {
-  const [selectedDate, setSelectedDate] = useState<Date>(new Date());
-  const [selectedClassId, setSelectedClassId] = useState<string | null>(null);
+  const calendarControls = useInfiniteCalendar({
+    initialDaysBefore: 30,
+    initialDaysAfter: 60,
+    daysToAppend: 30,
+    scrollThreshold: 5,
+  });
 
+  const { selectedDate } = calendarControls;
+
+  const [selectedClassId, setSelectedClassId] = useState<string | null>(null);
   const bottomSheetRef = useRef<IClassListBottomSheet>(null);
+
   const formattedDate = format(selectedDate, "yyyy-MM-dd");
 
   const {
@@ -39,10 +49,6 @@ export function CalendarScreen() {
     setSelectedClassId(classId);
   };
 
-  const handleDateChange = (date: Date) => {
-    setSelectedDate(date);
-  };
-
   const renderEmptyState = () => {
     if (isError) {
       return <ErrorEmptyState onRetry={() => refetch()} />;
@@ -54,10 +60,7 @@ export function CalendarScreen() {
   return (
     <Screen hasScroll={false} headerType="default" style={{ flex: 1 }}>
       <View style={styles.container}>
-        <ClassesListDatePicker
-          selectedDate={selectedDate}
-          onDateChange={handleDateChange}
-        />
+        <ClassesListDatePicker calendarControls={calendarControls} />
 
         {isLoading && <ClassListSkeleton count={4} />}
 

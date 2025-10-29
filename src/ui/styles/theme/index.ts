@@ -30,6 +30,9 @@ const colors = {
     600: '#b9f8cf',
     900: '#073B3A',
   },
+  yellow: {
+    DEFAULT: "#f8c630",
+  },
   background: '#f7f7f8',
 } as const;
 
