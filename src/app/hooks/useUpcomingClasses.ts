@@ -9,6 +9,8 @@ export type IUpcomingClasses = {
   date: string
   startTime: string
   endTIme: string
+  instructor: string
+  category: string
 }
 
 export const useUpcomingClasses = () => {

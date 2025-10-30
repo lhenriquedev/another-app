@@ -6,8 +6,9 @@ export const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: theme.colors.platinum.DEFAULT,
     borderRadius: 10,
-    padding: 16,
-    marginRight: 16,
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    marginRight: 8,
     width: 280,
   },
   content: {

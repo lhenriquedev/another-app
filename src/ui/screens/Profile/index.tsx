@@ -10,6 +10,7 @@ import { toast } from "sonner-native";
 import z from "zod";
 import { ProfileInfo } from "./ProfileInfo";
 import { styles } from "./styles";
+import { LogOut } from "lucide-react-native";
 
 export type SelectedTab = "general" | "info";
 
@@ -24,7 +25,7 @@ const schema = z.object({
 export type ProfileFormData = z.infer<typeof schema>;
 
 export function Profile() {
-  const { user } = useAuth();
+  const { user, signOut } = useAuth();
   const { mutateAsync: updateProfile, isPending: isUpdating } =
     useProfileUpdate();
 
@@ -62,6 +63,9 @@ export function Profile() {
     <Screen hasScroll headerType="default">
       <View style={styles.profileContent}>
         <FormProvider {...form}>
+          <Button size="icon" variant="secondary" onPress={signOut}>
+            <LogOut />
+          </Button>
           {/* <ProfileAvatar /> */}
           <ProfileInfo />
           <Button
