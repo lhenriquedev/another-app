@@ -60,9 +60,13 @@ export function SignInBottomSheet({ ref }: ISignInBottomSheetProps) {
 
   return (
     <BottomSheetModalProvider>
-      <BottomSheetModal ref={bottomSheetModalRef}>
+      <BottomSheetModal
+        ref={bottomSheetModalRef}
+        backgroundStyle={{ backgroundColor: theme.colors.card }}
+        handleIndicatorStyle={{ backgroundColor: theme.colors.mutedText }}
+      >
         <BottomSheetView style={[styles.container, { paddingBottom: bottom }]}>
-          <AppText color={theme.colors.black[700]} size="3xl" weight="semiBold">
+          <AppText color={theme.colors.text} size="3xl" weight="semiBold">
             Acesse a sua conta
           </AppText>
 

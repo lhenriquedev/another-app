@@ -28,21 +28,21 @@ export function RankingPodiumItem({
       <View
         style={[
           styles.rankingPodiumPosition,
-          isFirstPosition && { backgroundColor: "#f7e05d" },
-          isSecondPosition && { backgroundColor: "#9a9fa8" },
-          isThirdPosition && { backgroundColor: "#9b715a" },
+          isFirstPosition && { backgroundColor: theme.colors.primary },
+          isSecondPosition && { backgroundColor: theme.colors.mutedText },
+          isThirdPosition && { backgroundColor: theme.colors.accent },
         ]}
       >
-        <AppText size="xs" color={theme.colors.white[400]}>
+        <AppText size="xs" color={theme.colors.background}>
           {position}
         </AppText>
       </View>
       <Image
         style={[
           styles.rankingPodiumImage,
-          isFirstPosition && { borderColor: "#f7e05d" },
-          isSecondPosition && { borderColor: "#9a9fa8" },
-          isThirdPosition && { borderColor: "#9b715a" },
+          isFirstPosition && { borderColor: theme.colors.primary },
+          isSecondPosition && { borderColor: theme.colors.mutedText },
+          isThirdPosition && { borderColor: theme.colors.accent },
         ]}
         resizeMode="cover"
         source={{

@@ -38,7 +38,7 @@ export function Screen({
       style={{ flex: 1 }}
       behavior={Platform.OS === "ios" ? "padding" : undefined}
     >
-      <Container backgroundColor={theme.colors.white[400]}>
+      <Container backgroundColor={theme.colors.background}>
         <View style={[{ paddingTop: top }, style]} {...screenProps}>
           {renderHeaderType()}
           {children}

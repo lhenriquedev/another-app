@@ -13,12 +13,12 @@ interface IFormGroupProps {
 export function FormGroup({ label, children, error }: IFormGroupProps) {
   return (
     <View style={styles.container}>
-      <AppText weight="medium" color={theme.colors.black[700]}>
+      <AppText weight="medium" color={theme.colors.text}>
         {label}
       </AppText>
       {cloneElement(children, { error: !!error })}
       {error && (
-        <AppText size="sm" color={theme.colors.support.red}>
+        <AppText size="sm" color={theme.colors.accent}>
           {error}
         </AppText>
       )}

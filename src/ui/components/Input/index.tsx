@@ -53,7 +53,7 @@ export function Input({
         }),
         style,
       ]}
-      placeholderTextColor={theme.colors.platinum[800]}
+      placeholderTextColor={theme.colors.mutedText}
       readOnly={disabled}
       value={mask ? maskedValue : props.value}
       onChangeText={handleChangeText}

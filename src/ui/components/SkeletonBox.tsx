@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { StyleSheet, Animated } from "react-native";
+import { theme } from "@ui/styles/theme";
 
 interface SkeletonBoxProps {
   width?: number | string;
@@ -56,6 +57,6 @@ export function SkeletonBox({
 
 const styles = StyleSheet.create({
   skeleton: {
-    backgroundColor: "#E0E0E0",
+    backgroundColor: theme.colors.secondary,
   },
 });

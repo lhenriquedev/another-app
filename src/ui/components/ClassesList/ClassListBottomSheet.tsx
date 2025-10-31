@@ -24,6 +24,7 @@ import { ClassListBottomSheetCard } from "./ClassListBottomSheetCard";
 import { IClassListBottomSheet } from "./IClassListBottomSheet";
 import { styles } from "./styles";
 import { formatTime } from "./utils";
+import { theme } from "@ui/styles/theme";
 
 interface IClassListBottomSheetProps {
   ref: React.Ref<IClassListBottomSheet>;
@@ -107,6 +108,8 @@ export function ClassListBottomSheet({
         ref={bottomSheetModalRef}
         backdropComponent={renderBackdrop}
         maxDynamicContentSize={500}
+        backgroundStyle={{ backgroundColor: theme.colors.card }}
+        handleIndicatorStyle={{ backgroundColor: theme.colors.mutedText }}
       >
         <BottomSheetScrollView
           style={[styles.bottomSheetContainer]}

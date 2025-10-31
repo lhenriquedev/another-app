@@ -21,7 +21,7 @@ export function ProfileActivity() {
           style={{
             width: 4,
             height: 24,
-            backgroundColor: theme.colors.black[800],
+            backgroundColor: theme.colors.primary,
           }}
         />
 

@@ -17,7 +17,7 @@ export function ProfileAvatar() {
         }}
       />
 
-      <AppText color={theme.colors.black.DEFAULT} weight="semiBold">
+      <AppText color={theme.colors.text} weight="semiBold">
         {user?.name}
       </AppText>
     </View>

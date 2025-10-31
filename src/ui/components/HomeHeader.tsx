@@ -13,7 +13,7 @@ export function HomeHeader() {
         <AppText weight="semiBold" size="xl">
           Hoje
         </AppText>
-        <AppText color={theme.colors.platinum[800]}>
+        <AppText color={theme.colors.mutedText}>
           Bem vindo, {user?.name}
         </AppText>
       </View>

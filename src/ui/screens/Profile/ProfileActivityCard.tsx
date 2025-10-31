@@ -14,11 +14,11 @@ export function ProfileActivityCard({ hour, day, title }: ProfileActivityCardPro
     <View style={styles.profileCardActivityContent}>
       <View style={styles.profileCardActivityText}>
         <AppText weight="semiBold">{title}</AppText>
-        <AppText size="xs" color={theme.colors.platinum[800]}>{day}</AppText>
+        <AppText size="xs" color={theme.colors.mutedText}>{day}</AppText>
       </View>
 
       <View style={{
-        backgroundColor: theme.colors.platinum.DEFAULT,
+        backgroundColor: theme.colors.secondary,
         paddingVertical: 4,
         paddingHorizontal: 8,
         borderRadius: 10,

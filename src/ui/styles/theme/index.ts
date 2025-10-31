@@ -1,39 +1,17 @@
 const colors = {
-  black: {
-    DEFAULT: '#000000', // Preto puro
-    500: '#323233',
-    600: '#1A1A1A',     // Preto levemente suavizado - mais confortável para os olhos
-    700: '#0D0D0D',     // Quase preto, mantém a intensidade
-    800: '#000000',     // Mantive igual ao DEFAULT já que não tem como escurecer mais
-  },
+  // Cores base do tema escuro
+  background: '#0D0D0D',    // Fundo: preto escuro
+  text: '#FAFAFA',          // Texto: branco
+  card: '#141414',          // Cards: cinza muito escuro
+  secondary: '#262626',     // Secondary: cinza escuro
+  muted: '#1F1F1F',         // Muted: cinza muito escuro
+  mutedText: '#999999',     // Muted Text: cinza médio
+  border: '#2E2E2E',        // Bordas: cinza escuro
 
-  white: {
-    DEFAULT: '#f6f6f6', // Seu branco quase puro
-    400: '#FFFFFF',
-    500: '#f5f4f4',     // Off-white com mais corpo
-    600: '#f6f6f6',
-    700: '#E0E0E0',     // Cinza muito claro
-    800: '#D0D0D0',     // Para quando você precisa de contraste no branco
-  },
-
-  platinum: {
-    DEFAULT: '#E4E4E7', // Cinza claro original
-    600: '#D0D0D0',     // Cinza claro médio
-    700: '#B8B8B8',     // Cinza mais presente
-    800: '#A0A0A0',     // Cinza médio, bom para texto secundário
-    900: '#71717A',
-  },
-  support: {
-    red: '#EF4444',
-  },
-  green: {
-    600: '#b9f8cf',
-    900: '#073B3A',
-  },
-  yellow: {
-    DEFAULT: "#f8c630",
-  },
-  background: '#f7f7f8',
+  // Cores de destaque
+  primary: '#F5C842',       // Primary: Amarelo/Dourado
+  accent: '#DC2626',        // Accent/Destructive: Vermelho
+  success: '#16A34A',       // Success: Verde
 } as const;
 
 export const fontFamily = {

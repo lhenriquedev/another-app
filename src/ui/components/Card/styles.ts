@@ -7,7 +7,7 @@ export const styles = StyleSheet.create({
     alignItems: 'flex-start',
     flexDirection: 'row',
     borderWidth: 1,
-    borderColor: theme.colors.platinum.DEFAULT,
+    borderColor: theme.colors.border,
     padding: 16,
     borderRadius: 10,
     flex: 1,

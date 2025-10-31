@@ -31,10 +31,10 @@ export function AppHeader({ rightAction }: IAppHeaderProps) {
   return (
     <View style={styles.container}>
       <Button variant="ghost" size="icon" onPress={handleBack}>
-        <ChevronLeftIcon size={32} color={theme.colors.black[700]} />
+        <ChevronLeftIcon size={32} color={theme.colors.text} />
       </Button>
 
-      <AppText size="lg" color={theme.colors.black[500]} weight="semiBold">
+      <AppText size="lg" color={theme.colors.text} weight="semiBold">
         {title}
       </AppText>
 

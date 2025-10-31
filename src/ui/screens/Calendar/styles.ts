@@ -4,9 +4,9 @@ import { StyleSheet } from "react-native";
 export const styles = StyleSheet.create({
   container: {
     padding: 16,
-    backgroundColor: theme.colors.white[400],
+    backgroundColor: theme.colors.card,
     borderBottomWidth: 0.5,
-    borderBottomColor: theme.colors.white[700],
+    borderBottomColor: theme.colors.border,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",

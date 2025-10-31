@@ -32,12 +32,12 @@ export function ProfileGeneral() {
       <View style={styles.profileGeneral}>
         <View style={styles.profileCardContainer}>
           <ProfileCard
-            icon={<Target color={theme.colors.white.DEFAULT} />}
+            icon={<Target color={theme.colors.background} />}
             title="Total de Check-ins"
             subtitle={user?.totalCheckins}
           />
           <ProfileCard
-            icon={<User color={theme.colors.white.DEFAULT} />}
+            icon={<User color={theme.colors.background} />}
             title="Faixa atual"
             subtitle={BELTS[user?.belt as BeltType]}
           />

@@ -43,7 +43,7 @@ export function NoResultsEmptyState({ onClearFilters }: EmptyStateProps) {
             <AppText
               size="sm"
               weight="semiBold"
-              color={theme.colors.white?.[500] || "#FFF"}
+              color={theme.colors.background}
             >
               Limpar Filtros
             </AppText>
@@ -71,7 +71,7 @@ export function ErrorEmptyState({ onRetry }: EmptyStateProps) {
             <AppText
               size="sm"
               weight="semiBold"
-              color={theme.colors.white?.[500] || "#FFF"}
+              color={theme.colors.background}
             >
               Tentar Novamente
             </AppText>
@@ -95,7 +95,7 @@ export function SearchEmptyState() {
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: "#007AFF",
+    backgroundColor: theme.colors.primary,
     paddingVertical: 14,
     paddingHorizontal: 24,
     borderRadius: 12,

@@ -4,7 +4,7 @@ import { StyleSheet } from "react-native";
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: theme.colors.white[400],
+    backgroundColor: theme.colors.background,
   },
   rankingContainer: {},
   rankingPodiumContainer: {
@@ -34,7 +34,7 @@ export const styles = StyleSheet.create({
     width: 24,
     height: 24,
     borderWidth: 2,
-    borderColor: theme.colors.white[400],
+    borderColor: theme.colors.card,
     zIndex: 1,
     alignItems: "center",
     justifyContent: "center",
@@ -42,8 +42,8 @@ export const styles = StyleSheet.create({
   },
   rankingItemContainer: {
     borderWidth: 1,
-    borderColor: theme.colors.platinum.DEFAULT,
-    backgroundColor: theme.colors.white[400],
+    borderColor: theme.colors.border,
+    backgroundColor: theme.colors.card,
     borderRadius: 6,
     flexDirection: "row",
     alignItems: "center",

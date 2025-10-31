@@ -41,14 +41,14 @@ export function EmptyState({
       {icon && <View style={styles.iconContainer}>{icon}</View>}
 
       <View style={styles.textContainer}>
-        <AppText size="md" weight="semiBold" color={theme.colors.black[800]}>
+        <AppText size="md" weight="semiBold" color={theme.colors.text}>
           {title}
         </AppText>
 
         {description && (
           <AppText
             size="xs"
-            color={theme.colors.platinum[900]}
+            color={theme.colors.mutedText}
             style={styles.description}
           >
             {description}
@@ -68,10 +68,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingHorizontal: 16,
     paddingVertical: 48,
-    backgroundColor: theme.colors.white[400],
+    backgroundColor: theme.colors.card,
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: theme.colors.platinum.DEFAULT,
+    borderColor: theme.colors.border,
   },
   iconContainer: {
     marginBottom: 24,

@@ -13,7 +13,7 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 16,
     borderWidth: 1,
     borderRadius: 12,
-    borderColor: theme.colors.white[700],
+    borderColor: theme.colors.border,
     gap: 12,
   },
   icon: {
@@ -21,7 +21,7 @@ export const styles = StyleSheet.create({
     height: 32,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: theme.colors.white[600],
+    backgroundColor: theme.colors.secondary,
     borderRadius: 12,
   },
 });

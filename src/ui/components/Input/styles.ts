@@ -8,24 +8,25 @@ export const styles = StyleSheet.create({
 
 export const inputStyles = createVariants({
   base: {
-    backgroundColor: theme.colors.white[400],
+    backgroundColor: theme.colors.card,
     borderWidth: 1,
     borderRadius: 10,
     height: 52,
     paddingHorizontal: 16,
     fontSize: 16,
     fontFamily: theme.fontFamily.sans.regular,
+    color: theme.colors.text,
   },
   variants: {
     status: {
       default: {
-        borderColor: theme.colors.platinum.DEFAULT,
+        borderColor: theme.colors.border,
       },
       focus: {
-        borderColor: theme.colors.black[600],
+        borderColor: theme.colors.primary,
       },
       error: {
-        borderColor: theme.colors.support.red,
+        borderColor: theme.colors.accent,
       },
     },
     disabled: {

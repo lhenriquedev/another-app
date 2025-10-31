@@ -28,40 +28,24 @@ export function Home() {
       <CardContainer style={{ marginBottom: 16, marginTop: 16 }}>
         <Card>
           <CardHeader label="Streak atual" title="7 dias" />
-          <CardIcon
-            Icon={Flame}
-            color={theme.colors.yellow.DEFAULT}
-            size={24}
-          />
+          <CardIcon Icon={Flame} color={theme.colors.primary} size={24} />
         </Card>
 
         <Card>
           <CardHeader label="Check-ins (mês)" title="18" />
-          <CardIcon
-            Icon={TrendingUp}
-            color={theme.colors.yellow.DEFAULT}
-            size={24}
-          />
+          <CardIcon Icon={TrendingUp} color={theme.colors.primary} size={24} />
         </Card>
       </CardContainer>
 
       <CardContainer style={{ marginBottom: 16 }}>
         <Card>
           <CardHeader label="Horas de treino" title="243" />
-          <CardIcon
-            Icon={Clock}
-            color={theme.colors.yellow.DEFAULT}
-            size={24}
-          />
+          <CardIcon Icon={Clock} color={theme.colors.primary} size={24} />
         </Card>
 
         <Card>
           <CardHeader label="Total de check-ins" title="7 dias" />
-          <CardIcon
-            Icon={Target}
-            color={theme.colors.yellow.DEFAULT}
-            size={24}
-          />
+          <CardIcon Icon={Target} color={theme.colors.primary} size={24} />
         </Card>
       </CardContainer>
 

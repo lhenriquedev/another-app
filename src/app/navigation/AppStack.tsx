@@ -14,7 +14,9 @@ import {
   ChartNoAxesColumn,
   HomeIcon,
   User,
+  LucideIcon,
 } from "lucide-react-native";
+import { View } from "react-native";
 
 export const routeTitles = {
   Home: "Início",
@@ -43,6 +45,29 @@ export type AppStackRouteProps<TRouteName extends keyof AppStackParamList> =
 
 const BottomTab = createBottomTabNavigator<AppStackParamList>();
 
+function TabIcon({ Icon, focused }: { Icon: LucideIcon; focused: boolean }) {
+  return (
+    <View
+      style={{
+        borderTopWidth: 3,
+        borderTopColor: focused ? theme.colors.primary : "transparent",
+        width: "100%",
+        alignItems: "center",
+        justifyContent: "center",
+        flex: 1,
+        paddingTop: 8,
+      }}
+    >
+      <View style={{ marginBottom: 4 }}>
+        <Icon
+          size={24}
+          color={focused ? theme.colors.primary : theme.colors.mutedText}
+        />
+      </View>
+    </View>
+  );
+}
+
 export function AppStack() {
   return (
     <BottomTab.Navigator
@@ -51,8 +76,8 @@ export function AppStack() {
         animation: "shift",
         tabBarStyle: {
           height: 90,
-          // paddingTop: 8,
-          backgroundColor: theme.colors.white[400],
+          backgroundColor: theme.colors.card,
+          borderTopWidth: 0,
         },
       }}
     >
@@ -60,68 +85,48 @@ export function AppStack() {
         name="Home"
         component={Home}
         options={{
-          tabBarActiveBackgroundColor: theme.colors.white[700],
           tabBarIcon: ({ focused }) => (
-            <HomeIcon
-              size={24}
-              color={
-                focused ? theme.colors.black[700] : theme.colors.platinum[900]
-              }
-            />
+            <TabIcon Icon={HomeIcon} focused={focused} />
           ),
           tabBarLabel: "Início",
-          tabBarActiveTintColor: theme.colors.black[800],
+          tabBarActiveTintColor: theme.colors.primary,
+          tabBarInactiveTintColor: theme.colors.mutedText,
         }}
       />
       <BottomTab.Screen
         name="Calendar"
         component={CalendarScreen}
         options={{
-          tabBarActiveBackgroundColor: theme.colors.white[700],
           tabBarIcon: ({ focused }) => (
-            <Calendar
-              size={24}
-              color={
-                focused ? theme.colors.black[700] : theme.colors.platinum[900]
-              }
-            />
+            <TabIcon Icon={Calendar} focused={focused} />
           ),
           tabBarLabel: "Calendário",
-          tabBarActiveTintColor: theme.colors.black[800],
+          tabBarActiveTintColor: theme.colors.primary,
+          tabBarInactiveTintColor: theme.colors.mutedText,
         }}
       />
       <BottomTab.Screen
         name="Ranking"
         component={Ranking}
         options={{
-          tabBarActiveBackgroundColor: theme.colors.white[700],
           tabBarIcon: ({ focused }) => (
-            <ChartNoAxesColumn
-              size={24}
-              color={
-                focused ? theme.colors.black[700] : theme.colors.platinum[900]
-              }
-            />
+            <TabIcon Icon={ChartNoAxesColumn} focused={focused} />
           ),
           tabBarLabel: "Ranking",
-          tabBarActiveTintColor: theme.colors.black[800],
+          tabBarActiveTintColor: theme.colors.primary,
+          tabBarInactiveTintColor: theme.colors.mutedText,
         }}
       />
       <BottomTab.Screen
         name="Profile"
         component={Profile}
         options={{
-          tabBarActiveBackgroundColor: theme.colors.white[700],
           tabBarIcon: ({ focused }) => (
-            <User
-              size={24}
-              color={
-                focused ? theme.colors.black[700] : theme.colors.platinum[900]
-              }
-            />
+            <TabIcon Icon={User} focused={focused} />
           ),
           tabBarLabel: "Perfil",
-          tabBarActiveTintColor: theme.colors.black[800],
+          tabBarActiveTintColor: theme.colors.primary,
+          tabBarInactiveTintColor: theme.colors.mutedText,
         }}
       />
     </BottomTab.Navigator>

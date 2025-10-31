@@ -118,7 +118,7 @@ export function ClassesListDatePicker({
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: theme.colors.white[400],
+    backgroundColor: theme.colors.card,
   },
   header: {
     paddingHorizontal: 16,
@@ -127,23 +127,23 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     borderBottomWidth: 0.5,
-    borderBottomColor: theme.colors.platinum.DEFAULT,
+    borderBottomColor: theme.colors.border,
   },
   headerTextContainer: {
     flex: 1,
   },
   yearText: {
-    color: theme.colors.black[500],
+    color: theme.colors.mutedText,
     marginTop: 2,
   },
   todayButton: {
-    backgroundColor: "#000000",
+    backgroundColor: theme.colors.primary,
     paddingHorizontal: 16,
     paddingVertical: 8,
     borderRadius: 20,
   },
   todayButtonText: {
-    color: theme.colors.white[400],
+    color: theme.colors.background,
   },
   dateScrollContainer: {
     paddingVertical: 12,
@@ -153,36 +153,36 @@ const styles = StyleSheet.create({
     padding: 8,
     marginHorizontal: 6,
     borderRadius: 10,
-    backgroundColor: theme.colors.white[600],
+    backgroundColor: theme.colors.secondary,
     alignItems: "center",
     justifyContent: "center",
     gap: 4,
   },
   dateItemSelected: {
-    backgroundColor: theme.colors.black[800],
+    backgroundColor: theme.colors.primary,
   },
   dateItemToday: {
     borderWidth: 2,
-    borderColor: theme.colors.black[800],
+    borderColor: theme.colors.primary,
   },
   dateItemPast: {
-    backgroundColor: theme.colors.white.DEFAULT,
+    backgroundColor: theme.colors.muted,
   },
   dayOfWeek: {
-    color: theme.colors.black[500],
+    color: theme.colors.mutedText,
     textTransform: "capitalize",
   },
   dayOfMonth: {
-    color: "#000000",
+    color: theme.colors.text,
   },
   month: {
-    color: theme.colors.platinum[900],
+    color: theme.colors.mutedText,
     textTransform: "capitalize",
   },
   textSelected: {
-    color: theme.colors.white[400],
+    color: theme.colors.background,
   },
   textPast: {
-    color: theme.colors.platinum[600],
+    color: theme.colors.mutedText,
   },
 });

@@ -28,7 +28,7 @@ export function UpcomingClassesCard({
           <AppText weight="semiBold" size="sm">
             {category}
           </AppText>
-          <AppText size="xs" color={theme.colors.platinum[900]}>
+          <AppText size="xs" color={theme.colors.mutedText}>
             {instructor}
           </AppText>
         </View>
@@ -36,7 +36,7 @@ export function UpcomingClassesCard({
           <AppText weight="semiBold" size="sm">
             {formatTime(startTime)}
           </AppText>
-          <AppText size="xs" color={theme.colors.platinum[900]}>
+          <AppText size="xs" color={theme.colors.mutedText}>
             {capacity} vagas
           </AppText>
         </View>

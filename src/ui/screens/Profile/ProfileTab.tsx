@@ -64,8 +64,8 @@ export function ProfileTab({ selectedTab, onSelectedTab }: ProfileTabProps) {
           style={{
             color:
               selectedTab === "general"
-                ? theme.colors.black[800]
-                : theme.colors.platinum[700],
+                ? theme.colors.primary
+                : theme.colors.mutedText,
           }}
         >
           Geral
@@ -81,8 +81,8 @@ export function ProfileTab({ selectedTab, onSelectedTab }: ProfileTabProps) {
           style={{
             color:
               selectedTab === "info"
-                ? theme.colors.black[800]
-                : theme.colors.platinum[700],
+                ? theme.colors.primary
+                : theme.colors.mutedText,
           }}
         >
           Informações

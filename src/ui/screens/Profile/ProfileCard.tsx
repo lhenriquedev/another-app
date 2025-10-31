@@ -15,7 +15,7 @@ export function ProfileCard({ icon, subtitle, title }: ProfileCardProps) {
       <View style={styles.profileCardIcon}>{icon}</View>
 
       <View>
-        <AppText style={{ color: theme.colors.platinum[800] }}>{title}</AppText>
+        <AppText style={{ color: theme.colors.mutedText }}>{title}</AppText>
         <AppText size="xl" weight="semiBold">
           {subtitle}
         </AppText>

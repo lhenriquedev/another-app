@@ -12,7 +12,7 @@ interface ICardHeaderProps {
 export function CardHeader({ label, title }: ICardHeaderProps) {
   return (
     <View style={styles.header}>
-      <AppText size="xs" color={theme.colors.platinum[900]}>
+      <AppText size="xs" color={theme.colors.mutedText}>
         {label}
       </AppText>
       <AppText size="2xl" weight="semiBold">

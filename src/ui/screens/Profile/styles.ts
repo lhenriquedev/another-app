@@ -4,7 +4,7 @@ import { StyleSheet } from "react-native";
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: theme.colors.white[400],
+    backgroundColor: theme.colors.background,
   },
   profileContent: {
     flex: 1,
@@ -23,8 +23,8 @@ export const styles = StyleSheet.create({
   },
   profileFormContent: {
     borderWidth: 1,
-    borderColor: theme.colors.platinum.DEFAULT,
-    backgroundColor: theme.colors.white[400],
+    borderColor: theme.colors.border,
+    backgroundColor: theme.colors.card,
     padding: 16,
     borderRadius: 10,
     // marginTop: 32,
@@ -36,11 +36,11 @@ export const styles = StyleSheet.create({
     flexDirection: "row",
     position: "relative",
     borderBottomWidth: 1,
-    borderColor: theme.colors.platinum.DEFAULT,
+    borderColor: theme.colors.border,
     zIndex: 20,
   },
   profileTabButton: {
-    backgroundColor: theme.colors.white[400],
+    backgroundColor: theme.colors.card,
     flex: 1,
     alignItems: "center",
     paddingVertical: 16,
@@ -53,16 +53,16 @@ export const styles = StyleSheet.create({
     gap: 16,
   },
   profileCardContent: {
-    backgroundColor: theme.colors.white[400],
+    backgroundColor: theme.colors.card,
     borderWidth: 1,
-    borderColor: theme.colors.platinum.DEFAULT,
+    borderColor: theme.colors.border,
     paddingVertical: 12,
     paddingHorizontal: 16,
     borderRadius: 10,
     flex: 1,
   },
   profileCardIcon: {
-    backgroundColor: theme.colors.black[800],
+    backgroundColor: theme.colors.primary,
     padding: 12,
     borderRadius: 10,
     width: 48,
@@ -74,7 +74,7 @@ export const styles = StyleSheet.create({
 
   profileCardBelt: {
     borderWidth: 1,
-    borderColor: theme.colors.platinum.DEFAULT,
+    borderColor: theme.colors.border,
     paddingVertical: 12,
     paddingHorizontal: 16,
     borderRadius: 10,
@@ -99,7 +99,7 @@ export const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     borderWidth: 1,
-    borderColor: theme.colors.platinum.DEFAULT,
+    borderColor: theme.colors.border,
   },
 
   profileCardActivityText: {
@@ -111,7 +111,7 @@ export const styles = StyleSheet.create({
     bottom: -2,
     left: 0,
     height: 2,
-    backgroundColor: theme.colors.black[800],
+    backgroundColor: theme.colors.primary,
     borderRadius: 2,
   },
 });

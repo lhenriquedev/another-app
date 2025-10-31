@@ -108,6 +108,8 @@ export function SignUpBottomSheet({
       <BottomSheetModal
         ref={bottomSheetModalRef}
         onDismiss={() => form.reset()}
+        backgroundStyle={{ backgroundColor: theme.colors.card }}
+        handleIndicatorStyle={{ backgroundColor: theme.colors.mutedText }}
       >
         <BottomSheetScrollView style={[styles.container]}>
           <FormProvider {...form}>
@@ -120,7 +122,7 @@ export function SignUpBottomSheet({
               size="icon"
               onPress={handlePreviousStep}
             >
-              <ChevronLeft color={theme.colors.black[500]} />
+              <ChevronLeft color={theme.colors.text} />
             </Button>
 
             {isLastStep ? (
@@ -132,7 +134,7 @@ export function SignUpBottomSheet({
               </Button>
             ) : (
               <Button variant="secondary" size="icon" onPress={handleNextStep}>
-                <ChevronRight color={theme.colors.black[500]} />
+                <ChevronRight color={theme.colors.text} />
               </Button>
             )}
           </View>

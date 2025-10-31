@@ -18,12 +18,12 @@ export function ProfileCardBelt({
     <View style={styles.profileCardBelt}>
       <View style={styles.profileCardIcon}>{icon}</View>
 
-      <AppText style={{ color: theme.colors.platinum[800] }}>{title}</AppText>
+      <AppText style={{ color: theme.colors.mutedText }}>{title}</AppText>
 
       <View
         style={{
           height: 10,
-          backgroundColor: theme.colors.white[700],
+          backgroundColor: theme.colors.secondary,
           borderRadius: 10,
           marginVertical: 12,
         }}
@@ -34,7 +34,7 @@ export function ProfileCardBelt({
             maxWidth: "100%",
             height: 10,
             borderRadius: 10,
-            backgroundColor: theme.colors.black[800],
+            backgroundColor: theme.colors.primary,
           }}
         />
       </View>

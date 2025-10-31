@@ -11,8 +11,8 @@ export function RankingItemSkeleton() {
         padding: 16,
         borderRadius: 8,
         borderWidth: 1,
-        borderColor: theme.colors.platinum.DEFAULT,
-        backgroundColor: theme.colors.white[400],
+        borderColor: theme.colors.border,
+        backgroundColor: theme.colors.card,
       }}
     >
       <SkeletonBox width={24} height={24} borderRadius={4} />

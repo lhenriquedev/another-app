@@ -23,7 +23,7 @@ export function BeltStep() {
 
   return (
     <View style={styles.form}>
-      <AppText color={theme.colors.black[700]} size="3xl" weight="semiBold">
+      <AppText color={theme.colors.text} size="3xl" weight="semiBold">
         Escolha a sua faixa
       </AppText>
 

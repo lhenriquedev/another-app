@@ -30,8 +30,8 @@ export function ClassListCard({ item, onClassPress }: IClassListCard) {
         </View>
 
         <View style={styles.instructor}>
-          <User size={16} color={theme.colors.platinum[900]} />
-          <AppText size="sm" weight="medium" color={theme.colors.platinum[900]}>
+          <User size={16} color={theme.colors.mutedText} />
+          <AppText size="sm" weight="medium" color={theme.colors.mutedText}>
             {item.instructor.name}
           </AppText>
         </View>
@@ -48,9 +48,9 @@ export function ClassListCard({ item, onClassPress }: IClassListCard) {
 
 const getStatusStyle = (status: IClass["status"]) => {
   const styles: Record<IClass["status"], { borderLeftColor: string }> = {
-    "in-progress": { borderLeftColor: "#a6c4a3" },
-    finished: { borderLeftColor: "#F44336" },
-    "not-started": { borderLeftColor: "#d6c555" },
+    "in-progress": { borderLeftColor: theme.colors.success },
+    finished: { borderLeftColor: theme.colors.accent },
+    "not-started": { borderLeftColor: theme.colors.primary },
   };
   return styles[status];
 };

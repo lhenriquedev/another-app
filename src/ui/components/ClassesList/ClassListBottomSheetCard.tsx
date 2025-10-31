@@ -28,8 +28,8 @@ export function ClassListBottomSheetCard({
           styles.container,
           isCurrentUserInClass
             ? {
-                backgroundColor: theme.colors.white[600],
-                borderColor: theme.colors.white[800],
+                backgroundColor: "rgba(245, 200, 66, 0.1)",
+                borderColor: theme.colors.primary,
               }
             : {},
         ]}
@@ -43,10 +43,24 @@ export function ClassListBottomSheetCard({
             }}
           />
           <View>
-            <AppText weight="semiBold">
-              {isCurrentUserInClass ? "Você" : name}
-            </AppText>
-            <AppText color={theme.colors.platinum[800]} size="xs">
+            <View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
+              <AppText weight="semiBold">{name}</AppText>
+              {isCurrentUserInClass && (
+                <View
+                  style={{
+                    backgroundColor: theme.colors.primary,
+                    paddingHorizontal: 8,
+                    paddingVertical: 2,
+                    borderRadius: 4,
+                  }}
+                >
+                  <AppText size="xs" weight="semiBold" color={theme.colors.background}>
+                    Você
+                  </AppText>
+                </View>
+              )}
+            </View>
+            <AppText color={theme.colors.mutedText} size="xs">
               {BELTS[belt as BeltType]}
             </AppText>
           </View>
@@ -57,17 +71,17 @@ export function ClassListBottomSheetCard({
             style={[
               styles.badge,
               checkinStatus === "done"
-                ? { backgroundColor: theme.colors.green[600] }
-                : { backgroundColor: theme.colors.support.red },
+                ? { backgroundColor: theme.colors.success }
+                : { backgroundColor: theme.colors.accent },
             ]}
           >
             {checkinStatus === "done" ? (
-              <Check size={14} color={theme.colors.white[400]} />
+              <Check size={14} color={theme.colors.text} />
             ) : (
-              <Ban size={14} color={theme.colors.white[400]} />
+              <Ban size={14} color={theme.colors.text} />
             )}
           </View>
-          <AppText size="xs" color={theme.colors.platinum[900]}>
+          <AppText size="xs" color={theme.colors.mutedText}>
             {checkedAt}
           </AppText>
         </View>
@@ -79,7 +93,7 @@ export function ClassListBottomSheetCard({
 const styles = StyleSheet.create({
   container: {
     borderWidth: 1,
-    borderColor: theme.colors.platinum.DEFAULT,
+    borderColor: theme.colors.border,
     paddingVertical: 8,
     paddingHorizontal: 16,
     borderRadius: 10,

@@ -30,8 +30,8 @@ export function OptionsSelector({
             styles.option,
             option.value === value
               ? {
-                  backgroundColor: theme.colors.white[600],
-                  borderColor: theme.colors.black.DEFAULT,
+                  backgroundColor: theme.colors.secondary,
+                  borderColor: theme.colors.primary,
                 }
               : {},
             fullWidth ? { flex: 1 } : {},

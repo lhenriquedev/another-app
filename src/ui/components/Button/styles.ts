@@ -17,16 +17,16 @@ export const buttonStyles = createVariants({
   variants: {
     variant: {
       primary: {
-        backgroundColor: theme.colors.black[800],
+        backgroundColor: theme.colors.primary,
       },
       secondary: {
-        backgroundColor: theme.colors.white.DEFAULT,
+        backgroundColor: theme.colors.secondary,
       },
       ghost: {
         backgroundColor: 'transparent',
       },
       danger: {
-        backgroundColor: theme.colors.support.red,
+        backgroundColor: theme.colors.accent,
       },
     },
     size: {
