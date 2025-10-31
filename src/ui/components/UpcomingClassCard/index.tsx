@@ -11,6 +11,7 @@ interface IUpcomingClassesCardProps {
   instructor: string;
   category: string;
   onClassPress: (classId: string) => void;
+  totalItems: number;
 }
 
 export function UpcomingClassesCard({
@@ -20,9 +21,13 @@ export function UpcomingClassesCard({
   instructor,
   startTime,
   onClassPress,
+  totalItems,
 }: IUpcomingClassesCardProps) {
   return (
-    <TouchableOpacity style={styles.container} onPress={() => onClassPress(id)}>
+    <TouchableOpacity
+      style={[styles.container, styles.getWidth(totalItems)]}
+      onPress={() => onClassPress(id)}
+    >
       <View style={styles.content}>
         <View>
           <AppText weight="semiBold" size="sm">

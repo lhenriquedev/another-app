@@ -7,6 +7,8 @@ import { ClassListBottomSheet } from "@ui/components/ClassesList/ClassListBottom
 import { Clock, Flame, Target, TrendingUp } from "lucide-react-native";
 import { Card, CardContainer, CardHeader, CardIcon } from "@ui/components/Card";
 import { theme } from "@ui/styles/theme";
+import { View } from "react-native";
+import { styles } from "./styles";
 
 export function Home() {
   const bottomSheetHomeRef = useRef<IClassListBottomSheet>(null);
@@ -49,12 +51,14 @@ export function Home() {
         </Card>
       </CardContainer>
 
-      <UpcomingClasses
-        upcomingClasses={upcomingClasses ?? []}
-        isLoadingUpcomingClasses={isLoadingUpcomingClasses}
-        onClassPress={handleOnClassIdPress}
-        error={error}
-      />
+      <View style={styles.container}>
+        <UpcomingClasses
+          upcomingClasses={upcomingClasses ?? []}
+          isLoadingUpcomingClasses={isLoadingUpcomingClasses}
+          onClassPress={handleOnClassIdPress}
+          error={error}
+        />
+      </View>
 
       <ClassListBottomSheet
         ref={bottomSheetHomeRef}

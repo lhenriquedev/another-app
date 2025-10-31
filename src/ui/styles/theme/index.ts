@@ -1,6 +1,6 @@
 const colors = {
   // Cores base do tema escuro
-  background: '#0D0D0D',    // Fundo: preto escuro
+  background: '#0d0d0d',    // Fundo: preto escuro
   text: '#FAFAFA',          // Texto: branco
   card: '#141414',          // Cards: cinza muito escuro
   secondary: '#262626',     // Secondary: cinza escuro

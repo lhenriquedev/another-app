@@ -118,7 +118,7 @@ export function ClassesListDatePicker({
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: theme.colors.card,
+    backgroundColor: theme.colors.background,
   },
   header: {
     paddingHorizontal: 16,

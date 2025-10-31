@@ -7,6 +7,7 @@ import { AppText } from "../AppText";
 import { styles } from "./styles";
 import { FlashList } from "@shopify/flash-list";
 import { UpcomingClassesCard } from "../UpcomingClassCard";
+import { theme } from "@ui/styles/theme";
 
 interface IUpcomingClassesProps {
   upcomingClasses: IUpcomingClasses[];
@@ -24,9 +25,9 @@ export function UpcomingClasses({
   if (upcomingClasses?.length === 0) {
     return (
       <EmptyState
-        icon={<ClockAlert size={48} />}
-        title="Voce nao fez check-in em nenhuma aula"
-        description="Faca um check-in em uma aula para visualizar as suas proximas aulas"
+        icon={<ClockAlert size={48} color={theme.colors.text} />}
+        title="Você não fez nenhum check-in"
+        description="Faça um check-in em uma aula para visualizar as suas próximas aulas"
       />
     );
   }
@@ -34,7 +35,7 @@ export function UpcomingClasses({
   if (error) {
     return (
       <EmptyState
-        icon={<ClockAlert size={48} />}
+        icon={<ClockAlert size={48} color={theme.colors.text} />}
         title="Erro ao buscar suas proximas aulas"
       />
     );
@@ -45,21 +46,24 @@ export function UpcomingClasses({
   }
 
   return (
-    <View style={styles.container}>
+    <>
       <View style={styles.header}>
-        <Calendar />
+        <Calendar color={theme.colors.primary} />
         <AppText weight="semiBold">Próximas aulas</AppText>
       </View>
 
       <FlashList
         horizontal
         data={upcomingClasses}
-        contentContainerStyle={{ paddingHorizontal: 16 }}
         showsHorizontalScrollIndicator={false}
         renderItem={({ item }) => (
-          <UpcomingClassesCard {...item} onClassPress={onClassPress} />
+          <UpcomingClassesCard
+            {...item}
+            onClassPress={onClassPress}
+            totalItems={upcomingClasses.length}
+          />
         )}
       />
-    </View>
+    </>
   );
 }
