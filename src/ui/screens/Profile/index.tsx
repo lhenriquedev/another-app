@@ -69,6 +69,7 @@ export function Profile() {
           {/* <ProfileAvatar /> */}
           <ProfileInfo />
           <Button
+            variant="primary"
             disabled={isUpdating}
             loading={isUpdating}
             onPress={handleSubmit}

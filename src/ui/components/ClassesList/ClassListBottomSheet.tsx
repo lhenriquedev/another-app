@@ -155,6 +155,7 @@ export function ClassListBottomSheet({
 
             {isNotStarted && !isCurrentUserInClass && (
               <Button
+                variant="primary"
                 disabled={isCreatingCheckin}
                 loading={isCreatingCheckin}
                 onPress={handleCheckin}

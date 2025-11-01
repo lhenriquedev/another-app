@@ -45,7 +45,7 @@ export function Button({
           typeof style === "function" ? style({ pressed }) : style,
         ]}
         android_ripple={{ color: "rgba(0, 0, 0, 0.2)" }}
-        disabled={disabled}
+        disabled={disabled ?? loading}
         {...props}
       >
         {loading ? (

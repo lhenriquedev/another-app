@@ -1,8 +1,7 @@
-import logo from "@ui/assets/logo.jpg";
 import welcomeBg from "@ui/assets/welcome-bg/image.jpg";
 import { AppText } from "@ui/components/AppText";
 import { Button } from "@ui/components/Button";
-import { Image, ImageBackground, TouchableOpacity, View } from "react-native";
+import { ImageBackground, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { styles } from "./styles";
 import { theme } from "@ui/styles/theme";
@@ -23,8 +22,6 @@ export function Welcome() {
         style={styles.container}
       >
         <SafeAreaView style={styles.content}>
-          <Image source={logo} />
-
           <View style={styles.ctaContainer}>
             <AppText
               color={theme.colors.text}
