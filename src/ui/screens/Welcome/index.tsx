@@ -27,7 +27,7 @@ export function Welcome() {
 
           <View style={styles.ctaContainer}>
             <AppText
-              color={theme.colors.muted}
+              color={theme.colors.text}
               weight="semiBold"
               size="3xl"
               style={styles.heading}
@@ -37,19 +37,19 @@ export function Welcome() {
 
             <View style={styles.ctaContent}>
               <Button
-                style={{}}
+                variant="primary"
                 onPress={() => signUpBottomSheetRef.current?.open()}
               >
                 Criar minha conta
               </Button>
 
               <View style={styles.signInContainer}>
-                <AppText color={theme.colors.muted}>Já tem uma conta?</AppText>
+                <AppText color={theme.colors.text}>Já tem uma conta?</AppText>
                 <TouchableOpacity
                   onPress={() => signInBottomSheetRef.current?.open()}
                 >
                   <AppText
-                    color={theme.colors.muted}
+                    color={theme.colors.text}
                     style={{ textDecorationLine: "underline" }}
                   >
                     Acesse a sua conta

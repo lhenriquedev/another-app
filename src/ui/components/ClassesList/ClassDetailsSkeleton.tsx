@@ -3,95 +3,44 @@ import { View, StyleSheet } from "react-native";
 import { SkeletonBox } from "../SkeletonBox";
 import { theme } from "@ui/styles/theme";
 
-interface CompetitionCardSkeletonProps {
-  variant?: "list" | "empty";
+interface ClassDetailsSkeletonProps {
+  count?: number;
 }
 
-export function ClassDetailsSkeleton({ count = 3, variant = "list" }) {
-  if (variant === "empty") {
-    return <CompetitionEmptyStateSkeleton />;
-  }
-
+export function ClassDetailsSkeleton({ count = 3 }: ClassDetailsSkeletonProps) {
   return (
     <View style={styles.container}>
-      {Array.from({ length: count }).map((_, index) => (
-        <CompetitionCardSkeleton key={`skeleton-${index}`} variant="list" />
-      ))}
-    </View>
-  );
-}
+      {/* Header Section - Category and Instructor */}
+      <View style={styles.header}>
+        <SkeletonBox width={150} height={24} borderRadius={4} />
+        <View style={{ height: 4 }} />
+        <SkeletonBox width={200} height={16} borderRadius={4} />
+      </View>
 
-export function CompetitionCardSkeleton({
-  variant = "list",
-}: CompetitionCardSkeletonProps) {
-  if (variant === "empty") {
-    return <CompetitionEmptyStateSkeleton />;
-  }
+      {/* Student Cards List */}
+      <View style={styles.listContainer}>
+        {Array.from({ length: count }).map((_, index) => (
+          <View key={`skeleton-${index}`} style={styles.cardContainer}>
+            <View style={styles.card}>
+              {/* Left side - Avatar and User Info */}
+              <View style={styles.leftContent}>
+                <SkeletonBox width={32} height={32} borderRadius={16} />
+                <View style={styles.userInfo}>
+                  <SkeletonBox width={120} height={16} borderRadius={4} />
+                  <View style={{ height: 4 }} />
+                  <SkeletonBox width={80} height={12} borderRadius={4} />
+                </View>
+              </View>
 
-  return (
-    <View style={styles.cardWrapper}>
-      <View style={styles.card}>
-        {/* Header */}
-
-        {/* User Info */}
-        <View style={styles.userInfo}>
-          <View style={styles.userLeft}>
-            <SkeletonBox width={40} height={40} borderRadius={20} />
-            <View style={styles.userText}>
-              <SkeletonBox width={80} height={14} borderRadius={4} />
-              <SkeletonBox
-                width={60}
-                height={12}
-                borderRadius={4}
-                style={{ marginTop: 4 }}
-              />
+              {/* Right side - Badge and Time */}
+              <View style={styles.rightContent}>
+                <SkeletonBox width={24} height={24} borderRadius={12} />
+                <View style={{ height: 4 }} />
+                <SkeletonBox width={50} height={12} borderRadius={4} />
+              </View>
             </View>
           </View>
-          <SkeletonBox width={50} height={20} borderRadius={10} />
-        </View>
-      </View>
-    </View>
-  );
-}
-
-function CompetitionEmptyStateSkeleton() {
-  return (
-    <View style={styles.cardWrapper}>
-      <View style={styles.card}>
-        {/* Header */}
-        <View style={styles.header}>
-          <SkeletonBox width={120} height={20} borderRadius={4} />
-          <SkeletonBox
-            width={140}
-            height={14}
-            borderRadius={4}
-            style={{ marginTop: 4 }}
-          />
-        </View>
-
-        {/* Content Area */}
-        <View style={styles.content}>
-          {/* Icon Circle */}
-          <View style={styles.iconContainer}>
-            <SkeletonBox width={64} height={64} borderRadius={32} />
-          </View>
-
-          {/* Main Text */}
-          <View style={styles.textContainer}>
-            <SkeletonBox width={200} height={16} borderRadius={4} />
-            <SkeletonBox
-              width={160}
-              height={14}
-              borderRadius={4}
-              style={{ marginTop: 8 }}
-            />
-          </View>
-        </View>
-
-        {/* Button */}
-        <View style={styles.buttonContainer}>
-          <SkeletonBox width="100%" height={48} borderRadius={8} />
-        </View>
+        ))}
       </View>
     </View>
   );
@@ -99,51 +48,37 @@ function CompetitionEmptyStateSkeleton() {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 16,
-    gap: 12,
-  },
-  cardWrapper: {
-    marginBottom: 12,
-  },
-  card: {
-    backgroundColor: theme.colors.white?.[400],
-    borderRadius: 12,
-    padding: 16,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.05,
-    shadowRadius: 2,
-    elevation: 1,
+    gap: 16,
   },
   header: {
-    marginBottom: 16,
+    marginBottom: 0,
   },
-  userInfo: {
+  listContainer: {
+    gap: 8,
+  },
+  cardContainer: {
+    flex: 1,
+  },
+  card: {
+    borderWidth: 1,
+    borderColor: theme.colors.border,
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    borderRadius: 10,
     flexDirection: "row",
-    alignItems: "center",
     justifyContent: "space-between",
+    alignItems: "center",
   },
-  userLeft: {
+  leftContent: {
     flexDirection: "row",
     alignItems: "center",
     gap: 12,
   },
-  userText: {
-    gap: 4,
+  userInfo: {
+    gap: 0,
   },
-  content: {
+  rightContent: {
     alignItems: "center",
-    marginBottom: 24,
-    marginTop: 8,
-  },
-  iconContainer: {
-    marginBottom: 16,
-  },
-  textContainer: {
-    alignItems: "center",
-    gap: 8,
-  },
-  buttonContainer: {
-    marginTop: 8,
+    gap: 0,
   },
 });

@@ -6,7 +6,6 @@ import { useCreateCheckin } from "@app/hooks/useCreateCheckin";
 import {
   BottomSheetBackdrop,
   BottomSheetModal,
-  BottomSheetModalProvider,
   BottomSheetScrollView,
 } from "@gorhom/bottom-sheet";
 import { FlashList } from "@shopify/flash-list";
@@ -103,80 +102,80 @@ export function ClassListBottomSheet({
   const isNotStarted = classDetails?.status === "not-started";
 
   return (
-    <BottomSheetModalProvider>
-      <BottomSheetModal
-        ref={bottomSheetModalRef}
-        backdropComponent={renderBackdrop}
-        maxDynamicContentSize={500}
-        backgroundStyle={{ backgroundColor: theme.colors.card }}
-        handleIndicatorStyle={{ backgroundColor: theme.colors.mutedText }}
+    <BottomSheetModal
+      ref={bottomSheetModalRef}
+      backdropComponent={renderBackdrop}
+      snapPoints={["50%"]}
+      backgroundStyle={{ backgroundColor: theme.colors.card }}
+      handleIndicatorStyle={{ backgroundColor: theme.colors.mutedText }}
+      containerStyle={{ zIndex: 11 }}
+      enableDynamicSizing={false}
+    >
+      <BottomSheetScrollView
+        style={[styles.bottomSheetContainer]}
+        contentContainerStyle={{ paddingBottom: bottom + 16 }}
       >
-        <BottomSheetScrollView
-          style={[styles.bottomSheetContainer]}
-          contentContainerStyle={{ paddingBottom: bottom + 16 }}
-        >
-          {isLoading && <ClassDetailsSkeleton count={3} />}
-          {!isLoading && (
-            <View style={{ gap: 16 }}>
-              <View>
-                <AppText weight="semiBold" size="xl">
-                  {classDetails?.category.type}
-                </AppText>
-                <AppText size="sm">
-                  {classDetails?.instructor.name} -{" "}
-                  {BELTS[classDetails?.instructor.belt as BeltType]}
-                </AppText>
-              </View>
-
-              <FlashList
-                data={classDetails?.students}
-                keyExtractor={(item) => item.id}
-                ItemSeparatorComponent={() => <View style={{ height: 8 }} />}
-                renderItem={({ item }) => (
-                  <ClassListBottomSheetCard
-                    avatarUrl="https://imgs.search.brave.com/sYS3AaZj_MVIbF5CaDMKshfK2uVKaByHEboqLMlk1Fw/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zdGF0/aWMxLmNvbGxpZGVy/aW1hZ2VzLmNvbS93/b3JkcHJlc3Mvd3At/Y29udGVudC91cGxv/YWRzLzIwMjUvMDMv/cmljay1tb3J0eS1w/b3J0YWwuanBnP3E9/NDkmZml0PWNyb3Am/dz0zNjAmaD0yNDAm/ZHByPTI"
-                    belt={item.belt}
-                    name={item.name}
-                    checkedAt={formatTime(item.checkin?.completedAt ?? "")}
-                    checkinStatus={item.checkin!.status}
-                    isCurrentUserInClass={item.id === currentUserInClass?.id}
-                  />
-                )}
-                ListEmptyComponent={
-                  <EmptyState
-                    title="Nenhum aluno fez check-in"
-                    description={
-                      isNotStarted ? "Seja o primeiro a entrar na aula" : ""
-                    }
-                    icon={<Target />}
-                  />
-                }
-              />
-
-              {isNotStarted && !isCurrentUserInClass && (
-                <Button
-                  disabled={isCreatingCheckin}
-                  loading={isCreatingCheckin}
-                  onPress={handleCheckin}
-                >
-                  Check-in
-                </Button>
-              )}
-
-              {isNotStarted && isCurrentUserInClass && (
-                <Button
-                  variant="danger"
-                  disabled={isCancellingCheckin}
-                  loading={isCancellingCheckin}
-                  onPress={handleCancelCheckin}
-                >
-                  Cancelar check-in
-                </Button>
-              )}
+        {isLoading && <ClassDetailsSkeleton count={3} />}
+        {!isLoading && (
+          <View style={{ gap: 16 }}>
+            <View>
+              <AppText weight="semiBold" size="xl">
+                {classDetails?.category.type}
+              </AppText>
+              <AppText size="sm">
+                {classDetails?.instructor.name} -{" "}
+                {BELTS[classDetails?.instructor.belt as BeltType]}
+              </AppText>
             </View>
-          )}
-        </BottomSheetScrollView>
-      </BottomSheetModal>
-    </BottomSheetModalProvider>
+
+            <FlashList
+              data={classDetails?.students}
+              keyExtractor={(item) => item.id}
+              ItemSeparatorComponent={() => <View style={{ height: 8 }} />}
+              renderItem={({ item }) => (
+                <ClassListBottomSheetCard
+                  avatarUrl="https://imgs.search.brave.com/sYS3AaZj_MVIbF5CaDMKshfK2uVKaByHEboqLMlk1Fw/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zdGF0/aWMxLmNvbGxpZGVy/aW1hZ2VzLmNvbS93/b3JkcHJlc3Mvd3At/Y29udGVudC91cGxv/YWRzLzIwMjUvMDMv/cmljay1tb3J0eS1w/b3J0YWwuanBnP3E9/NDkmZml0PWNyb3Am/dz0zNjAmaD0yNDAm/ZHByPTI"
+                  belt={item.belt}
+                  name={item.name}
+                  checkedAt={formatTime(item.checkin?.completedAt ?? "")}
+                  checkinStatus={item.checkin!.status}
+                  isCurrentUserInClass={item.id === currentUserInClass?.id}
+                />
+              )}
+              ListEmptyComponent={
+                <EmptyState
+                  title="Nenhum aluno fez check-in"
+                  description={
+                    isNotStarted ? "Seja o primeiro a entrar na aula" : ""
+                  }
+                  icon={<Target />}
+                />
+              }
+            />
+
+            {isNotStarted && !isCurrentUserInClass && (
+              <Button
+                disabled={isCreatingCheckin}
+                loading={isCreatingCheckin}
+                onPress={handleCheckin}
+              >
+                Check-in
+              </Button>
+            )}
+
+            {isNotStarted && isCurrentUserInClass && (
+              <Button
+                variant="danger"
+                disabled={isCancellingCheckin}
+                loading={isCancellingCheckin}
+                onPress={handleCancelCheckin}
+              >
+                Cancelar check-in
+              </Button>
+            )}
+          </View>
+        )}
+      </BottomSheetScrollView>
+    </BottomSheetModal>
   );
 }

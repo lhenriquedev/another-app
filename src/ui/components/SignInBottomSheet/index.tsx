@@ -22,8 +22,8 @@ import { isAxiosError } from "axios";
 import { toast } from "sonner-native";
 
 const signInSchema = z.object({
-  email: z.email(),
-  password: z.string().min(8),
+  email: z.email("Email inválido").min(1, "Email é obrigatório"),
+  password: z.string().min(1, "Senha é obrigatória"),
 });
 
 interface ISignInBottomSheetProps {
@@ -113,6 +113,7 @@ export function SignInBottomSheet({ ref }: ISignInBottomSheetProps) {
             />
 
             <Button
+              variant="primary"
               onPress={handleSubmit}
               disabled={form.formState.isSubmitting}
               loading={form.formState.isSubmitting}

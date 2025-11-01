@@ -1,13 +1,13 @@
 import { IUpcomingClasses } from "@app/hooks/useUpcomingClasses";
 import { EmptyState } from "../EmptyState";
 import { Calendar, ClockAlert } from "lucide-react-native";
-import { SkeletonBox } from "../SkeletonBox";
 import { View } from "react-native";
 import { AppText } from "../AppText";
 import { styles } from "./styles";
 import { FlashList } from "@shopify/flash-list";
 import { UpcomingClassesCard } from "../UpcomingClassCard";
 import { theme } from "@ui/styles/theme";
+import { UpcomingClassesSkeleton } from "../UpcomingClassesSkeleton";
 
 interface IUpcomingClassesProps {
   upcomingClasses: IUpcomingClasses[];
@@ -42,7 +42,7 @@ export function UpcomingClasses({
   }
 
   if (isLoadingUpcomingClasses) {
-    return <SkeletonBox height={30} />;
+    return <UpcomingClassesSkeleton />;
   }
 
   return (

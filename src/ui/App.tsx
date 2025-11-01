@@ -16,6 +16,7 @@ import { useEffect } from "react";
 import * as SplashScreen from "expo-splash-screen";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "sonner-native";
+import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -44,9 +45,11 @@ const RootLayout = () => {
   }
 
   return (
-    <NavigationContainer>
-      {isLoggedIn ? <AppStack /> : <AuthStack />}
-    </NavigationContainer>
+    <BottomSheetModalProvider>
+      <NavigationContainer>
+        {isLoggedIn ? <AppStack /> : <AuthStack />}
+      </NavigationContainer>
+    </BottomSheetModalProvider>
   );
 };
 

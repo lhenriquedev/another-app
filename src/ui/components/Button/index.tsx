@@ -20,7 +20,14 @@ export function Button({
 }: IButtonProps) {
   const childEl =
     typeof children === "string" ? (
-      <AppText color={theme.colors.background}>{children}</AppText>
+      <AppText
+        color={
+          variant === "primary" ? theme.colors.background : theme.colors.text
+        }
+        weight="semiBold"
+      >
+        {children}
+      </AppText>
     ) : (
       children
     );
@@ -41,7 +48,11 @@ export function Button({
         disabled={disabled}
         {...props}
       >
-        {loading ? <ActivityIndicator color={theme.colors.background} /> : childEl}
+        {loading ? (
+          <ActivityIndicator color={theme.colors.background} />
+        ) : (
+          childEl
+        )}
       </Pressable>
     </View>
   );
