@@ -29,5 +29,6 @@ export const useClasses = (params: IClassesParams = {}) => {
       return data.classes;
     },
     enabled: !!date,
+    staleTime: 1000 * 60 * 5, // 5 minutes
   });
 };
