@@ -17,7 +17,9 @@ export const useCreateCheckin = (selectedClassId: string) => {
         queryKey: ["classe-by-id", selectedClassId],
       });
       queryClient.invalidateQueries({ queryKey: ["user"] });
+      queryClient.invalidateQueries({ queryKey: ["summary"] });
       queryClient.invalidateQueries({ queryKey: ["recent-classes"] });
+      queryClient.invalidateQueries({ queryKey: ["upcoming-classes"] });
     },
   });
 };

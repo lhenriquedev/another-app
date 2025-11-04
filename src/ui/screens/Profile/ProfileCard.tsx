@@ -1,7 +1,7 @@
 import { AppText } from "@ui/components/AppText";
+import { theme } from "@ui/styles/theme";
 import { View } from "react-native";
 import { styles } from "./styles";
-import { theme } from "@ui/styles/theme";
 
 interface ProfileCardProps {
   icon: React.ReactNode;

@@ -1,18 +1,18 @@
-import { theme } from '@ui/styles/theme';
-import { createVariants, VariantProps } from '@ui/styles/utils/createVariant';
-import { StyleSheet } from 'react-native';
+import { theme } from "@ui/styles/theme";
+import { createVariants, VariantProps } from "@ui/styles/utils/createVariant";
+import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
   wrapper: {
     borderRadius: 12,
-    overflow: 'hidden',
+    overflow: "hidden",
   },
 });
 
 export const buttonStyles = createVariants({
   base: {
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   variants: {
     variant: {
@@ -23,10 +23,13 @@ export const buttonStyles = createVariants({
         backgroundColor: theme.colors.secondary,
       },
       ghost: {
-        backgroundColor: 'transparent',
+        backgroundColor: "transparent",
       },
       danger: {
         backgroundColor: theme.colors.accent,
+      },
+      icon: {
+        backgroundColor: theme.colors.primary_light,
       },
     },
     size: {
@@ -49,9 +52,9 @@ export const buttonStyles = createVariants({
     },
   },
   defaultVariants: {
-    variant: 'primary',
-    size: 'default',
-    disabled: 'false',
+    variant: "primary",
+    size: "default",
+    disabled: "false",
   },
 });
 

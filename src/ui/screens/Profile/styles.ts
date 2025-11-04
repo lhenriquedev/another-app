@@ -3,6 +3,7 @@ import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
   container: {
+    paddingHorizontal: 16,
     flex: 1,
     backgroundColor: theme.colors.background,
   },
@@ -16,10 +17,17 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
   },
   profileAvatar: {
-    width: 84,
-    height: 84,
+    width: 90,
+    height: 90,
+  },
+  profileAvatarButton: {
+    width: 90,
+    height: 90,
     borderRadius: 100,
-    marginBottom: 24,
+    overflow: "hidden",
+    marginBottom: 16,
+    borderWidth: 1,
+    borderColor: theme.colors.primary,
   },
   profileFormContent: {
     borderWidth: 1,

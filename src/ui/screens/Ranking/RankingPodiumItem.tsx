@@ -7,12 +7,14 @@ type RankingPodiumItemProps = {
   position: number;
   name: string;
   totalCheckins: number;
+  avatar: string;
 };
 
 export function RankingPodiumItem({
   position,
   name,
   totalCheckins,
+  avatar,
 }: RankingPodiumItemProps) {
   const isFirstPosition = position === 1;
   const isSecondPosition = position === 2;
@@ -45,9 +47,7 @@ export function RankingPodiumItem({
           isThirdPosition && { borderColor: theme.colors.accent },
         ]}
         resizeMode="cover"
-        source={{
-          uri: "https://imgs.search.brave.com/jC8B4LU0QvDONYhFVsmzM6bnCeg7EVSGV4Y7zqsPGcc/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93YWxs/cGFwZXJjYXQuY29t/L3cvZnVsbC80LzMv/My8xMjU1MjMtMTI0/MngyMjA4LWlwaG9u/ZS1oZC1yaWNrLWFu/ZC1tb3J0eS1iYWNr/Z3JvdW5kLXBob3Rv/LmpwZw",
-        }}
+        source={{ uri: avatar }}
       />
       <AppText size="sm">
         {name.length > 10 ? `${name.substring(0, 10)}...` : name}

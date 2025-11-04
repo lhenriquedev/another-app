@@ -5,7 +5,7 @@ import { Ban, Check } from "lucide-react-native";
 import { BELTS, BeltType } from "@app/hooks/useBelts";
 
 interface IClassListBottomSheetCardProps {
-  avatarUrl: string;
+  avatarUrl?: string;
   belt: string;
   checkinStatus: "done" | "cancelled";
   checkedAt: string;
@@ -38,12 +38,12 @@ export function ClassListBottomSheetCard({
           <Image
             resizeMode="cover"
             style={styles.image}
-            source={{
-              uri: avatarUrl,
-            }}
+            source={{ uri: avatarUrl }}
           />
           <View>
-            <View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
+            <View
+              style={{ flexDirection: "row", alignItems: "center", gap: 8 }}
+            >
               <AppText weight="semiBold">{name}</AppText>
               {isCurrentUserInClass && (
                 <View
@@ -54,7 +54,11 @@ export function ClassListBottomSheetCard({
                     borderRadius: 4,
                   }}
                 >
-                  <AppText size="xs" weight="semiBold" color={theme.colors.background}>
+                  <AppText
+                    size="xs"
+                    weight="semiBold"
+                    color={theme.colors.background}
+                  >
                     Você
                   </AppText>
                 </View>

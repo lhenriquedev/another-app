@@ -1,26 +1,27 @@
-import { httpClient } from '@app/services/httpClient';
-import { useQuery } from '@tanstack/react-query';
+import { httpClient } from "@app/services/httpClient";
+import { useQuery } from "@tanstack/react-query";
 
 export type IUpcomingClasses = {
-  id: string
-  title: string
-  description?: string
-  capacity: number
-  date: string
-  startTime: string
-  endTIme: string
-  instructor: string
-  category: string
-}
+  id: string;
+  title: string;
+  description?: string;
+  capacity: number;
+  date: string;
+  startTime: string;
+  endTIme: string;
+  instructor: string;
+  category: string;
+};
 
 export const useUpcomingClasses = () => {
   return useQuery({
-    queryKey: ['upcoming-classes'],
+    queryKey: ["upcoming-classes"],
     queryFn: async () => {
-      const { data } = await httpClient.get<{ upcomingClasses: IUpcomingClasses[] }>(
-        '/upcoming-classes',
-      );
+      const { data } = await httpClient.get<{
+        upcomingClasses: IUpcomingClasses[];
+      }>("/upcoming-classes");
       return data.upcomingClasses;
     },
+    staleTime: 1000 * 60 * 5, // 5 minutes
   });
 };

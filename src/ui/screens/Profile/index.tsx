@@ -1,83 +1,87 @@
 import { useAuth } from "@app/contexts/AuthContext";
-import { useProfileUpdate } from "@app/hooks/useProfileUpdate";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "@ui/components/Button";
+import { ProfileStackParamList } from "@app/navigation/ProfileStack";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { MenuList } from "@ui/components/MenuList";
+import { MenuListItem } from "@ui/components/MenuList/MenuListItem";
 import { Screen } from "@ui/components/Screen";
-import { isAxiosError } from "axios";
-import { FormProvider, useForm } from "react-hook-form";
+import { ISignInBottomSheet } from "@ui/components/SignInBottomSheet/ISignInBottomSheet";
+import { Edit, LogOut, Settings as SettingsIcon } from "lucide-react-native";
+import { useRef, useState } from "react";
 import { View } from "react-native";
-import { toast } from "sonner-native";
-import z from "zod";
-import { ProfileInfo } from "./ProfileInfo";
+import { ProfileAvatar } from "./ProfileAvatar";
+import { ProfileGeneral } from "./ProfileGeneral";
+import { ProfileImageBottomSheet } from "./ProfileImageBottomSheet";
+import { ProfileTab } from "./ProfileTab";
 import { styles } from "./styles";
-import { LogOut } from "lucide-react-native";
 
 export type SelectedTab = "general" | "info";
 
-const schema = z.object({
-  email: z.email().optional(),
-  birthDate: z.string().optional(),
-  name: z.string().optional(),
-  gender: z.enum(["male", "female"]).optional(),
-  phone: z.string().optional(),
-});
-
-export type ProfileFormData = z.infer<typeof schema>;
+type ProfileNavigationProp = NativeStackNavigationProp<
+  ProfileStackParamList,
+  "ProfileMain"
+>;
 
 export function Profile() {
-  const { user, signOut } = useAuth();
-  const { mutateAsync: updateProfile, isPending: isUpdating } =
-    useProfileUpdate();
+  const { signOut } = useAuth();
+  const navigation = useNavigation<ProfileNavigationProp>();
+  const profileBottomSheetRef = useRef<ISignInBottomSheet>(null);
+  const [selectedTab, setSelectedTab] = useState<SelectedTab>("general");
 
-  const form = useForm({
-    resolver: zodResolver(schema),
-    defaultValues: {
-      email: user?.email ?? "",
-      birthDate: user?.birthDate ?? "",
-      gender: user?.gender,
-      name: user?.name ?? "",
-      phone: user?.phone ?? "",
-    },
-  });
+  function handleOpenProfileAvatar() {
+    profileBottomSheetRef.current?.open();
+  }
 
-  const handleSubmit = form.handleSubmit(async (data: ProfileFormData) => {
-    const [day = "", month = "", year = ""] = data.birthDate?.split("/") ?? [];
+  function handleNavigateToEditProfile() {
+    navigation.navigate("EditProfile");
+  }
 
-    try {
-      await updateProfile({
-        name: data.name,
-        gender: data.gender,
-        birthDate: `${year}/${month}/${day}`,
-        email: data.email,
-        phone: data.phone,
-      });
-      toast.success("Perfil atualizado com sucesso!");
-    } catch (error) {
-      if (isAxiosError(error)) {
-        toast.error(error.response?.data.message);
-      }
-    }
-  });
+  function handleNavigateToSettings() {
+    navigation.navigate("Settings");
+  }
+
+  function handleSignOut() {
+    signOut();
+  }
 
   return (
-    <Screen hasScroll headerType="default">
-      <View style={styles.profileContent}>
-        <FormProvider {...form}>
-          <Button size="icon" variant="secondary" onPress={signOut}>
-            <LogOut />
-          </Button>
-          {/* <ProfileAvatar /> */}
-          <ProfileInfo />
-          <Button
-            variant="primary"
-            disabled={isUpdating}
-            loading={isUpdating}
-            onPress={handleSubmit}
-          >
-            Salvar
-          </Button>
-        </FormProvider>
+    <Screen headerType="default" style={{ flex: 1 }}>
+      <View style={styles.container}>
+        <View style={{ paddingHorizontal: 16, paddingTop: 16 }}>
+          <ProfileAvatar onOpenProfileBottomSheet={handleOpenProfileAvatar} />
+        </View>
+
+        <ProfileTab selectedTab={selectedTab} onSelectedTab={setSelectedTab} />
+
+        <View style={{ flex: 1 }}>
+          {selectedTab === "general" && <ProfileGeneral />}
+
+          {selectedTab === "info" && (
+            <View style={{ paddingTop: 24 }}>
+              <MenuList>
+                <MenuListItem
+                  icon={Edit}
+                  label="Editar Perfil"
+                  onPress={handleNavigateToEditProfile}
+                />
+                <MenuListItem
+                  icon={SettingsIcon}
+                  label="Configurações"
+                  onPress={handleNavigateToSettings}
+                />
+                <MenuListItem
+                  icon={LogOut}
+                  label="Sair"
+                  onPress={handleSignOut}
+                  variant="danger"
+                />
+              </MenuList>
+            </View>
+          )}
+        </View>
       </View>
+
+      <ProfileImageBottomSheet ref={profileBottomSheetRef} />
     </Screen>
   );
 }

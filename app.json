@@ -38,6 +38,13 @@
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"
         }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "O app precisa acessar suas fotos.",
+          "cameraPermission": "O app precisa acessar sua câmera."
+        }
       ]
     ],
     "extra": {

@@ -19,6 +19,7 @@ export const useCancelCheckin = (selectedClassId: string) => {
         queryKey: ['classe-by-id', selectedClassId],
       });
       queryClient.invalidateQueries({ queryKey: ['user'] });
+      queryClient.invalidateQueries({ queryKey: ['summary'] });
     },
   });
 };

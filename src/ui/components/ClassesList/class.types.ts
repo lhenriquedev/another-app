@@ -1,7 +1,7 @@
 // Tipos base
-export type ClassStatus = 'not-started' | 'finished' | 'in-progress';
-export type CheckinStatus = 'done' | 'cancelled';
-export type Belt = 'white' | 'blue' | 'purple' | 'brown' | 'black';
+export type ClassStatus = "not-started" | "finished" | "in-progress";
+export type CheckinStatus = "done" | "cancelled";
+export type Belt = "white" | "blue" | "purple" | "brown" | "black";
 
 // Instrutor
 export interface IInstructor {
@@ -31,6 +31,7 @@ export interface IStudent {
   email: string;
   belt: Belt;
   checkin?: ICheckin;
+  avatar?: string;
 }
 
 // Estatísticas da aula
@@ -64,7 +65,7 @@ export interface IClass {
 }
 
 // Aula com detalhes completos (para modal/detalhes)
-export interface IClassDetails extends Omit<IClass, 'checkinsSummary'> {
+export interface IClassDetails extends Omit<IClass, "checkinsSummary"> {
   students: IStudent[];
   statistics: IClassStatistics;
 }

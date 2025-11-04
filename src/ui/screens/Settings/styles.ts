@@ -1,14 +1,12 @@
-import { theme } from "@ui/styles/theme";
 import { StyleSheet } from "react-native";
+import { theme } from "@ui/styles/theme";
 
 export const styles = StyleSheet.create({
   container: {
-    paddingVertical: 8,
-    paddingHorizontal: 16,
+    flex: 1,
     backgroundColor: theme.colors.background,
-
-    flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-between",
+    justifyContent: "center",
+    padding: 16,
   },
 });

@@ -134,7 +134,7 @@ export function ClassListBottomSheet({
               ItemSeparatorComponent={() => <View style={{ height: 8 }} />}
               renderItem={({ item }) => (
                 <ClassListBottomSheetCard
-                  avatarUrl="https://imgs.search.brave.com/sYS3AaZj_MVIbF5CaDMKshfK2uVKaByHEboqLMlk1Fw/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zdGF0/aWMxLmNvbGxpZGVy/aW1hZ2VzLmNvbS93/b3JkcHJlc3Mvd3At/Y29udGVudC91cGxv/YWRzLzIwMjUvMDMv/cmljay1tb3J0eS1w/b3J0YWwuanBnP3E9/NDkmZml0PWNyb3Am/dz0zNjAmaD0yNDAm/ZHByPTI"
+                  avatarUrl={item.avatar}
                   belt={item.belt}
                   name={item.name}
                   checkedAt={formatTime(item.checkin?.completedAt ?? "")}

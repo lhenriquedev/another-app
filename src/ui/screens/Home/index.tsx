@@ -1,12 +1,15 @@
-import { Screen } from "@ui/components/Screen";
-import { UpcomingClasses } from "@ui/components/UpcomingClasses";
-import { useRef, useState } from "react";
-import { IClassListBottomSheet } from "@ui/components/ClassesList/IClassListBottomSheet";
+import { useSummary } from "@app/hooks/useSummary";
 import { useUpcomingClasses } from "@app/hooks/useUpcomingClasses";
-import { ClassListBottomSheet } from "@ui/components/ClassesList/ClassListBottomSheet";
-import { Clock, Flame, Target, TrendingUp } from "lucide-react-native";
+import { AppText } from "@ui/components/AppText";
 import { Card, CardContainer, CardHeader, CardIcon } from "@ui/components/Card";
+import { ClassListBottomSheet } from "@ui/components/ClassesList/ClassListBottomSheet";
+import { IClassListBottomSheet } from "@ui/components/ClassesList/IClassListBottomSheet";
+import { Screen } from "@ui/components/Screen";
+import { SkeletonBox } from "@ui/components/SkeletonBox";
+import { UpcomingClasses } from "@ui/components/UpcomingClasses";
 import { theme } from "@ui/styles/theme";
+import { Target, TrendingUp } from "lucide-react-native";
+import { useRef, useState } from "react";
 import { View } from "react-native";
 import { styles } from "./styles";
 
@@ -20,6 +23,8 @@ export function Home() {
     error,
   } = useUpcomingClasses();
 
+  const { data: summary, isPending: isLoadingSummary } = useSummary();
+
   const handleOnClassIdPress = (classId: string) => {
     bottomSheetHomeRef.current?.open();
     setSelectedClassId(classId);
@@ -29,24 +34,36 @@ export function Home() {
     <Screen hasScroll={false} style={{ flex: 1 }} headerType="home">
       <CardContainer style={{ marginBottom: 16, marginTop: 16 }}>
         <Card>
-          <CardHeader label="Streak atual" title="7 dias" />
-          <CardIcon Icon={Flame} color={theme.colors.primary} size={24} />
-        </Card>
-
-        <Card>
-          <CardHeader label="Check-ins (mês)" title="18" />
+          {isLoadingSummary ? (
+            <View>
+              <AppText size="xs" color={theme.colors.mutedText}>
+                Check-ins (mês)
+              </AppText>
+              <SkeletonBox width={60} height={28} style={{ marginTop: 4 }} />
+            </View>
+          ) : (
+            <CardHeader
+              label="Check-ins (mês)"
+              title={String(summary?.checkinsThisMonth ?? 0)}
+            />
+          )}
           <CardIcon Icon={TrendingUp} color={theme.colors.primary} size={24} />
         </Card>
-      </CardContainer>
-
-      <CardContainer style={{ marginBottom: 16 }}>
-        <Card>
-          <CardHeader label="Horas de treino" title="243" />
-          <CardIcon Icon={Clock} color={theme.colors.primary} size={24} />
-        </Card>
 
         <Card>
-          <CardHeader label="Total de check-ins" title="7 dias" />
+          {isLoadingSummary ? (
+            <View>
+              <AppText size="xs" color={theme.colors.mutedText}>
+                Total de check-ins
+              </AppText>
+              <SkeletonBox width={60} height={28} style={{ marginTop: 4 }} />
+            </View>
+          ) : (
+            <CardHeader
+              label="Total de check-ins"
+              title={String(summary?.totalCheckins ?? 0)}
+            />
+          )}
           <CardIcon Icon={Target} color={theme.colors.primary} size={24} />
         </Card>
       </CardContainer>

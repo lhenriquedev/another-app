@@ -3,7 +3,7 @@ import { Input } from "@ui/components/Input";
 import { OptionsSelector } from "@ui/components/OptionsSelector";
 import { Controller, useFormContext } from "react-hook-form";
 import { View } from "react-native";
-import { ProfileFormData } from ".";
+import { ProfileFormData } from "../EditProfile";
 import { styles } from "./styles";
 
 export function ProfileInfo() {

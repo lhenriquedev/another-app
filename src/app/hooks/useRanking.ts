@@ -6,6 +6,7 @@ export type Ranking = {
   userName: string;
   totalCheckins: number;
   position: number;
+  avatar: string;
 };
 
 export const useRanking = () => {

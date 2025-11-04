@@ -106,9 +106,9 @@ export function AccountStep() {
               autoCapitalize="none"
               autoCorrect={false}
               autoComplete="tel"
-              placeholder="(11) 99999-99999"
+              placeholder="(11) 99999-9999"
               returnKeyType="next"
-              mask="(99) 9999-99999"
+              mask="(99) 99999-9999"
               onChangeText={field.onChange}
               value={field.value}
             />

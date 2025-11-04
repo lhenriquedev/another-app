@@ -13,6 +13,8 @@ type User = {
   birthDate: string;
   gender: "male" | "female";
   totalCheckins: number;
+  avatar?: string;
+  avatarUpdatedAt?: string;
 };
 
 type SignInParams = {

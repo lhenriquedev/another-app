@@ -6,7 +6,7 @@ import {
 import { RouteProp } from "@react-navigation/native";
 import { CalendarScreen } from "@ui/screens/Calendar";
 import { Home } from "@ui/screens/Home";
-import { Profile } from "@ui/screens/Profile";
+import { ProfileStack } from "./ProfileStack";
 import { Ranking } from "@ui/screens/Ranking";
 import { theme } from "@ui/styles/theme";
 import {
@@ -119,7 +119,7 @@ export function AppStack() {
       />
       <BottomTab.Screen
         name="Profile"
-        component={Profile}
+        component={ProfileStack}
         options={{
           tabBarIcon: ({ focused }) => (
             <TabIcon Icon={User} focused={focused} />
