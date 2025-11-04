@@ -6,23 +6,26 @@ import {
 import { RouteProp } from "@react-navigation/native";
 import { CalendarScreen } from "@ui/screens/Calendar";
 import { Home } from "@ui/screens/Home";
-import { ProfileStack } from "./ProfileStack";
 import { Ranking } from "@ui/screens/Ranking";
 import { theme } from "@ui/styles/theme";
 import {
   Calendar,
   ChartNoAxesColumn,
   HomeIcon,
-  User,
   LucideIcon,
+  User,
 } from "lucide-react-native";
 import { View } from "react-native";
+import { ProfileStack } from "./ProfileStack";
 
 export const routeTitles = {
   Home: "Início",
   Profile: "Perfil",
   Calendar: "Calendário",
   Ranking: "Ranking",
+  Settings: "Configurações",
+  ProfileMain: "Perfil",
+  EditProfile: "Editar Perfil",
 } as const;
 
 export type AppStackParamList = {
