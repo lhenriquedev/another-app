@@ -57,7 +57,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [isReady, setIsReady] = useState(false);
 
   const { user, loadProfile } = useProfile({ enabled: false });
-  console.log(user);
 
   const queryClient = useQueryClient();
   const forceRender = useForceRender();
@@ -89,7 +88,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const { mutateAsync: signIn } = useMutation({
     mutationFn: async (params: SignInParams) => {
       const { data } = await httpClient.post("/login", params);
-      console.log(data);
 
       await AsyncStorage.setItem(TOKEN_STORAGE_KEY, data.token);
       await setupAuth(data.token);

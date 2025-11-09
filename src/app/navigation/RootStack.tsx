@@ -26,7 +26,6 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export function RootStack() {
   const { isLoggedIn } = useAuth();
-  console.log(isLoggedIn);
 
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
