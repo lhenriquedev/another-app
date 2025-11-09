@@ -1,9 +1,18 @@
+import { useForceRender } from "@app/hooks/useForceRender";
+import { useProfile } from "@app/hooks/useProfile";
 import { httpClient } from "@app/services/httpClient";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { createContext, use, useCallback, useEffect, useState } from "react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import * as SplashScreen from "expo-splash-screen";
+import {
+  createContext,
+  use,
+  useCallback,
+  useLayoutEffect,
+  useState,
+} from "react";
 
-type User = {
+export type User = {
   id: string;
   name: string;
   email: string;
@@ -27,35 +36,63 @@ type SignUpParams = {
   password: string;
   name: string;
   beltId: string;
-  birthDate: string;
-  phone: string;
   gender: string;
 };
 
 interface IAuthContextValue {
   user: User | null;
   isLoggedIn: boolean;
-  isLoading: boolean;
   signIn: (params: SignInParams) => Promise<void>;
   signUp: (params: SignUpParams) => Promise<void>;
   signOut: () => Promise<void>;
 }
+
+SplashScreen.preventAutoHideAsync();
 
 export const AuthContext = createContext({} as IAuthContextValue);
 
 const TOKEN_STORAGE_KEY = "@another-app::token";
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const [token, setToken] = useState<string | null>(null);
-  const [isLoadingToken, setIsLoadingToken] = useState(true);
+  const [isReady, setIsReady] = useState(false);
+
+  const { user, loadProfile } = useProfile({ enabled: false });
+  console.log(user);
 
   const queryClient = useQueryClient();
+  const forceRender = useForceRender();
+
+  const setupAuth = useCallback(async (token: string) => {
+    httpClient.defaults.headers.common["Authorization"] = token;
+
+    await loadProfile();
+    SplashScreen.hideAsync();
+    setIsReady(true);
+  }, []);
+
+  useLayoutEffect(() => {
+    async function load() {
+      const token = await AsyncStorage.getItem(TOKEN_STORAGE_KEY);
+
+      if (!token) {
+        setIsReady(true);
+        SplashScreen.hideAsync();
+        return;
+      }
+
+      await setupAuth(token);
+    }
+
+    load();
+  }, [loadProfile]);
 
   const { mutateAsync: signIn } = useMutation({
     mutationFn: async (params: SignInParams) => {
       const { data } = await httpClient.post("/login", params);
-      setToken(data.token);
-      setIsLoadingToken(false);
+      console.log(data);
+
+      await AsyncStorage.setItem(TOKEN_STORAGE_KEY, data.token);
+      await setupAuth(data.token);
     },
   });
 
@@ -65,53 +102,21 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     },
   });
 
-  const { data: user, isFetching } = useQuery({
-    enabled: !!token,
-    queryKey: ["user"],
-    queryFn: async () => {
-      const { data } = await httpClient.get<{ user: User }>("/me");
-
-      const { user } = data;
-
-      return user;
-    },
-  });
-
   const signOut = useCallback(async () => {
-    setToken(null);
-    await AsyncStorage.removeItem(TOKEN_STORAGE_KEY);
+    httpClient.defaults.headers.common["Authorization"] = undefined;
     queryClient.clear();
+    forceRender();
+    await AsyncStorage.clear();
   }, [queryClient]);
 
-  useEffect(() => {
-    async function load() {
-      const data = await AsyncStorage.getItem(TOKEN_STORAGE_KEY);
-      setToken(data);
-      setIsLoadingToken(false);
-    }
-
-    load();
-  }, []);
-
-  useEffect(() => {
-    async function run() {
-      if (!token) {
-        httpClient.defaults.headers.common["Authorization"] = null;
-        return;
-      }
-
-      httpClient.defaults.headers.common["Authorization"] = `${token}`;
-      await AsyncStorage.setItem(TOKEN_STORAGE_KEY, token);
-    }
-
-    run();
-  }, [token]);
+  if (!isReady) {
+    return null;
+  }
 
   return (
     <AuthContext.Provider
       value={{
-        isLoggedIn: !!token,
-        isLoading: isLoadingToken || isFetching,
+        isLoggedIn: !!user,
         user: user ?? null,
         signIn,
         signUp,

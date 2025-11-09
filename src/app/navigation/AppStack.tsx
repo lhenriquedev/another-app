@@ -76,7 +76,6 @@ export function AppStack() {
     <BottomTab.Navigator
       screenOptions={{
         headerShown: false,
-        animation: "shift",
         tabBarStyle: {
           height: 90,
           backgroundColor: theme.colors.card,

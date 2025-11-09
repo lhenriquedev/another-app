@@ -12,6 +12,7 @@ const colors = {
   primary: "#F5C842", // Primary: Amarelo/Dourado
   primary_light: "#F5C8422d", // Primary Light: Amarelo claro
   accent: "#DC2626", // Accent/Destructive: Vermelho
+  accent_light: "#DC26262d", // Accent Light: Vermelho claro
   success: "#16A34A", // Success: Verde
 } as const;
 

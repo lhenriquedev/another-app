@@ -9,6 +9,7 @@ import {
   BottomSheetScrollView,
 } from "@gorhom/bottom-sheet";
 import { FlashList } from "@shopify/flash-list";
+import { theme } from "@ui/styles/theme";
 import { isAxiosError } from "axios";
 import { Target } from "lucide-react-native";
 import { useCallback, useImperativeHandle, useRef } from "react";
@@ -23,7 +24,6 @@ import { ClassListBottomSheetCard } from "./ClassListBottomSheetCard";
 import { IClassListBottomSheet } from "./IClassListBottomSheet";
 import { styles } from "./styles";
 import { formatTime } from "./utils";
-import { theme } from "@ui/styles/theme";
 
 interface IClassListBottomSheetProps {
   ref: React.Ref<IClassListBottomSheet>;
@@ -75,7 +75,6 @@ export function ClassListBottomSheet({
     try {
       await createCheckin();
       toast.success("Check-in realizado com sucesso!");
-      // bottomSheetModalRef.current?.close();
     } catch (error) {
       if (isAxiosError(error)) {
         toast.error(error.response?.data.message);

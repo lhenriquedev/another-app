@@ -1,18 +1,19 @@
+import { AuthStackNavigationsProps } from "@app/navigation/AuthStack";
+import { useNavigation } from "@react-navigation/native";
 import welcomeBg from "@ui/assets/welcome-bg/image.jpg";
 import { AppText } from "@ui/components/AppText";
 import { Button } from "@ui/components/Button";
+import { SignInBottomSheet } from "@ui/components/SignInBottomSheet";
+import { ISignInBottomSheet } from "@ui/components/SignInBottomSheet/ISignInBottomSheet";
+import { theme } from "@ui/styles/theme";
+import { useRef } from "react";
 import { ImageBackground, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { styles } from "./styles";
-import { theme } from "@ui/styles/theme";
-import { SignInBottomSheet } from "@ui/components/SignInBottomSheet";
-import { useRef } from "react";
-import { ISignInBottomSheet } from "@ui/components/SignInBottomSheet/ISignInBottomSheet";
-import { SignUpBottomSheet } from "@ui/components/SignUpBottomSheet";
 
 export function Welcome() {
+  const navigation = useNavigation<AuthStackNavigationsProps>();
   const signInBottomSheetRef = useRef<ISignInBottomSheet>(null);
-  const signUpBottomSheetRef = useRef<ISignInBottomSheet>(null);
 
   return (
     <>
@@ -35,7 +36,7 @@ export function Welcome() {
             <View style={styles.ctaContent}>
               <Button
                 variant="primary"
-                onPress={() => signUpBottomSheetRef.current?.open()}
+                onPress={() => navigation.navigate("Signup")}
               >
                 Criar minha conta
               </Button>
@@ -59,7 +60,6 @@ export function Welcome() {
       </ImageBackground>
 
       <SignInBottomSheet ref={signInBottomSheetRef} />
-      <SignUpBottomSheet ref={signUpBottomSheetRef} />
     </>
   );
 }

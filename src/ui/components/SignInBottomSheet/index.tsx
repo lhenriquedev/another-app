@@ -1,28 +1,28 @@
-import React, { useImperativeHandle, useRef } from "react";
-import { TextInput, View } from "react-native";
-import { AppText } from "../AppText";
-import { Button } from "../Button";
-import { FormGroup } from "../FormGroup";
-import { Input } from "../Input";
-import { ISignInBottomSheet } from "./ISignInBottomSheet";
-import { styles } from "./styles";
-import { theme } from "@ui/styles/theme";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { useAuth } from "@app/contexts/AuthContext";
 import {
   BottomSheetModal,
   BottomSheetModalProvider,
   BottomSheetTextInput,
   BottomSheetView,
 } from "@gorhom/bottom-sheet";
-import { Controller, useForm } from "react-hook-form";
-import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useAuth } from "@app/contexts/AuthContext";
+import { theme } from "@ui/styles/theme";
 import { isAxiosError } from "axios";
+import React, { useImperativeHandle, useRef } from "react";
+import { Controller, useForm } from "react-hook-form";
+import { TextInput, View } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { toast } from "sonner-native";
+import { z } from "zod";
+import { AppText } from "../AppText";
+import { Button } from "../Button";
+import { FormGroup } from "../FormGroup";
+import { Input } from "../Input";
+import { ISignInBottomSheet } from "./ISignInBottomSheet";
+import { styles } from "./styles";
 
 const signInSchema = z.object({
-  email: z.email("Email inválido").min(1, "Email é obrigatório"),
+  email: z.string().email("Email inválido").min(1, "Email é obrigatório"),
   password: z.string().min(1, "Senha é obrigatória"),
 });
 
@@ -46,6 +46,10 @@ export function SignInBottomSheet({ ref }: ISignInBottomSheetProps) {
 
   const form = useForm({
     resolver: zodResolver(signInSchema),
+    defaultValues: {
+      email: "teste@teste.com",
+      password: "Teste@123",
+    },
   });
 
   const handleSubmit = form.handleSubmit(async (formData) => {

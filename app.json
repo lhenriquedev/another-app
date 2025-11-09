@@ -23,7 +23,8 @@
       },
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false,
-      "package": "com.kazama_24.anotherapp"
+      "package": "com.kazama_24.anotherapp",
+      "softwareKeyboardLayoutMode": "pan"
     },
     "web": {
       "favicon": "./assets/favicon.png"
